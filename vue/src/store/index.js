@@ -18,62 +18,10 @@ if(currentToken != null) {
 
 export default new Vuex.Store({
   state: {
-    // userId: '',
+    
     token: currentToken || '',
-    user: currentUser || {},
-    recipes:[],
-   
-    //***n */
-    images: [
-      {
-        id: 1,
-        name: 'Crock Pot Roast',
-        path: require('../assets/Old-Fashioned-Pot-Roast.png')
-      },
-      {
-        id: 2,
-        name: 'Roasted Asparagus',
-        path: require('../assets/roasted-asparagus.jpg')
-      },
-      {
-        id: 3,
-        name: 'Curried Lentils and Rice',
-        path: require('../assets/Lentil-Curry-4-SQUARE.jpg')
-      },
-      {
-        id: 4,
-        name: 'Big Night Pizza',
-        path: require('../assets/k_Photo_Recipe Ramp Up_2021-07-Chicken-Alfredo-Pizza_Chicken-Alfredo-Pizza-KitchnKitchn2970-1_01.jpg')
-      },
-      {
-        id: 5,
-        name: 'Mic Yorkshire Puds',
-        path: require('../assets/recipe-image-legacy-id-740564_11-b52d07b.jpg')
-      },
-      {
-        id: 6,
-        name: 'Old-Fashioned Oatmeal Cookies',
-        path: require('../assets/download.jpg')
-      },
-      {
-        id: 7,
-        name: 'French Fries',
-        path: require('../assets/french-fries.jpg')
-      },
-      {
-        id: 8,
-        name: 'Duck Confit',
-        path: require('../assets/duck-confit.jpg') 
-      },
-      {
-        id: 8,
-        name: 'Chicken Pot Pie',
-        path: require('../assets/chicken-pot-pie.jpg')  
-      }
-
-    ]
-
-
+    user: currentUser || {}
+  
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -91,14 +39,7 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
-    },
-    SET_RECIPE(state, recipesArr) {
-      state.recipes = recipesArr;
-    },
-    // SET_USER_ID(state, )
-
-    //**N */
-    
+    } 
      
   }
 })

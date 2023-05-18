@@ -5,15 +5,6 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
-import MyRecipes from '../views/MyRecipes.vue'
-import Recipe from '../views/Recipe.vue'
-import AboutUsPage from '../views/AboutUsPage.vue'
-import MealPlanDetails from '../views/MealPlanDetails.vue'
-import AddMealPlan from '../views/AddMealPlan.vue'
-import MyMealPlans from '../views/MyMealPlans.vue'
-import MainLogin from '../components/MainLogin.vue'
-import ModifyMealPlan from '../views/ModifyMealPlan.vue'
-import GroceryList from '../views/GroceryList.vue'
 Vue.use(Router)
 
 /**
@@ -60,74 +51,7 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    },
-    {
-      path: "/recipes/list/:userId",
-      name: "recipes",
-      component: MyRecipes,
-      meta: {
-        requiresAuth: true
-      }
-    },
-      {
-        path: "/recipes/:recipeId",
-        name: "recipesId",
-        component: Recipe,
-        meta: {
-          requiresAuth: true
-        }
-      
-    },
-    {
-      path:"/aboutUs",
-      name: "about-us",
-      component: AboutUsPage
-    },
-    {
-      path: "/mealplandetails/:mealPlanId",
-      name: "mealplandetails",
-      component: MealPlanDetails,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: "/addmealplan",
-      name: "add-meal-plan",
-      component: AddMealPlan,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: "/mealplans/list/:userId",
-      name: "mealplans",
-      component: MyMealPlans,
-      meta: {
-        requiresAuth: true
     }
-  },
-    {
-      path: "/main",
-      name: "main",
-      component: MainLogin,
-      meta: {
-        requiresAuth: false
-    }
-  },
-  {
-    path: "/modifymealplan/:mealPlanId",
-    name: "modify-meal-plan",
-    component: ModifyMealPlan
-  },
-  {
-    path: "/grocery/list/:userId",
-    name: "grocery-list",
-    component: GroceryList,
-    meta: {
-      requiresAuth: true
-    }
-  },
   ]
 })
 
