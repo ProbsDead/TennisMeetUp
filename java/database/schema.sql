@@ -18,6 +18,7 @@ CREATE TABLE groups (
 	city varchar (50) NOT NULL,
 	location varchar (250) NULL,
 	created_by int NOT NULL,
+	is_public boolean DEFAULT true,
 	
 	CONSTRAINT PK_groups PRIMARY KEY (group_id)
 );
@@ -36,9 +37,8 @@ CREATE TABLE events (
 	event_id serial,
 	event_name varchar(250) NOT NULL,
 	description varchar(300) NOT NULL,
-	event_date date NOT NULL,
-	start_time time NOT NULL,
-	end_time time NULL,
+	start_time timestamp NOT NULL,
+	end_time timestamp NULL,
 	location varchar (250) NOT NULL,
 	created_by int NOT NULL,
 	
@@ -56,12 +56,15 @@ CREATE TABLE groups_events(
 CREATE TABLE requests(
 	request_id serial,
 	group_id int NOT NULL,
-	requester_id int NOT NULL,
+	joining_user_id int NOT NULL,
+	admin_user_id int, 
 	status boolean NOT NULL,
+	invite_or_request varchar(10) NOT NULL,
 	
 	CONSTRAINT PK_requests PRIMARY KEY (request_id),
 	CONSTRAINT FK_requests_group_id FOREIGN KEY (group_id) REFERENCES groups (group_id),
-	CONSTRAINT FK_requests_requester_id FOREIGN KEY (requester_id) REFERENCES users(user_id)
+	CONSTRAINT FK_requests_admin_user_id FOREIGN KEY (admin_user_id) REFERENCES users(user_id),
+	CONSTRAINT FK_requests_joining_user_id FOREIGN KEY (joining_user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE user_event (
