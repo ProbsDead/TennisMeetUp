@@ -82,6 +82,7 @@ CREATE TABLE match (
 	score varchar(50),
 	winner int,
 	winner_two int,
+	match_length int NULL,
 	
 	CONSTRAINT PK_match PRIMARY KEY (match_id),
 	CONSTRAINT FK_match_event_id FOREIGN KEY (event_id) REFERENCES events (event_id)
