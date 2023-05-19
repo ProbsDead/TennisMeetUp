@@ -11,7 +11,9 @@ INSERT INTO groups(group_name, created_by, city, location, is_public) VALUES ('C
 INSERT INTO events(event_name, description, start_time, location, created_by) VALUES ('Partner Practice', 'Take the opportunity to practice with different
 																								  partners from the club!', '2023-06-10 15:00:00', 'Tennis Club House', 1); 
 																								  
-INSERT INTO 
+INSERT INTO groups_events(event_id, group_id) VALUES (1,1);
+
+
 
 
 

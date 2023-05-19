@@ -83,7 +83,7 @@ public class JdbcUserDaoTests extends BaseDaoTests {
 
     @Test(expected = DataIntegrityViolationException.class)
     public void create_user_with_null_username() {
-        sut.create(null, USER_3.getPassword(), "ROLE_USER");
+        sut.create(null, USER_3.getPassword(), "ROLE_USER", "");
     }
 
     @Test(expected = DataIntegrityViolationException.class)

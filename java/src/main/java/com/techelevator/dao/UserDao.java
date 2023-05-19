@@ -15,9 +15,6 @@ public interface UserDao {
 
     int findIdByUsername(String username);
 
-    boolean create(String username, String password, String role);
+    boolean create(String username, String password, String role, String email, String city);
 
-    /**TODO
-     * I think we should create a getUsersByCity and a findUserByEmail here
-     */
 }
