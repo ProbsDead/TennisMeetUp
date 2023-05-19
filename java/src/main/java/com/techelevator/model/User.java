@@ -28,14 +28,13 @@ public class User {
       this.activated = true;
    }
 
-   public User(int id, String username, String password, String email, String city, boolean activated, Set<Authority> authorities) {
+   public User(int id, String username, String password, String email, String city, String authorities) {
       this.id = id;
       this.username = username;
       this.password = password;
       this.email = email;
       this.city = city;
-      this.activated = activated;
-      this.authorities = authorities;
+      if(authorities != null) this.setAuthorities(authorities);
    }
 
    public int getId() {
