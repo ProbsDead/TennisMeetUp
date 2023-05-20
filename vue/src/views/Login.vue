@@ -8,7 +8,7 @@
 
     <div></div>
     <div class="form">
-       <img class="logo" src="..\assets\cropped-logo.png" alt="Logo">
+       <!-- <img class="logo" src="..\assets\cropped-logo.png" alt="Logo"> -->
     <form class="form-signin" @submit.prevent="login">
       <h2 class="h3 mb-3 font-weight-normal">Please Sign In</h2>
       <div
@@ -49,14 +49,11 @@
 </template>
 
 <script>
-// import AboutUs from '../components/AboutUs.vue';
-import MainLogin from '../components/MainLogin.vue';
+
 import authService from "../services/AuthService";
-// import MainLogin from "../components/MainLogin.vue"
 
 export default {
   name: "login",
-  components: {MainLogin},
   data() {
  
      return {
