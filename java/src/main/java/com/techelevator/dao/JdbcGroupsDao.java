@@ -38,7 +38,7 @@ public class JdbcGroupsDao implements GroupsDao {
     public void inviteNewMember(int groupId, int joiningUserId) {
 
         //retrieve admin Id
-        String sql = "SELECT player_id FROM groups_player WHERE group_id=? AND role=?;";
+        String sql = "SELECT user_id FROM groups_player WHERE group_id=? AND role=?;";
         int adminId = jdbcTemplate.queryForObject(sql, int.class, groupId, "ROLE_ADMIN");
 
         sql = "INSERT INTO requests(group_id, joining_user_id, admin_user_id, status, invite_or_request) VALUES(?,?,?,?,?);";
