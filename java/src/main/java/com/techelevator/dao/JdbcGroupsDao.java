@@ -6,7 +6,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class JdbcGroupsDao implements GroupsDao {
@@ -16,6 +18,13 @@ public class JdbcGroupsDao implements GroupsDao {
     public JdbcGroupsDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
+    /**
+     * This method selects all the information from the Groups table for a specific group using that groups
+     * groupID.  It maps that information into a Group object and returns it.
+     * @param groupId
+     * @return group object
+     */
     @Override
     public Group getGroupInfo(int groupId) {
         Group group = null;
@@ -30,13 +39,36 @@ public class JdbcGroupsDao implements GroupsDao {
         return group;
     }
 
-    //TODO: write this once User logistics are figured out
+    /**
+     * This method returns a list of User Objects that belong to a specific group
+     * @param groupId
+     * @return list of User objects
+     */
     @Override
     public List<User> getGroupMembers(int groupId) {
-//        String sql = "SELECT first"
-        return null;
+        List<User> groupMembersList = new ArrayList<>();
+
+
+        String sql = "SELECT user_id, first_name, last_name, username, email, city, role " +
+                "FROM users " +
+                "JOIN groups_players gp ON users.user_id = gp.user_id " +
+                "WHERE group_id = ?;";
+
+        SqlRowSet row = jdbcTemplate.queryForRowSet(sql, groupId);
+
+        while (row.next()){
+            groupMembersList.add(mapRowToUser(row));
+        }
+        return groupMembersList;
     }
 
+
+    /**
+     * This method retrieves the userId of the admin of a specific group before creating a new entity within
+     * the requests table inviting another user to join said group.
+     * @param groupId
+     * @param joiningUserId
+     */
     @Override
     public void inviteNewMember(int groupId, int joiningUserId) {
 
@@ -61,5 +93,18 @@ public class JdbcGroupsDao implements GroupsDao {
         group.setPublic(row.getBoolean("is_public"));
 
         return group;
+    }
+    private User mapRowToUser(SqlRowSet rs) {
+        User user = new User();
+        user.setId(rs.getInt("user_id"));
+        user.setUsername(rs.getString("username"));
+        user.setPassword(rs.getString("password_hash"));
+        user.setFirstName(rs.getString("first_name"));
+        user.setLastName(rs.getString("last_name"));
+        user.setCity(rs.getString("city"));
+        user.setEmail(rs.getString("email"));
+        user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
+        user.setActivated(true);
+        return user;
     }
 }
