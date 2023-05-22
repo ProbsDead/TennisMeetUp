@@ -42,6 +42,17 @@ public class User {
       if(authorities != null) this.setAuthorities(authorities);
    }
 
+   public User(int id, String firstName, String lastName, String username, String password, String email, String city, String authorities) {
+      this.id = id;
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.username = username;
+      this.password = password;
+      this.email = email;
+      this.city = city;
+      if(authorities != null) this.setAuthorities(authorities);
+   }
+
    public int getId() {
       return id;
    }
@@ -80,6 +91,22 @@ public class User {
 
    public void setAuthorities(Set<Authority> authorities) {
       this.authorities = authorities;
+   }
+
+   public String getFirstName() {
+      return firstName;
+   }
+
+   public void setFirstName(String firstName) {
+      this.firstName = firstName;
+   }
+
+   public String getLastName() {
+      return lastName;
+   }
+
+   public void setLastName(String lastName) {
+      this.lastName = lastName;
    }
 
    public void setAuthorities(String authorities) {

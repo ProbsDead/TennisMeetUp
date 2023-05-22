@@ -11,9 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.List;
 
 public class JdbcUserDaoTests extends BaseDaoTests {
-    protected static final User USER_1 = new User(1, "user1", "user1", "email1", "city1", "ROLE_USER");
-    protected static final User USER_2 = new User(2, "user2", "user2", "email2", "city2", "ROLE_USER");
-    private static final User USER_3 = new User(3, "user3", "user3","email3", "city3", "ROLE_USER");
+    protected static final User USER_1 = new User(1, "first1", "last1","user1", "user1",  "email1", "city1", "ROLE_USER");
+    protected static final User USER_2 = new User(2,"first2", "last2", "user2", "user2", "email2", "city2", "ROLE_USER");
+    private static final User USER_3 = new User(3,"first3", "last3", "user3", "user3","email3", "city3", "ROLE_USER");
 
     private JdbcUserDao sut;
 
@@ -83,24 +83,24 @@ public class JdbcUserDaoTests extends BaseDaoTests {
 
     @Test(expected = DataIntegrityViolationException.class)
     public void create_user_with_null_username() {
-        sut.create(null, USER_3.getPassword(), USER_3.getEmail(), USER_3.getCity(), "ROLE_USER" );
+        sut.create(null, USER_3.getPassword(), USER_3.getFirstName(), USER_3.getLastName(), USER_3.getEmail(), USER_3.getCity(), "ROLE_USER" );
     }
 
     @Test(expected = DataIntegrityViolationException.class)
     public void create_user_with_existing_username() {
-        sut.create(USER_1.getUsername(), USER_3.getPassword(), USER_3.getEmail(), USER_3.getCity(), "ROLE_USER");
+        sut.create(USER_1.getUsername(), USER_3.getPassword(), USER_3.getFirstName(), USER_3.getLastName(), USER_3.getEmail(), USER_3.getCity(), "ROLE_USER");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void create_user_with_null_password() {
-        sut.create(USER_3.getUsername(), null, USER_3.getEmail(), USER_3.getCity(), "ROLE_USER");
+        sut.create(USER_3.getUsername(), null, USER_3.getFirstName(), USER_3.getLastName(), USER_3.getEmail(), USER_3.getCity(), "ROLE_USER");
     }
 
     @Test
     public void create_user_creates_a_user() {
-        User newUser = new User(-1, "new", "user", "new email", "city", "ROLE_USER");
+        User newUser = new User(-1, "first", "last", "new", "user", "new email", "city", "ROLE_USER");
 
-        boolean userWasCreated = sut.create(newUser.getUsername(), newUser.getPassword(), newUser.getEmail(), newUser.getCity(), "ROLE_USER");
+        boolean userWasCreated = sut.create(newUser.getUsername(), newUser.getFirstName(), newUser.getLastName(), newUser.getPassword(), newUser.getEmail(), newUser.getCity(), "ROLE_USER");
 
         Assert.assertTrue(userWasCreated);
 
