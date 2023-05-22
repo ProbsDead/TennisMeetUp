@@ -33,6 +33,23 @@
         v-model="user.confirmPassword"
         required
       />
+      
+      <input
+        type="text"
+        id="email"
+        class="form-control"
+        placeholder="Email"
+        v-model="user.email"
+        required
+      />
+      <input
+        type="text"
+        id="city"
+        class="form-control"
+        placeholder="City"
+        v-model="user.city"
+        required
+      />
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
@@ -53,6 +70,8 @@ export default {
         username: '',
         password: '',
         confirmPassword: '',
+        email: '',
+        city: '',
         role: 'user',
       },
       registrationErrors: false,
@@ -157,7 +176,6 @@ button[type="submit"]:hover {
 
 .background {
   font-family: "Dosis", monospace, sans-serif;
-  background: url(../assets/cropped-orange.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

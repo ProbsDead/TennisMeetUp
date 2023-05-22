@@ -96,7 +96,6 @@ export default {
   background-color: rgb(234, 250, 176);
   font-family: 'Dosis', monospace, sans-serif;
   padding: 30px;
-   background: url(../assets/2.png) no-repeat center center fixed;
    background-position:bottom;
    
 }
