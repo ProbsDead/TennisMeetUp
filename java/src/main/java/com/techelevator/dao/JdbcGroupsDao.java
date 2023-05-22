@@ -33,6 +33,7 @@ public class JdbcGroupsDao implements GroupsDao {
     //TODO: write this once User logistics are figured out
     @Override
     public List<User> getGroupMembers(int groupId) {
+//        String sql = "SELECT first"
         return null;
     }
 
