@@ -4,8 +4,8 @@ DROP TABLE IF EXISTS groups_player, groups_events, requests, user_event, match_u
 
 CREATE TABLE users (
 	user_id SERIAL,
-	-->  first_name varchar(100) NOT NULL,
-	--> last_name varchar(100) NOT NULL,
+	first_name varchar(100) NOT NULL,
+	last_name varchar(100) NOT NULL,
 	username varchar(50) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	email varchar(100) NOT NULL,
