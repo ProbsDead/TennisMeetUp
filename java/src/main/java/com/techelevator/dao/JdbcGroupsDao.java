@@ -49,9 +49,9 @@ public class JdbcGroupsDao implements GroupsDao {
         List<User> groupMembersList = new ArrayList<>();
 
 
-        String sql = "SELECT user_id, first_name, last_name, username, email, city, role " +
+        String sql = "SELECT gp.user_id, first_name, last_name, username, email, city, gp.role " +
                 "FROM users " +
-                "JOIN groups_players gp ON users.user_id = gp.user_id " +
+                "JOIN groups_player gp ON users.user_id = gp.user_id " +
                 "WHERE group_id = ?;";
 
         SqlRowSet row = jdbcTemplate.queryForRowSet(sql, groupId);
@@ -98,7 +98,7 @@ public class JdbcGroupsDao implements GroupsDao {
         User user = new User();
         user.setId(rs.getInt("user_id"));
         user.setUsername(rs.getString("username"));
-        user.setPassword(rs.getString("password_hash"));
+//        user.setPassword(rs.getString("password_hash"));
         user.setFirstName(rs.getString("first_name"));
         user.setLastName(rs.getString("last_name"));
         user.setCity(rs.getString("city"));

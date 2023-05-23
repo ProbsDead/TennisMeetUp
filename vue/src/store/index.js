@@ -25,6 +25,7 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
+      // storing the token in our vue state as well as browser localStorage
       state.token = token;
       localStorage.setItem('token', token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
