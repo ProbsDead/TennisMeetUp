@@ -40,6 +40,7 @@ public class User {
       this.email = email;
       this.city = city;
       if(authorities != null) this.setAuthorities(authorities);
+      this.activated = true;
    }
 
    public User(int id, String firstName, String lastName, String username, String password, String email, String city, String authorities) {
@@ -51,6 +52,7 @@ public class User {
       this.email = email;
       this.city = city;
       if(authorities != null) this.setAuthorities(authorities);
+      this.activated = true;
    }
 
    public int getId() {

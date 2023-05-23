@@ -7,6 +7,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
+import org.springframework.test.context.ContextConfiguration;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -14,7 +15,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Objects;
 
-@Configuration
+@ContextConfiguration
 public class TestingDatabaseConfig {
     // To use an existing PostgreSQL database, set the following environment variables.
     // Otherwise, a temporary database will be created on the local machine.
