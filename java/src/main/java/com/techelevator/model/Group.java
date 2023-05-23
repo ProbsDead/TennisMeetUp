@@ -17,6 +17,16 @@ public class Group {
     @JsonProperty("is_public")
     private boolean isPublic;
 
+    public Group(int groupId, String groupName, int createdBy, String city, String location, boolean isPublic) {
+        this.groupId = groupId;
+        this.groupName = groupName;
+        this.createdBy = createdBy;
+        this.city = city;
+        this.location = location;
+        this.isPublic = isPublic;
+    }
+    public Group(){}
+
     public int getGroupId() {
         return groupId;
     }
