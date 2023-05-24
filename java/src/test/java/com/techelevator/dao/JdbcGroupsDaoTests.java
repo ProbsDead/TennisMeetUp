@@ -41,6 +41,14 @@ public class JdbcGroupsDaoTests extends BaseDaoTests {
 
     @Test
     public void inviteNewMembers_given_invalid_group_id_returns_null(){
+    //Maybe move this method to its own controller?
+    }
 
+    @Test
+    public void getGroupInfo_returns_correct_information(){
+        Group group = sut.getGroupInfo(GROUP_1.getGroupId());
+        System.out.println(GROUP_1.getGroupId());
+
+        Assert.assertEquals(GROUP_1, group);
     }
 }

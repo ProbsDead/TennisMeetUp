@@ -27,7 +27,7 @@ public class JdbcGroupsDao implements GroupsDao {
      */
     @Override
     public Group getGroupInfo(int groupId) {
-        Group group = null;
+        Group group = new Group();
 
         String sql = "SELECT * FROM groups WHERE group_id = ?;";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, groupId);
