@@ -1,13 +1,9 @@
 <template>
-    <div>
-        
-    </div>
+  <div class="home">
+    <p>This is the Home Page</p>
+  </div>
 </template>
 
-<script> 
+<script></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>
