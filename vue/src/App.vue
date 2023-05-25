@@ -32,17 +32,16 @@ export default {
 <style>
 #app {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-rows: 100px 1fr 100px;
   grid-template-areas:
-    "nav"
-    "view"
-    "footer";
+    "nav nav nav"
+    "view view view"
+    "footer footer footer";
 
   gap: 10px;
 }
-#content {
-  padding-bottom: 2.5rem;
-}
+
 .side-nav-bar {
 }
 .header-nav {

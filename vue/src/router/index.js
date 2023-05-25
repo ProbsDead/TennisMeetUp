@@ -6,6 +6,7 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import GroupMainPage from '../views/GroupMainPage.vue'
+import GroupTest from '../components/GroupTest.vue'
 Vue.use(Router)
 
 /**
@@ -51,6 +52,14 @@ const router = new Router({
       component: Register,
       meta: {
         requiresAuth: false
+      }
+    },
+    {
+      path: "/group",
+      name: "group-list-page",
+      component: GroupTest,
+      meta: {
+        requiresAuth: true
       }
     },
     {
