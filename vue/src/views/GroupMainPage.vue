@@ -6,6 +6,7 @@
 
 <script>
 import GroupTest from "../components/GroupTest.vue";
+
 export default {
   components: {
     GroupTest,

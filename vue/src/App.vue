@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="side-nav-bar">
-      <side-nav-bar></side-nav-bar>
+      <!-- <side-nav-bar></side-nav-bar> -->
     </div>
     <div class="header-nav">
       <page-header></page-header>
@@ -18,13 +18,13 @@
 <script>
 import PageHeader from "./components/PageHeader.vue";
 import PageFooter from "./components/PageFooter.vue";
-import SideNavBar from "./components/SideNavBar.vue";
+// import SideNavBar from "./components/SideNavBar.vue";
 
 export default {
   components: {
     PageHeader,
     PageFooter,
-    SideNavBar,
+    // SideNavBar,
   },
 };
 </script>
@@ -42,8 +42,6 @@ export default {
   gap: 10px;
 }
 
-.side-nav-bar {
-}
 .header-nav {
   grid-area: nav;
 }

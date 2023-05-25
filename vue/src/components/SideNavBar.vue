@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" v-bind:class="{ 'expanded-view': sideBarToggle }">
+  <div class="sidebar" v-bind:class="{ open: sideBarToggle }">
     <div
       class="logo-details"
       v-bind:class="{ 'collapsed-view': sideBarToggle }"
@@ -62,8 +62,17 @@ export default {
   methods: {
     expandOrCollapse() {
       this.sideBarToggle = !this.sideBarToggle;
-      // if (document.querySelector(".sidebar").classList.contains("open")) {
-      // }
+      if (document.querySelector(".sidebar").classList.contains("open")) {
+        /* replacing the icons class with expanding */
+        document
+          .querySelector("#btn")
+          .classList.replace("bx-menu", "bx-menu-alt-right");
+      } else {
+        /* replacing the icons with collapsing */
+        document
+          .querySelector("#btn")
+          .classList.replace("bx-menu-alt-right", "bx-menu");
+      }
     },
   },
 };
@@ -80,6 +89,8 @@ export default {
   font-family: "Poppins", sans-serif;
   color: rgb(240, 230, 230);
 }
+
+/* collapsed (default) sidebar */
 .sidebar {
   position: fixed;
   top: 0;
@@ -90,13 +101,14 @@ export default {
   transition: all 0.5s ease;
 }
 
-.logo-details i {
+.logo-details {
   font-size: 20px;
   height: 50px;
   min-width: 60px;
   text-align: center;
   line-height: 50px;
   padding-left: 20px;
+  margin-bottom: 60px;
 }
 
 li {
@@ -139,7 +151,8 @@ i {
   bottom: 10px;
 }
 
-.expanded-view {
+/* expanded sidebar */
+.open {
   width: 250px;
 }
 </style>

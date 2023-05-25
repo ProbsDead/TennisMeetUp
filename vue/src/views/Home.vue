@@ -1,9 +1,17 @@
 <template>
   <div class="home">
-    <p>This is the Home Page</p>
+    <main-home></main-home>
   </div>
 </template>
 
-<script></script>
+<script>
+import MainHome from "../components/MainHome.vue";
+
+export default {
+  components: {
+    MainHome,
+  },
+};
+</script>
 
 <style scoped></style>
