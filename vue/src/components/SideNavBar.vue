@@ -62,8 +62,8 @@ export default {
   methods: {
     expandOrCollapse() {
       this.sideBarToggle = !this.sideBarToggle;
-      if (document.querySelector(".sidebar").classList.contains("open")) {
-      }
+      // if (document.querySelector(".sidebar").classList.contains("open")) {
+      // }
     },
   },
 };
