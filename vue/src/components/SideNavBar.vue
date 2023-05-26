@@ -1,9 +1,6 @@
 <template>
   <div class="sidebar" v-bind:class="{ open: sideBarToggle }">
-    <div
-      class="logo-details"
-      v-bind:class="{ 'collapsed-view': sideBarToggle }"
-    >
+    <div class="logo-details">
       <i class="bx bxs-tennis-ball">
         <span class="logo-name"> Tennis Meetup</span>
         <i class="bx bx-menu" id="btn" @click="expandOrCollapse"></i>
@@ -56,12 +53,13 @@
 export default {
   data() {
     return {
-      sideBarToggle: true,
+      sideBarToggle: false,
     };
   },
   methods: {
     expandOrCollapse() {
       this.sideBarToggle = !this.sideBarToggle;
+      this.$store.commit("TOGGLE_SIDEBAR");
       if (document.querySelector(".sidebar").classList.contains("open")) {
         /* replacing the icons class with expanding */
         document

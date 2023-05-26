@@ -1,5 +1,7 @@
 <template>
-  <div class="header"></div>
+  <div class="header">
+    <p>header</p>
+  </div>
 </template>
 
 <script>
@@ -8,6 +10,6 @@ export default {};
 
 <style>
 .header {
-  background-color: antiquewhite;
+  background-color: rgb(224, 179, 120);
 }
 </style>
