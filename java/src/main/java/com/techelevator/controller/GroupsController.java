@@ -38,14 +38,14 @@ public class GroupsController {
         return groupsDao.getGroupMembers(groupId);
     }
 
-    /**
-     * This method creates an invitation to join a group of a request to join a group
-     * @param groupId
-     * @param userId
-     */
-    @PostMapping(path="/{groupId}/{userId}")
-    public void sendRequestOrInvite(@PathVariable int groupId, @PathVariable int userId) {
-         groupsDao.inviteNewMember(groupId, userId);
-    }
+//    /**
+//     * This method creates an invitation to join a group of a request to join a group
+//     * @param groupId
+//     * @param userId
+//     */
+//    @PostMapping(path="/{groupId}/{userId}")
+//    public void sendRequestOrInvite(@PathVariable int groupId, @PathVariable int userId) {
+//         groupsDao.inviteNewMember(groupId, userId);
+//    }
 
 }
