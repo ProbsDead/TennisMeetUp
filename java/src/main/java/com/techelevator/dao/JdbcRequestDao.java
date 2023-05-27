@@ -2,9 +2,11 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Request;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class JdbcRequestDao implements RequestDao{
     private JdbcTemplate jdbcTemplate;
 
