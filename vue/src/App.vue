@@ -1,30 +1,51 @@
 <template>
   <div id="app">
     <div class="side-nav-bar">
-      <!-- <side-nav-bar></side-nav-bar> -->
-    </div>
-    <div class="header-nav">
-      <page-header></page-header>
+      <side-nav-bar></side-nav-bar>
     </div>
 
-    <router-view />
+    <page-header
+      class="header-nav"
+      v-bind:class="{
+        'default-header': !sidebarIsOpen,
+        'expanded-header': sidebarIsOpen,
+      }"
+    >
+    </page-header>
 
-    <div class="footer">
-      <page-footer></page-footer>
-    </div>
+    <router-view
+      class="page-content"
+      v-bind:class="{
+        'default-content': !sidebarIsOpen,
+        'expanded-content': sidebarIsOpen,
+      }"
+    />
+
+    <page-footer
+      class="footer"
+      v-bind:class="{
+        'default-footer': !sidebarIsOpen,
+        'expanded-footer': sidebarIsOpen,
+      }"
+    ></page-footer>
   </div>
 </template>
 
 <script>
 import PageHeader from "./components/PageHeader.vue";
 import PageFooter from "./components/PageFooter.vue";
-// import SideNavBar from "./components/SideNavBar.vue";
+import SideNavBar from "./components/SideNavBar.vue";
 
 export default {
   components: {
     PageHeader,
     PageFooter,
-    // SideNavBar,
+    SideNavBar,
+  },
+  computed: {
+    sidebarIsOpen() {
+      return this.$store.state.sideBarOpen;
+    },
   },
 };
 </script>
@@ -45,11 +66,70 @@ export default {
 .header-nav {
   grid-area: nav;
 }
-router-view {
+.page-content {
   grid-area: view;
 }
 .footer {
   grid-area: footer;
-  bottom: 0;
+}
+
+.page-content {
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+/* when sidebar is closed (default)*/
+.default-content {
+  position: relative;
+  min-height: 90vh;
+  width: calc(100%-250px);
+  left: 78px;
+  transition: all 0.5s ease;
+}
+.default-header {
+  position: relative;
+  min-height: 15vh;
+  width: calc(100%-250px);
+  left: 78px;
+  transition: all 0.5s ease;
+}
+
+.default-footer {
+  position: relative;
+  min-height: 15vh;
+  width: calc(100%-250px);
+  left: 78px;
+  transition: all 0.5s ease;
+}
+
+/* when sidebar is open */
+.expanded-content {
+  position: relative;
+  min-height: 100vh;
+  left: 250px;
+  width: calc(100% - 250px);
+  transition: all 0.5s ease;
+}
+
+.expanded-header {
+  position: relative;
+  min-height: 15vh;
+  left: 250px;
+  width: calc(100% - 250px);
+  transition: all 0.5s ease;
+}
+
+.expanded-footer {
+  position: relative;
+  min-height: 15vh;
+  left: 250px;
+  width: calc(100% - 250px);
+  transition: all 0.5s ease;
+}
+
+@media print {
+  .noprint {
+    display: none;
+  }
 }
 </style>

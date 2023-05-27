@@ -4,18 +4,18 @@
       <side-nav-bar></side-nav-bar>
     </div>
     <div v-bind:class="{ default: !sidebarIsOpen, expanded: sidebarIsOpen }">
-      <side-bar-test></side-bar-test>
+      <main-home></main-home>
     </div>
   </div>
 </template>
 
 <script>
-import SideBarTest from "../components/SideBarTest.vue";
+import MainHome from "../components/MainHome.vue";
 import SideNavBar from "../components/SideNavBar.vue";
 
 export default {
   components: {
-    SideBarTest,
+    MainHome,
     SideNavBar,
   },
   computed: {
