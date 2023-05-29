@@ -1,15 +1,15 @@
 <template>
   <div>
-    <group-test></group-test>
+    <group-main></group-main>
   </div>
 </template>
 
 <script>
-import GroupTest from "../components/GroupTest.vue";
+import GroupMain from "../components/GroupMain.vue";
 
 export default {
   components: {
-    GroupTest,
+    GroupMain,
   },
 };
 </script>
