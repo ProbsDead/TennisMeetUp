@@ -30,16 +30,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="group-members">
-          Group Members:
-          <div
-            class="each-member"
-            v-for="(name, index) in memberNames"
-            :key="index"
-          >
-            {{ name }}
-          </div>
-        </div> -->
       </div>
     </section>
     <hr />
@@ -58,6 +48,8 @@
       ></group-events-section>
       <group-members-section
         v-else-if="currentTab === 'Members'"
+        :members="memberNames"
+        :groupAdmin="adminName"
       ></group-members-section>
     </section>
   </div>
@@ -106,11 +98,11 @@ export default {
       (response) => {
         this.groupMembers = response.data;
         response.data.forEach((member) => {
-          this.memberNames.push(`${member.first_name} ${member.last_name}`);
-
           // if the user id matches the admin id, store admin name
           if (member.id === this.group.created_by) {
             this.adminName = `${member.first_name} ${member.last_name}`;
+          } else {
+            this.memberNames.push(`${member.first_name} ${member.last_name}`);
           }
         });
         this.memberNames.sort();
