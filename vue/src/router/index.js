@@ -6,7 +6,9 @@ import Logout from "../views/Logout.vue";
 import Register from "../views/Register.vue";
 import store from "../store/index";
 import GroupMainPage from "../views/GroupMainPage.vue";
-import TestView from "../views/TestView.vue";
+import MyGroups from "../views/MyGroups.vue";
+import AboutUs from "../views/AboutUs.vue";
+
 Vue.use(Router);
 
 /**
@@ -54,7 +56,14 @@ const router = new Router({
         requiresAuth: false,
       },
     },
-    
+    {
+      path: "/about-us",
+      name: "about-us",
+      component: AboutUs,
+      meta: {
+        requiresAuth: false,
+      },
+    },
     {
       path: "/group/:groupId",
       name: "group-mainpage",
@@ -64,9 +73,9 @@ const router = new Router({
       },
     },
     {
-      path: "/test",
-      name: "test-page",
-      component: TestView,
+      path: "/my-groups",
+      name: "my-groups-list",
+      components: MyGroups,
       meta: {
         requiresAuth: true,
       },

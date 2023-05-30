@@ -15,14 +15,15 @@
         <span class="tooltip">Dashboard</span>
       </li>
       <li>
-        <router-link v-bind:to="{ name: 'group-list-page' }"
+        <router-link v-bind:to="{ name: 'my-groups-list' }"
           ><i class="bx bxs-group menu-icon"></i>
           <span class="link_name">My Groups</span></router-link
         >
         <span class="tooltip">My Groups</span>
       </li>
       <li>
-        <router-link v-bind:to="{ name: 'group-mainpage' }">
+        <!-- change the link to viewing all public groups page (not present yet)-->
+        <router-link v-bind:to="{ name: 'my-groups-list' }">
           <i class="bx bx-search-alt menu-icon"> </i
           ><span class="link_name">Find a Group</span></router-link
         >
@@ -220,8 +221,8 @@ export default {
 }
 
 #log-out-link {
-  position: fixed;
-  bottom: 10px;
+  position: relative;
+  top: 40%;
 }
 
 /* expanded sidebar */

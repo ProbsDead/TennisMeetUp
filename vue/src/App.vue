@@ -88,7 +88,7 @@ export default {
 }
 .default-header {
   position: relative;
-  min-height: 15vh;
+  min-height: 18vh;
   width: calc(100%-250px);
   left: 78px;
   transition: all 0.5s ease;
@@ -96,7 +96,7 @@ export default {
 
 .default-footer {
   position: relative;
-  min-height: 15vh;
+  min-height: 18vh;
   width: calc(100%-250px);
   left: 78px;
   transition: all 0.5s ease;
@@ -113,7 +113,7 @@ export default {
 
 .expanded-header {
   position: relative;
-  min-height: 15vh;
+  min-height: 18vh;
   left: 250px;
   width: calc(100% - 250px);
   transition: all 0.5s ease;
@@ -121,7 +121,7 @@ export default {
 
 .expanded-footer {
   position: relative;
-  min-height: 15vh;
+  min-height: 18vh;
   left: 250px;
   width: calc(100% - 250px);
   transition: all 0.5s ease;
