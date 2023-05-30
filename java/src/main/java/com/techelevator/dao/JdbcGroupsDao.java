@@ -63,6 +63,7 @@ public class JdbcGroupsDao implements GroupsDao {
     }
 
 
+
 //    /**
 //     * This method retrieves the userId of the admin of a specific group before creating a new entity within
 //     * the requests table inviting another user to join said group.

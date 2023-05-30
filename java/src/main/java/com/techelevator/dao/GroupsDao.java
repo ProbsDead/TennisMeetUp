@@ -11,4 +11,5 @@ public interface GroupsDao {
     List<User> getGroupMembers(int groupId);
 //    void inviteNewMember(int groupId, int joiningUserId);
 
+
 }

@@ -7,7 +7,9 @@
           <div class="details">
             <h1>{{ group.group_name }}</h1>
             <div class="container">
-              <div><i class="bx bxs-map"></i> {{ group.city }}</div>
+              <div>
+                <i class="bx bxs-map"></i> <span>{{ group.city }}</span>
+              </div>
               <div>
                 <i class="bx bxs-map-pin"></i><span>{{ group.location }}</span>
               </div>
@@ -17,14 +19,18 @@
               </div>
               <div>
                 <i class="bx bx-glasses"></i
-                >{{ group.is_public ? `Public` : `Private` }}
+                ><span>{{
+                  group.is_public ? `Public group` : `Private group`
+                }}</span>
               </div>
-              <div><i class="bx bx-user"></i> Organized by {{}}</div>
+              <div>
+                <i class="bx bx-user"></i>
+                <span>Organized by {{ adminName }}</span>
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="group-members">
+        <!-- <div class="group-members">
           Group Members:
           <div
             class="each-member"
@@ -33,24 +39,51 @@
           >
             {{ name }}
           </div>
-        </div>
+        </div> -->
       </div>
     </section>
+    <hr />
 
-    <section class="group-details"></section>
+    <section class="tabs">
+      <span @click="renderSection">About</span>
+      <span @click="renderSection">Events</span>
+      <span @click="renderSection">Members</span>
+      <span> Photos </span>
+    </section>
+
+    <section class="group-details">
+      <group-about-section v-if="currentTab === 'About'"></group-about-section>
+      <group-events-section
+        v-else-if="currentTab === 'Events'"
+      ></group-events-section>
+      <group-members-section
+        v-else-if="currentTab === 'Members'"
+      ></group-members-section>
+    </section>
   </div>
 </template>
 
 <script>
 import GroupService from "../services/GroupService.js";
+import GroupAboutSection from "./GroupAboutSection.vue";
+import GroupEventsSection from "./GroupEventsSection.vue";
+import GroupMembersSection from "./GroupMembersSection.vue";
 
 export default {
   name: "group-main",
+  components: {
+    GroupAboutSection,
+    GroupEventsSection,
+    GroupMembersSection,
+  },
   data() {
     return {
       group: {},
       groupMembers: [],
+      adminName: "",
       memberNames: [],
+      // currentTab indicates what the user clicked on: about / events / members
+      currentTab: "About",
     };
   },
   created() {
@@ -68,17 +101,41 @@ export default {
       }
     );
 
+    // retrieve all group members, and store in an alphabetical order
     GroupService.getGroupMembers(this.$route.params.groupId).then(
       (response) => {
         this.groupMembers = response.data;
         response.data.forEach((member) => {
           this.memberNames.push(`${member.first_name} ${member.last_name}`);
+
+          // if the user id matches the admin id, store admin name
+          if (member.id === this.group.created_by) {
+            this.adminName = `${member.first_name} ${member.last_name}`;
+          }
         });
         this.memberNames.sort();
       }
     );
   },
-  methods() {},
+  methods: {
+    renderSection(event) {
+      let text = event.target.innerText;
+      switch (text) {
+        case "About":
+          this.currentTab = "About";
+          break;
+        case "Events":
+          this.currentTab = "Events";
+          break;
+        case "Members":
+          this.currentTab = "Members";
+          break;
+        default:
+          this.currentTab = "About";
+          break;
+      }
+    },
+  },
 };
 </script>
 
@@ -103,8 +160,19 @@ img {
 .container {
   display: flex;
   flex-direction: column;
+  row-gap: 10px;
 }
-group-members {
-  display: flex;
+
+div.container span {
+  padding: 10px;
+}
+
+section.tabs span {
+  margin: 45px;
+}
+
+section.tabs span:hover {
+  color: aqua;
+  cursor: pointer;
 }
 </style>
