@@ -8,6 +8,7 @@ import store from "../store/index";
 import GroupMainPage from "../views/GroupMainPage.vue";
 import MyGroups from "../views/MyGroups.vue";
 import AboutUs from "../views/AboutUs.vue";
+import SearchGroups from "../views/SearchGroups.vue";
 
 Vue.use(Router);
 
@@ -80,6 +81,14 @@ const router = new Router({
         requiresAuth: true,
       },
     },
+    {
+      path: "/group",
+      name: "search-groups",
+      components: SearchGroups,
+      meta: {
+        requiresAuth: false,
+      },
+    }
   ],
 });
 

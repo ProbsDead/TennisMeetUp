@@ -38,6 +38,14 @@ public class GroupsController {
         return groupsDao.getGroupMembers(groupId);
     }
 
+    /**
+     * @return list of all groups
+     * */
+    @GetMapping()
+    public List<Group> getAllGroups() {
+        return groupsDao.getAllGroups();
+    }
+
 //    /**
 //     * This method creates an invitation to join a group of a request to join a group
 //     * @param groupId

@@ -62,7 +62,24 @@ public class JdbcGroupsDao implements GroupsDao {
         return groupMembersList;
     }
 
+    /**
+     * This method returns a list of all groups.
+     * @return list of Group objects
+     * */
 
+    @Override
+    public List<Group> getAllGroups() {
+        List<Group> allGroups = new ArrayList<>();
+
+        String sql = "SELECT * FROM groups;";
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql);
+
+        while (rowSet.next()) {
+            allGroups.add(mapRowToGroup(rowSet));
+        }
+        return allGroups;
+    }
 
 //    /**
 //     * This method retrieves the userId of the admin of a specific group before creating a new entity within

@@ -23,13 +23,18 @@
       </li>
       <li>
         <!-- change the link to viewing all public groups page (not present yet)-->
-        <router-link v-bind:to="{ name: 'my-groups-list' }">
-          <i class="bx bx-search-alt menu-icon"> </i
-          ><span class="link_name">Find a Group</span></router-link
-        >
-
-        <span class="tooltip">Find a Group</span>
+        <router-link v-bind:to="{ name: 'search-groups' }">
+          <i class="bx bx-search-alt menu-icon"> </i>
+          <span class="link_name">Find a Group</span>
+        </router-link>
       </li>
+
+      
+      <!-- <li>
+        <router-link v-bind:to=" { name: 'search-groups' } ">
+          <span class="tooltip">Find a Group</span>
+        </router-link>
+      </li> -->
 
       <!-- v-if for if admin, see admin page icon that links to admin page
      -->

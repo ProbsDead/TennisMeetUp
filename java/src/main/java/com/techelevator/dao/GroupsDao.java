@@ -10,6 +10,6 @@ public interface GroupsDao {
     Group getGroupInfo(int groupId);
     List<User> getGroupMembers(int groupId);
 //    void inviteNewMember(int groupId, int joiningUserId);
-
+    List<Group> getAllGroups();
 
 }
