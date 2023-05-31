@@ -1,13 +1,16 @@
 BEGIN TRANSACTION;
 
-INSERT INTO users(username, password_hash, first_name, last_name, email, city, role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'miranda', 
-																							 'lieblein', 'miranda.lieblein@gmail.com', 'Burlington','ROLE_USER');
-INSERT INTO users(username, password_hash, first_name, last_name, email, city, role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'tennis', 
-																							 'player','tennis@aol.com','Chicago', 'ROLE_USER');
+INSERT INTO users(username, password_hash, first_name, last_name, email, state, city, role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'miranda', 
+																							 'lieblein', 'miranda.lieblein@gmail.com', 'Vermont', 'Burlington','ROLE_USER');
+INSERT INTO users(username, password_hash, first_name, last_name, email,state, city, role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'tennis', 
+																							 'player','tennis@aol.com','Chicago', 'Illinois', 'ROLE_USER');
 
-INSERT INTO groups(group_name, created_by, city, location, is_public) VALUES ('Volley Girls', 1, 'Burlington', '45 Tennis Ct, South Burlington, VT 05403', false);
-INSERT INTO groups(group_name, created_by, city, location, is_public) VALUES ('Chicago LOVE', 2, 'Chicago', '123 Main Ave, Chicago, IL 56792', true);
-INSERT INTO groups(group_name, created_by, city, location, is_public) VALUES ('Atlanta Newbies', 1, 'Atlanta', '1689 Court Road, North Briarcliff, GA 30879', true);
+INSERT INTO groups(group_name, created_by, city, location, is_public, about) VALUES ('Volley Girls', 1, 'Burlington', '45 Tennis Ct, South Burlington, VT 05403', false, 'This is a group for women and girls
+																					 who love tennis and are looking for a casual to competative environment they can hone thier skills.');
+INSERT INTO groups(group_name, created_by, city, location, is_public, about) VALUES ('Chicago LOVE', 2, 'Chicago', '123 Main Ave, Chicago, IL 56792', true, 'Lets bring tennis to the inner city and make it accessible
+																					 to everone');
+INSERT INTO groups(group_name, created_by, city, location, is_public, about) VALUES ('Atlanta Newbies', 1, 'Atlanta', '1689 Court Road, North Briarcliff, GA 30879', true, 'Just starting to learn? We can help! We meet
+																					 every week to practice, give tips, and meet other newbies.');
 
 INSERT INTO events(event_name, description, start_time, location, created_by) VALUES ('Partner Practice', 'Take the opportunity to practice with different
 																								  partners from the club!', '2023-06-10 15:00:00', 'Tennis Club House', 2);
