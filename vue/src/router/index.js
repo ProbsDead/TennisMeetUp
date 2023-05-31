@@ -76,7 +76,7 @@ const router = new Router({
     {
       path: "/my-groups",
       name: "my-groups-list",
-      components: MyGroups,
+      component: MyGroups,
       meta: {
         requiresAuth: true,
       },
@@ -84,11 +84,11 @@ const router = new Router({
     {
       path: "/group",
       name: "search-groups",
-      components: SearchGroups,
+      component: SearchGroups,
       meta: {
         requiresAuth: false,
       },
-    }
+    },
   ],
 });
 
