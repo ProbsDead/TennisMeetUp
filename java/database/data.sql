@@ -8,7 +8,7 @@ INSERT INTO users(username, password_hash, first_name, last_name, email,state, c
 INSERT INTO groups(group_name, created_by, city, location, is_public, about) VALUES ('Volley Girls', 1, 'Burlington', '45 Tennis Ct, South Burlington, VT 05403', false, 'This is a group for women and girls
 																					 who love tennis and are looking for a casual to competative environment they can hone their skills.');
 INSERT INTO groups(group_name, created_by, city, location, is_public, about) VALUES ('Chicago LOVE', 2, 'Chicago', '123 Main Ave, Chicago, IL 56792', true, 'Lets bring tennis to the inner city and make it accessible
-																					 to everone');
+																					 to everyone');
 INSERT INTO groups(group_name, created_by, city, location, is_public, about) VALUES ('Atlanta Newbies', 1, 'Atlanta', '1689 Court Road, North Briarcliff, GA 30879', true, 'Just starting to learn? We can help! We meet
 																					 every week to practice, give tips, and meet other newbies.');
 

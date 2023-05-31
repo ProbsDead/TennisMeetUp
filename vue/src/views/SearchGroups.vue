@@ -1,6 +1,6 @@
 <template>
     <div class="all-groups">
-        <list-all-groups/>
+        <list-all-groups></list-all-groups>
         <h1>TEST</h1>
     </div>
 </template>

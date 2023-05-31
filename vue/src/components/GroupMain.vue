@@ -6,6 +6,7 @@
           <img src="../assets/tennis-court.jpg" alt="meetup-image" />
           <div class="details">
             <h1>{{ group.group_name }}</h1>
+            <button class="request">Request Entry</button>
             <div class="container">
               <div>
                 <i class="bx bxs-map"></i> <span>{{ group.city }}</span>

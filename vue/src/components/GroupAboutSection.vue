@@ -28,8 +28,4 @@ div{
   border-radius: 8px;
   background-color: rgb(166, 230, 230);
 }
-h3{
-
-  
-}
 </style>
