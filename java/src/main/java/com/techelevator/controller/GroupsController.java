@@ -55,6 +55,27 @@ public class GroupsController {
         groupsDao.createNewGroup(newGroup);
     }
 
+    /**
+     * This method retreives all of the public groups.  It has been tested and is CASE SENSITIVE
+     * @param cityName
+     * @return List of Groups
+     */
+    @GetMapping(path = "public/{cityName}")
+    public List<Group> getAllPublicGroups(@PathVariable String cityName){
+        return groupsDao.getAllPublicGroups(cityName);
+    }
+
+    /**
+     * Retreives only the groups that the user is a part of regardless of public status
+     * has been tested
+     * @param userId
+     * @return List of Groups
+     */
+    @GetMapping(path = "/groups/{userId}")
+    public List<Group> getUsersGroups(@PathVariable int userId){
+        return groupsDao.getUsersGroups(userId);
+    }
+
 //    /**
 //     * This method creates an invitation to join a group of a request to join a group
 //     * @param groupId

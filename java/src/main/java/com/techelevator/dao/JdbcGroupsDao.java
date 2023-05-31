@@ -92,6 +92,37 @@ public class JdbcGroupsDao implements GroupsDao {
         jdbcTemplate.update(sql, newGroup.getGroupName(), newGroup.getCreatedBy(), newGroup.getCity(), newGroup.getLocation(), newGroup.isPublic(), newGroup.getAbout());
     }
 
+    @Override
+    public List<Group> getAllPublicGroups(String cityName) {
+        List<Group> publicGroups = new ArrayList<>();
+
+        String sql = "SELECT * FROM groups WHERE is_public = true AND city = ?;";
+
+        SqlRowSet row = jdbcTemplate.queryForRowSet(sql, cityName);
+        while(row.next()){
+            publicGroups.add(mapRowToGroup(row));
+        }
+
+        return publicGroups;
+    }
+
+    @Override
+    public List<Group> getUsersGroups(int userId) {
+        List<Group> usersGroups = new ArrayList<>();
+
+        String sql = "SELECT groups.group_id, group_name, city, location, created_by, is_public, about " +
+                "FROM groups " +
+                "JOIN groups_player gp ON gp.group_id = groups.group_id " +
+                "WHERE user_id = ?;";
+
+        SqlRowSet row = jdbcTemplate.queryForRowSet(sql, userId);
+        while(row.next()){
+            usersGroups.add(mapRowToGroup(row));
+        }
+
+        return usersGroups;
+    }
+
     //    /**
 //     * This method retrieves the userId of the admin of a specific group before creating a new entity within
 //     * the requests table inviting another user to join said group.

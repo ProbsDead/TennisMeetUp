@@ -4,7 +4,10 @@
       class="group-box"
       v-for="item in groups"
       v-bind:key="item.groupId"
-    ></div>
+    >
+    {{item.group_id}}
+    {{item.group_name}}
+    {{item.about}}</div>
   </div>
 </template>
 

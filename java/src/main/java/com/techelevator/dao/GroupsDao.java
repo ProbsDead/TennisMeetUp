@@ -12,6 +12,9 @@ public interface GroupsDao {
 //    void inviteNewMember(int groupId, int joiningUserId);
     List<Group> getAllGroups();
 
+    List<Group> getAllPublicGroups(String cityName);
+    List<Group> getUsersGroups(int userId);
+
     void createNewGroup(Group newGroup);
 
 }
