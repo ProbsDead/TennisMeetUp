@@ -16,14 +16,16 @@ public class Group {
     private String location;
     @JsonProperty("is_public")
     private boolean isPublic;
+    private String about;
 
-    public Group(int groupId, String groupName, int createdBy, String city, String location, boolean isPublic) {
+    public Group(int groupId, String groupName, int createdBy, String city, String location, boolean isPublic, String about) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.createdBy = createdBy;
         this.city = city;
         this.location = location;
         this.isPublic = isPublic;
+        this.about = about;
     }
     public Group(){}
 
@@ -73,5 +75,13 @@ public class Group {
 
     public void setPublic(boolean isPublic) {
         this.isPublic = isPublic;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 }

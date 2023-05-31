@@ -19,6 +19,7 @@ public class User {
    private String password;
    private String email;
    private String city;
+   private String state;
    @JsonIgnore
    private boolean activated;
    private Set<Authority> authorities = new HashSet<>();
@@ -43,13 +44,14 @@ public class User {
       this.activated = true;
    }
 
-   public User(int id, String firstName, String lastName, String username, String password, String email, String city, String authorities) {
+   public User(int id, String firstName, String lastName, String username, String password, String email,String state, String city, String authorities) {
       this.id = id;
       this.firstName = firstName;
       this.lastName = lastName;
       this.username = username;
       this.password = password;
       this.email = email;
+      this.state = state;
       this.city = city;
       if(authorities != null) this.setAuthorities(authorities);
       this.activated = true;
@@ -109,6 +111,14 @@ public class User {
 
    public void setLastName(String lastName) {
       this.lastName = lastName;
+   }
+
+   public String getState() {
+      return state;
+   }
+
+   public void setState(String state) {
+      this.state = state;
    }
 
    public void setAuthorities(String authorities) {

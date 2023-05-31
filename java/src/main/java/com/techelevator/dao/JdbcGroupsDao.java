@@ -49,7 +49,7 @@ public class JdbcGroupsDao implements GroupsDao {
         List<User> groupMembersList = new ArrayList<>();
 
 
-        String sql = "SELECT gp.user_id, first_name, last_name, username, email, city, gp.role " +
+        String sql = "SELECT gp.user_id, first_name, last_name, username, email, state, city, gp.role " +
                 "FROM users " +
                 "JOIN groups_player gp ON users.user_id = gp.user_id " +
                 "WHERE group_id = ?;";
@@ -109,6 +109,7 @@ public class JdbcGroupsDao implements GroupsDao {
         group.setCity(row.getString("city"));
         group.setLocation(row.getString("location"));
         group.setPublic(row.getBoolean("is_public"));
+        group.setAbout(row.getString("about"));
 
         return group;
     }
@@ -121,6 +122,7 @@ public class JdbcGroupsDao implements GroupsDao {
         user.setLastName(rs.getString("last_name"));
         user.setCity(rs.getString("city"));
         user.setEmail(rs.getString("email"));
+        user.setState(rs.getString("state"));
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
         return user;

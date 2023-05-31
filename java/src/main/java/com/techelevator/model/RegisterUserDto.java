@@ -18,6 +18,7 @@ public class RegisterUserDto {
     @NotEmpty(message = "Please select a role for this user.")
     private String role;
     private String email;
+    private String state;
     private String city;
     private String firstName;
     private String lastName;
@@ -84,5 +85,13 @@ public class RegisterUserDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
