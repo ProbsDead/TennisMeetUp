@@ -12,4 +12,6 @@ public interface GroupsDao {
 //    void inviteNewMember(int groupId, int joiningUserId);
     List<Group> getAllGroups();
 
+    void createNewGroup(Group newGroup);
+
 }

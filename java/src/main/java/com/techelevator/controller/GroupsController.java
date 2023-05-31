@@ -46,6 +46,15 @@ public class GroupsController {
         return groupsDao.getAllGroups();
     }
 
+    /**
+     * Create new group.  Group information must be sent as a group object
+     * @param newGroup
+     */
+    @PostMapping(path="/add")
+    public void createNewGroup(@RequestBody Group newGroup){
+        groupsDao.createNewGroup(newGroup);
+    }
+
 //    /**
 //     * This method creates an invitation to join a group of a request to join a group
 //     * @param groupId

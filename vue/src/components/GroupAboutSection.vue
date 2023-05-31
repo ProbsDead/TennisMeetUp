@@ -13,10 +13,8 @@ export default {
     };
   },
   created(){
-    console.log("created starts");
     GroupService.getGroupDetails(this.$route.params.groupId).then(
       (response) => {
-        console.log("before group assignment")
         this.about = response.data.about;
       }
     )
@@ -24,4 +22,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+div{
+  height: 55vh;
+  border-radius: 8px;
+  background-color: rgb(166, 230, 230);
+}
+h3{
+
+  
+}
+</style>
