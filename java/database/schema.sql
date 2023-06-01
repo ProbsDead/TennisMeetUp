@@ -12,6 +12,7 @@ CREATE TABLE users (
 	state varchar (20) NOT NULL,
 	city varchar(100) NOT NULL,
 	role varchar(50) NOT NULL,
+	goal varchar(500) NULL,
 	
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );

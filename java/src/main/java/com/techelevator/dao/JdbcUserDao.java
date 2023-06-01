@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.techelevator.model.Event;
+import com.techelevator.model.Match;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -80,6 +82,36 @@ public class JdbcUserDao implements UserDao {
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
         return jdbcTemplate.update(insertUserSql, username, password_hash,firstName, lastName, email, city, ssRole) == 1;
+    }
+
+    @Override
+    public List<Event> getAllUserEvents(int userId) {
+        return null;
+    }
+
+    @Override
+    public List<Match> getUserMatchScores(int userId) {
+        return null;
+    }
+
+    @Override
+    public List<Event> getUpcomingUserEvents(int userId) {
+        return null;
+    }
+
+    @Override
+    public void removeUserFromEvent(int userId, int eventId) {
+
+    }
+
+    @Override
+    public void setUserGoal(User user) {
+
+    }
+
+    @Override
+    public void updateUserGoal(User user) {
+
     }
 
     private User mapRowToUser(SqlRowSet rs) {

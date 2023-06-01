@@ -20,6 +20,7 @@ public class User {
    private String email;
    private String city;
    private String state;
+   private String goal;
    @JsonIgnore
    private boolean activated;
    private Set<Authority> authorities = new HashSet<>();
@@ -56,6 +57,7 @@ public class User {
       if(authorities != null) this.setAuthorities(authorities);
       this.activated = true;
    }
+
 
    public int getId() {
       return id;
@@ -155,6 +157,14 @@ public class User {
               Objects.equals(username, user.username) &&
               Objects.equals(password, user.password) &&
               Objects.equals(authorities, user.authorities);
+   }
+
+   public String getGoal() {
+      return goal;
+   }
+
+   public void setGoal(String goal) {
+      this.goal = goal;
    }
 
    @Override
