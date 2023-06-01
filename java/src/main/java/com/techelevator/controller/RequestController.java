@@ -31,4 +31,9 @@ public class RequestController {
     public List<Request> getAllCurrentRequests(@PathVariable int groupId){
         return requestDao.getAllCurrentRequests(groupId);
     }
+
+    @PostMapping(path = "/status")
+    public void approveOrDeclineRequest(@RequestBody Request request){
+        requestDao.approveOrDeclineRequest(request);
+    }
 }

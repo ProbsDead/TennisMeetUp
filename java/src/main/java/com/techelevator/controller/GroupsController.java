@@ -45,7 +45,6 @@ public class GroupsController {
     public List<Group> getAllGroups() {
         return groupsDao.getAllGroups();
     }
-
     /**
      * Create new group.  Group information must be sent as a group object
      * @param newGroup

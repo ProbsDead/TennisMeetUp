@@ -35,7 +35,7 @@ public class JdbcRequestDao implements RequestDao{
     @Override
     public List<Request> getAllCurrentRequests(int groupId) {
         List<Request> pendingRequests = new ArrayList<>();
-        String sql = "SELECT * FROM requests WHERE status = 'Pending' AND group_id = ?;";
+        String sql = "SELECT * FROM requests WHERE status = 'Pending' AND group_id = ? AND invite_or_request = 'Request';";
 
         SqlRowSet row = jdbcTemplate.queryForRowSet(sql, groupId);
         while(row.next()){
@@ -46,7 +46,9 @@ public class JdbcRequestDao implements RequestDao{
 
     @Override
     public void approveOrDeclineRequest(Request request) {
+        String sql = "UPDATE requests SET status = ? WHERE request_id = ?;";
 
+        jdbcTemplate.update(sql, request.getStatus(), request.getRequestId());
     }
 
     @Override

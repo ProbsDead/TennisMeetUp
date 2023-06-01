@@ -51,7 +51,7 @@ public class Request {
         this.adminUserId = adminUserId;
     }
 
-    public String isStatus() {
+    public String getStatus() {
         return status;
     }
 
