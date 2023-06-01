@@ -45,14 +45,20 @@ public class JdbcRequestDao implements RequestDao{
     }
 
     @Override
-    public void approveOrDeclineRequest(Request request) {
+    public void approveOrDeclineRequest(Request request, int adminId) {
         String sql = "UPDATE requests SET status = ? WHERE request_id = ?;";
-
         jdbcTemplate.update(sql, request.getStatus(), request.getRequestId());
+
+        sql = "UPDATE requests SET admin_user_id = ? WHERE request_id = ?;";
+        jdbcTemplate.update(sql, adminId, request.getRequestId());
     }
 
     @Override
     public void sendRequestToJoinGroup(Request request) {
+        String sql = "INSERT INTO requests (group_id, joining_user_id, status, invite_or_request) " +
+                "VALUES (?, ?, ?, ?);";
+
+        jdbcTemplate.update(sql, request.getGroupId(), request.getJoiningUserId(), request.getStatus(), request.getInviteOrRequest());
 
     }
 

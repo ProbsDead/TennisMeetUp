@@ -9,7 +9,7 @@ public interface RequestDao {
 
     List<Request> getAllCurrentRequests(int groupId);
 
-    void approveOrDeclineRequest(Request request);
+    void approveOrDeclineRequest(Request request, int adminId);
 
     void sendRequestToJoinGroup(Request request);
 

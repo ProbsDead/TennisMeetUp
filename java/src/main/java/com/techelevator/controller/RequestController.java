@@ -32,8 +32,13 @@ public class RequestController {
         return requestDao.getAllCurrentRequests(groupId);
     }
 
-    @PostMapping(path = "/status")
-    public void approveOrDeclineRequest(@RequestBody Request request){
-        requestDao.approveOrDeclineRequest(request);
+    @PostMapping(path = "/status/{adminId}")
+    public void approveOrDeclineRequest(@PathVariable int adminId, @RequestBody Request request){
+        requestDao.approveOrDeclineRequest(request, adminId);
+    }
+
+    @PostMapping(path = "/send")
+    public void sendRequestToJoinGroup(@RequestBody Request request){
+        requestDao.sendRequestToJoinGroup(request);
     }
 }
