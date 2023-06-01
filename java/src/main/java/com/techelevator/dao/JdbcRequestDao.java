@@ -2,8 +2,10 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Request;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -32,11 +34,36 @@ public class JdbcRequestDao implements RequestDao{
 
     @Override
     public List<Request> getAllCurrentRequests(int groupId) {
-        return null;
+        List<Request> pendingRequests = new ArrayList<>();
+        String sql = "SELECT * FROM requests WHERE status = 'Pending' AND group_id = ?;";
+
+        SqlRowSet row = jdbcTemplate.queryForRowSet(sql, groupId);
+        while(row.next()){
+            pendingRequests.add(mapRowToRequest(row));
+        }
+        return pendingRequests;
     }
 
     @Override
     public void approveOrDeclineRequest(Request request) {
 
+    }
+
+    @Override
+    public void sendRequestToJoinGroup(Request request) {
+
+    }
+
+    private Request mapRowToRequest(SqlRowSet row){
+        Request request = new Request();
+
+        request.setRequestId(row.getInt("request_id"));
+        request.setGroupId(row.getInt("group_id"));
+        request.setJoiningUserId(row.getInt("joining_user_id"));
+        request.setAdminUserId(row.getInt("admin_user_id"));
+        request.setStatus(row.getString("status"));
+        request.setInviteOrRequest(row.getString("invite_or_request"));
+
+        return request;
     }
 }

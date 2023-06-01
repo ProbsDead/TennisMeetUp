@@ -5,10 +5,12 @@ public class Request {
     private int groupId;
     private int joiningUserId;
     private int adminUserId;
-    private boolean status;
+    private String status;
     private String inviteOrRequest;
 
-    public Request(int requestId, int groupId, int joiningUserId, int adminUserId, boolean status, String inviteOrRequest) {
+    public Request(){}
+
+    public Request(int requestId, int groupId, int joiningUserId, int adminUserId, String status, String inviteOrRequest) {
         this.requestId = requestId;
         this.groupId = groupId;
         this.joiningUserId = joiningUserId;
@@ -49,11 +51,11 @@ public class Request {
         this.adminUserId = adminUserId;
     }
 
-    public boolean isStatus() {
+    public String isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

@@ -2,7 +2,10 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.JdbcRequestDao;
 import com.techelevator.dao.RequestDao;
+import com.techelevator.model.Request;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -20,7 +23,12 @@ public class RequestController {
      * @param userId
      */
     @PostMapping(path="/{groupId}/{userId}")
-    public void sendRequestOrInvite(@PathVariable int groupId, @PathVariable int userId) {
+    public void inviteNewMember(@PathVariable int groupId, @PathVariable int userId) {
          requestDao.inviteNewMember(groupId, userId);
+    }
+
+    @GetMapping(path = "/{groupId}")
+    public List<Request> getAllCurrentRequests(@PathVariable int groupId){
+        return requestDao.getAllCurrentRequests(groupId);
     }
 }

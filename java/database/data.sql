@@ -41,5 +41,8 @@ INSERT INTO match(event_id, score, winner, match_length) VALUES(3, '3 : 1', 1, 1
 INSERT INTO match_user(user_id, match_id) VALUES(1, 1);
 INSERT INTO match_user(user_id, match_id) VALUES(2, 1);
 
+INSERT INTO requests (group_id, joining_user_id, admin_user_id, status, invite_or_request) VALUES (1,2,1,'Pending','Request');
+INSERT INTO requests (group_id, joining_user_id, admin_user_id, status, invite_or_request) VALUES (1,1,1,'Approved', 'Request');
+
 
 COMMIT TRANSACTION;

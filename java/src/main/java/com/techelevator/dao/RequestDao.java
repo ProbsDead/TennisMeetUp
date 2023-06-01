@@ -11,4 +11,6 @@ public interface RequestDao {
 
     void approveOrDeclineRequest(Request request);
 
+    void sendRequestToJoinGroup(Request request);
+
 }
