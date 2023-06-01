@@ -161,7 +161,7 @@ public class JdbcUserDao implements UserDao {
      * @return updated User object
      */
     @Override
-    public User updateUserGoal(User user) {
+    public User updateUserGoal(User user, int userId) {
         String sql="UPDATE users SET goal=? WHERE user_id =?;";
         jdbcTemplate.update(sql, user.getGoal(), user.getId());
 

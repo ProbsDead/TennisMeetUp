@@ -23,6 +23,6 @@ public interface UserDao {
     List<Event> getUpcomingUserEvents(int userId);
     List<Match> getUserMatchScores(int userId);
     void removeUserFromEvent(int userId, int eventId);
-    User updateUserGoal(User user);
+    User updateUserGoal(User user, int userId);
 
 }
