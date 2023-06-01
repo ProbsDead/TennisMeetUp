@@ -84,34 +84,88 @@ public class JdbcUserDao implements UserDao {
         return jdbcTemplate.update(insertUserSql, username, password_hash,firstName, lastName, email, city, ssRole) == 1;
     }
 
+    /**
+     * This method returns a list of Event objects that a user is part of
+     * @param userId
+     * @return list of Event objects that a user is signed up to
+     */
     @Override
     public List<Event> getAllUserEvents(int userId) {
-        return null;
+        List<Event> events = new ArrayList<>();
+
+        String sql = "SELECT * FROM events " +
+                "JOIN user_event ue ON ue.event_id = events.event_id " +
+                "WHERE user_id=?;";
+
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, userId);
+
+        while(rs.next()) {
+            events.add(mapRowToEvent(rs));
+        }
+        return events;
     }
 
-    @Override
-    public List<Match> getUserMatchScores(int userId) {
-        return null;
-    }
-
+    /**
+     * This method returns only upcoming (future) events that user signed up for
+     * @param userId
+     * @return a list of Event objects with date/time in the future
+     */
     @Override
     public List<Event> getUpcomingUserEvents(int userId) {
-        return null;
+        List<Event> events = new ArrayList<>();
+       String sql = "SELECT * FROM events " +
+               "JOIN user_event ue ON ue.event_id = events.event_id " +
+               "WHERE user_id=? AND events.start_time > NOW();";
+
+       SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
+
+       while(rowSet.next()) {
+           events.add(mapRowToEvent(rowSet));
+       }
+       return events;
     }
+
+    /**
+     * This method returns a list of Match objects that User participated in.
+     * Once frontend receives this list, display match history by calculating stats and listing scores for each match
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Match> getUserMatchScores(int userId) {
+        List<Match> matches = new ArrayList<>();
+
+        String sql = "SELECT * FROM match " +
+             "JOIN match_user mu ON mu.match_id = match.match_id " +
+             "WHERE user_id=?;";
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
+
+        while(rowSet.next()) {
+            matches.add(mapRowToMatch(rowSet));
+        }
+        return matches;
+    }
+
 
     @Override
     public void removeUserFromEvent(int userId, int eventId) {
+        String sql="DELETE FROM user_event WHERE user_id=? AND event_id=?;";
 
+        jdbcTemplate.update(sql,userId,eventId);
     }
 
+    /**
+     * This method receives a User object from frontend, sets/updates the User goal and returns the updated User object
+     * @param user
+     * @return updated User object
+     */
     @Override
-    public void setUserGoal(User user) {
+    public User updateUserGoal(User user) {
+        String sql="UPDATE users SET goal=? WHERE user_id =?;";
+        jdbcTemplate.update(sql, user.getGoal(), user.getId());
 
-    }
-
-    @Override
-    public void updateUserGoal(User user) {
-
+        return getUserById(user.getId());
     }
 
     private User mapRowToUser(SqlRowSet rs) {
@@ -127,5 +181,31 @@ public class JdbcUserDao implements UserDao {
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
         return user;
+    }
+
+    private Event mapRowToEvent(SqlRowSet row) {
+        Event event = new Event();
+
+        event.setEventId(row.getInt("event_id"));
+        event.setEventName(row.getString("event_name"));
+        event.setDescription(row.getString("description"));
+        event.setStartTime(row.getTimestamp("start_time"));
+        event.setEndTime(row.getTimestamp("end_time"));
+        event.setCreatedBy(row.getInt("created_by"));
+
+        return event;
+    }
+
+    private Match mapRowToMatch(SqlRowSet row) {
+        Match match = new Match();
+
+        match.setMatchId(row.getInt("match_id"));
+        match.setEventId(row.getInt("event_id"));
+        match.setScore(row.getString("score"));
+        match.setWinner(row.getInt("winner"));
+        match.setWinnerTwo(row.getInt("winner_two"));
+        match.setMatchLength(row.getInt("match_length"));
+
+        return match;
     }
 }
