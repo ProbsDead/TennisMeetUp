@@ -93,12 +93,12 @@ public class JdbcGroupsDao implements GroupsDao {
     }
 
     @Override
-    public List<Group> getAllPublicGroups(String cityName) {
+    public List<Group> getAllPublicGroups() {
         List<Group> publicGroups = new ArrayList<>();
 
-        String sql = "SELECT * FROM groups WHERE is_public = true AND city = ?;";
+        String sql = "SELECT * FROM groups WHERE is_public = true;";
 
-        SqlRowSet row = jdbcTemplate.queryForRowSet(sql, cityName);
+        SqlRowSet row = jdbcTemplate.queryForRowSet(sql);
         while(row.next()){
             publicGroups.add(mapRowToGroup(row));
         }
@@ -151,6 +151,7 @@ public class JdbcGroupsDao implements GroupsDao {
         group.setCity(row.getString("city"));
         group.setLocation(row.getString("location"));
         group.setPublic(row.getBoolean("is_public"));
+        group.setState(row.getString("state"));
         group.setAbout(row.getString("about"));
 
         return group;

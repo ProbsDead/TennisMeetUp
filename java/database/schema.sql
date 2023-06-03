@@ -20,6 +20,7 @@ CREATE TABLE groups (
 	group_id serial,
 	group_name varchar (250) NOT NULL,
 	city varchar (50) NOT NULL,
+	state char(2) NOT NULL,
 	location varchar (250) NULL,
 	created_by int NOT NULL,
 	is_public boolean DEFAULT true,

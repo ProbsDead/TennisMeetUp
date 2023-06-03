@@ -1,22 +1,43 @@
 <template>
   <div class="all-groups">
     <div>
-      <section
-        class="group-box"
-        v-for="item in groups"
-        v-bind:key="item.groupId">
-        <div class="headline">
-          <h2 class="group-name"> {{ item.group_name }} </h2>
-          <h4 class="group-city"> {{ item.city }} </h4> 
+      <div class="search-bar">
+        <i class='bx bx-search'></i> <span> search a group</span>
+        <br>
+        <div class="search-expand">
+          <label for="search-name"> Search by group name: </label>
+        <input type="text" v-model="searchByName"/>
+        <label for="search-city"> Search by city: </label>
+        <input type="text" v-model="searchByCity"/>
+        <button></button>
         </div>
-        <div class="group-description"> 
-          <p> {{ item.about }} </p>
-        </div>
-        <router-link v-bind:to="{
-          name:'group-mainpage',
-          params: { groupId: item.group_id } }" >Learn More</router-link>
+        
+      </div>
+      <div v-if="!filtered">
+        <h1>Browse all public groups</h1>
+        <section
+          class="group-box"
+          v-for="item in groups"
+          v-bind:key="item.groupId"
+        >
+          <div class="headline">
+            <h2 class="group-name">{{ item.group_name }}</h2>
+            <h4 class="group-city">{{ item.city }}</h4>
+          </div>
+          <div class="group-description">
+            <p>{{ item.about }}</p>
+          </div>
+          <router-link
+            v-bind:to="{
+              name: 'group-mainpage',
+              params: { groupId: item.group_id },
+            }"
+            >Learn More</router-link
+          >
+        </section>
+      </div>
 
-      </section> 
+      <div v-else></div>
     </div>
   </div>
 </template>
@@ -29,11 +50,14 @@ export default {
   data() {
     return {
       groups: [],
-      // searchTerm: ""
+      searchByName: "",
+      searchByCity:"",
+      filtered: false,
+      filteredGroups: [],
     };
   },
   created() {
-    GroupService.getAllGroups().then((response) => {
+    GroupService.getAllPublicGroups().then((response) => {
       this.groups = response.data;
     });
   },
@@ -62,5 +86,4 @@ export default {
   width: 100%;
   justify-content: space-between;
 }
-
 </style>
