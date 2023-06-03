@@ -22,6 +22,15 @@ public class UserController {
 
     /**
      * @param userId
+     * @return User object of the corresponding userId
+     */
+    @GetMapping(path="/{userId}")
+    public User getUserById(@PathVariable int userId) {
+        return userDao.getUserById(userId);
+    }
+
+    /**
+     * @param userId
      * @return list of ALL Event objects that user has been part of
      */
     @GetMapping(path="/{userId}/events")

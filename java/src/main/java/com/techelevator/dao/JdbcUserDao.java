@@ -178,6 +178,7 @@ public class JdbcUserDao implements UserDao {
         user.setCity(rs.getString("city"));
         user.setEmail(rs.getString("email"));
         user.setState(rs.getString("state"));
+
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
         return user;
