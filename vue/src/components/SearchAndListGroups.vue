@@ -2,19 +2,44 @@
   <div class="all-groups">
     <div>
       <div class="search-bar">
-        <i class='bx bx-search'></i> <span> search a group</span>
-        <br>
-        <div class="search-expand">
-          <label for="search-name"> Search by group name: </label>
-        <input type="text" v-model="searchByName"/>
-        <label for="search-city"> Search by city: </label>
-        <input type="text" v-model="searchByCity"/>
-        <button></button>
+        <i class="bx bx-search"></i>
+        <span class="search-by" @click="filterType = 'name'">
+          search by group name</span
+        >
+        |
+
+        <span class="search-by" @click="filterType = 'city'">
+          search by city</span
+        >
+        <br />
+        <div class="search-expand-name" v-show="filterType === 'name'">
+          <label for="search-name"> Group name: </label>
+          <input type="text" v-model="searchByName" />
+
+          <button @click.prevent="searchGroupByCity">Search</button>
         </div>
-        
+
+        <div class="search-expand-city" v-show="filterType === 'city'">
+          <label for="search-city"> City </label>
+          <input type="text" v-model="searchByCity" />
+          <select name="state" id="state">
+            <option
+              v-for="(stateAbbrev, index) in this.$store.state.stateAbbrev"
+              v-bind:key="index"
+            >
+              {{ stateAbbrev }}
+            </option>
+          </select>
+          <button @click.prevent="searchGroupByCity">Search</button>
+        </div>
       </div>
+
       <div v-if="!filtered">
-        <h1>Browse all public groups</h1>
+        <list-groups
+          v-bind:allGroups="groups"
+          v-bind:title="`Browse All Groups`"
+        ></list-groups>
+        <!-- <h1>Browse all public groups</h1>
         <section
           class="group-box"
           v-for="item in groups"
@@ -34,26 +59,30 @@
             }"
             >Learn More</router-link
           >
-        </section>
+        </section> -->
       </div>
 
-      <div v-else></div>
+      <div></div>
     </div>
   </div>
 </template>
 
 <script>
 import GroupService from "../services/GroupService.js";
+import ListGroups from "./ListGroups.vue";
 
 export default {
   name: "group-list",
+  components: {
+    ListGroups,
+  },
   data() {
     return {
       groups: [],
-      searchByName: "",
-      searchByCity:"",
+      searchName: "",
+      searchCity: "",
       filtered: false,
-      filteredGroups: [],
+      filterType: "",
     };
   },
   created() {
@@ -85,5 +114,10 @@ export default {
   display: inline-flex;
   width: 100%;
   justify-content: space-between;
+}
+
+.search-by:hover {
+  cursor: pointer;
+  border-bottom: 1px solid #2a9d8f;
 }
 </style>
