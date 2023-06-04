@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Browse all public groups</h1>
+    <h2>{{title}}</h2>
     <section
       class="group-box"
       v-for="item in allGroups"

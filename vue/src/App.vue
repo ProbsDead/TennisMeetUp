@@ -51,7 +51,10 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 #app {
+  font-family: "Poppins", sans-serif;
   display: grid;
   grid-template-columns: 1fr;
 
