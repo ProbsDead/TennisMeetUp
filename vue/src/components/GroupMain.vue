@@ -6,7 +6,7 @@
           <img src="../assets/tennis-court.jpg" alt="meetup-image" />
           <div class="details">
             <h1>{{ group.group_name }}</h1>
-            <button class="request">Request Membership</button>
+            <!-- <button class="request">Request Membership</button> -->
             <div class="container">
               <div>
                 <i class="bx bxs-map"></i> <span>{{ group.city }}</span>
@@ -52,7 +52,7 @@
         >Members</span
       >
       <span> Photos </span>
-      <button>Join this group</button>
+      <button>Join this Group</button>
     </section>
 
     <section class="group-details">
@@ -141,6 +141,9 @@ export default {
           break;
       }
     },
+    createRequest(){
+      
+    }
   },
 };
 </script>
