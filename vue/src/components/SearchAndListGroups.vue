@@ -1,6 +1,10 @@
 <template>
   <div class="all-groups">
     <div>
+      <div class="browse-all" @click="listAll">
+        <i class="bx bx-sidebar"></i>
+        <span> Browse all public groups</span>
+      </div>
       <div class="search-bar">
         <div class="search-top">
           <i class="bx bx-search" @click="filterType = ''"></i>
@@ -46,7 +50,11 @@
       <div v-else-if="filtered && filteredGroup.length">
         <list-groups
           v-bind:allGroups="filteredGroup"
-          v-bind:title="`Search results`"
+          v-bind:title="
+            filterType === 'name'
+              ? `Searched name: ${searchName}`
+              : `Groups near ${searchCity}`
+          "
         ></list-groups>
       </div>
       <div v-else>
@@ -78,7 +86,12 @@ export default {
   },
   created() {
     GroupService.getAllPublicGroups().then((response) => {
-      this.groups = response.data;
+      // sorting the array alphabetically by CITY and storing it in the groups array
+      this.groups = response.data.sort(function (a, b) {
+        let cityA = a.city.toLowerCase();
+        let cityB = b.city.toLowerCase();
+        return cityA < cityB ? -1 : cityA > cityB ? 1 : 0;
+      });
     });
   },
   methods: {
@@ -86,6 +99,7 @@ export default {
       // reset the filtered group each time they click on search
       this.filteredGroup = [];
       this.filtered = true;
+      this.searchCity = "";
 
       // add to filteredGroup if the name they searched for is "included" (doesn't have to exactly match) in the name
       this.groups.forEach((group) => {
@@ -99,6 +113,7 @@ export default {
     searchGroupByCity() {
       this.filteredGroup = [];
       this.filtered = true;
+      this.searchName = "";
       this.groups.forEach((group) => {
         if (
           group.city.toLowerCase() === this.searchCity.toLowerCase() &&
@@ -108,6 +123,13 @@ export default {
         }
       });
     },
+    listAll() {
+      this.filtered = false;
+      this.filteredGroup = [];
+      this.searchName = "";
+      this.searchCity = "";
+      (this.searchState = ""), (this.filterType = "");
+    },
   },
 };
 </script>
@@ -116,41 +138,34 @@ export default {
 * {
   margin-left: 5px;
 }
-.group-box {
-  width: 80vw;
-  font-family: "Poppins", sans-serif;
-  padding-left: 20px;
-  padding-right: 20px;
-  border: 1px solid black;
-  border-radius: 5px;
-  margin: 10px;
-}
+
 .headline {
   display: inline-flex;
   width: 100%;
   justify-content: space-between;
 }
-div.search-top i {
+div.search-top i,
+div.browse-all i {
   height: 30px;
   font-size: 23px;
   text-align: center;
   margin-left: 15px;
 }
-.search-top {
+.search-top,
+.search-expand-name,
+.search-expand-city, .browse-all {
   display: flex;
   justify-content: flex-start;
-  gap: 5px 10px;
+  gap: 10px;
 }
 
+.search-expand-name, .search-expand-city {
+  margin-top: 5px;
+  margin-left: 55px;
+}
 .search-by:hover {
   cursor: pointer;
   background-color: #e3faf7;
   border-radius: 10px;
-}
-
-.search-expand-name,
-.search-expand-city {
-  display: flex;
-  gap: 15px;
 }
 </style>

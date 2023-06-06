@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="list-groups">
     <h2>{{title}}</h2>
     <section
       class="group-box"
@@ -40,6 +40,9 @@ export default {
 </script>
 
 <style scoped>
+div.list-groups > h2 {
+  padding-left:20px;
+}
 .group-box {
   width: 80vw;
   font-family: "Poppins", sans-serif;
