@@ -1,17 +1,16 @@
 <template>
   <div class="all-groups">
-    <list-all-groups></list-all-groups>
-    <h1></h1>
+    <search-and-list-groups></search-and-list-groups>
   </div>
 </template>
 
 <script>
-import ListAllGroups from "../components/ListAllGroups.vue";
+import SearchAndListGroups from "../components/SearchAndListGroups.vue";
 
 export default {
   name: "search-groups",
   components: {
-    ListAllGroups,
+    SearchAndListGroups,
   },
 };
 </script>

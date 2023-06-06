@@ -12,6 +12,7 @@ CREATE TABLE users (
 	state varchar (20) NOT NULL,
 	city varchar(100) NOT NULL,
 	role varchar(50) NOT NULL,
+	goal varchar(500) NULL,
 	
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
@@ -19,6 +20,7 @@ CREATE TABLE groups (
 	group_id serial,
 	group_name varchar (250) NOT NULL,
 	city varchar (50) NOT NULL,
+	state char(2) NOT NULL,
 	location varchar (250) NULL,
 	created_by int NOT NULL,
 	is_public boolean DEFAULT true,

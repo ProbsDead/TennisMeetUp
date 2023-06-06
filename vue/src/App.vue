@@ -51,7 +51,10 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 #app {
+  font-family: "Poppins", sans-serif;
   display: grid;
   grid-template-columns: 1fr;
 
@@ -82,23 +85,23 @@ export default {
 .default-content {
   position: relative;
   min-height: 90vh;
-  width: calc(100%-250px);
-  left: 78px;
+  width: calc(100%-75px);
+  left: 75px;
   transition: all 0.5s ease;
 }
 .default-header {
   position: relative;
   min-height: 18vh;
-  width: calc(100%-250px);
-  left: 78px;
+  width: calc(100%-75px);
+  left: 75px;
   transition: all 0.5s ease;
 }
 
 .default-footer {
   position: relative;
   min-height: 18vh;
-  width: calc(100%-250px);
-  left: 78px;
+  width: calc(100%-75px);
+  left: 75px;
   transition: all 0.5s ease;
 }
 

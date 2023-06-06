@@ -13,16 +13,18 @@ public class Group {
     private int createdBy;
 
     private String city;
+    private String state;
     private String location;
     @JsonProperty("is_public")
     private boolean isPublic;
     private String about;
 
-    public Group(int groupId, String groupName, int createdBy, String city, String location, boolean isPublic, String about) {
+    public Group(int groupId, String groupName, int createdBy, String city, String state, String location, boolean isPublic, String about) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.createdBy = createdBy;
         this.city = city;
+        this.state = state;
         this.location = location;
         this.isPublic = isPublic;
         this.about = about;
@@ -83,5 +85,13 @@ public class Group {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

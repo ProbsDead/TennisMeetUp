@@ -55,13 +55,12 @@ public class GroupsController {
     }
 
     /**
-     * This method retreives all of the public groups.  It has been tested and is CASE SENSITIVE
-     * @param cityName
+     * This method retreives all of the public groups.
      * @return List of Groups
      */
-    @GetMapping(path = "public/{cityName}")
-    public List<Group> getAllPublicGroups(@PathVariable String cityName){
-        return groupsDao.getAllPublicGroups(cityName);
+    @GetMapping(path = "/public")
+    public List<Group> getAllPublicGroups(){
+        return groupsDao.getAllPublicGroups();
     }
 
     /**

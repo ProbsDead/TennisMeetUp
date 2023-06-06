@@ -16,7 +16,7 @@ export default {
   sendRequestOrInvite(groupId, userId) {
     return http.post(`/${groupId}/${userId}`);
   },
-  getAllGroups() {
-    return http.get('');
+  getAllPublicGroups() {
+    return http.get('/public');
   }
 };

@@ -36,10 +36,23 @@
     <hr />
 
     <section class="tabs">
-      <span @click="renderSection">About</span>
-      <span @click="renderSection">Events</span>
-      <span @click="renderSection">Members</span>
+      <span
+        @click="renderSection"
+        v-bind:class="{ highlight: currentTab === 'About' }"
+        >About</span
+      >
+      <span
+        @click="renderSection"
+        v-bind:class="{ highlight: currentTab === 'Events' }"
+        >Events</span
+      >
+      <span
+        @click="renderSection"
+        v-bind:class="{ highlight: currentTab === 'Members' }"
+        >Members</span
+      >
       <span> Photos </span>
+      <button>Join this group</button>
     </section>
 
     <section class="group-details">
@@ -98,7 +111,7 @@ export default {
     GroupService.getGroupMembers(this.$route.params.groupId).then(
       (response) => {
         this.groupMembers = response.data;
-        response.data.forEach((member) => {
+        this.groupMembers.forEach((member) => {
           // if the user id matches the admin id, store admin name
           if (member.id === this.group.created_by) {
             this.adminName = `${member.first_name} ${member.last_name}`;
@@ -146,6 +159,10 @@ img {
   width: 45%;
   height: 300px;
 }
+
+hr {
+  border: 1px solid rgb(232, 229, 229);
+}
 .split-view {
   display: flex;
   gap: 30px;
@@ -161,11 +178,25 @@ div.container span {
 }
 
 section.tabs span {
-  margin: 45px;
+  margin: 70px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+section.tabs {
+  margin: 20px;
 }
 
 section.tabs span:hover {
-  color: aqua;
+  color: #2a9d8f;
   cursor: pointer;
+}
+
+section.tabs span.highlight {
+  color: #2a9d8f;
+}
+
+section.tabs button {
+  margin-left: 50px;
 }
 </style>

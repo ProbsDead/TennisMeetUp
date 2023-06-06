@@ -8,10 +8,15 @@ public class Event {
     @JsonProperty("event_id")
     private int eventId;
 
+    @JsonProperty("event_name")
+    private String eventName;
+
     private String description;
     @JsonProperty("start_time")
     private Date startTime;
 
+    @JsonProperty("end_time")
+    private Date endTime;
     private String location;
     @JsonProperty("created_by")
     private int createdBy;
@@ -58,5 +63,16 @@ public class Event {
         this.createdBy = createdBy;
     }
 
-
+    public String getEventName() {
+        return eventName;
+    }
+    public Date getEndTime() {
+        return endTime;
+    }
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
 }
