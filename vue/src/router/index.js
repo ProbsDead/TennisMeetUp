@@ -10,6 +10,7 @@ import MyGroups from "../views/MyGroups.vue";
 import AboutUs from "../views/AboutUs.vue";
 import SearchGroups from "../views/SearchGroups.vue";
 import CreateNewGroup from "../views/CreateNewGroup.vue";
+import UserMainPage from "../views/UserMainPage.vue";
 
 Vue.use(Router);
 
@@ -97,7 +98,15 @@ const router = new Router({
       meta: {
         requiresAuth: true,
       },
-    }
+    },
+    {
+      path: "/user/:userId",
+      name: "user-main",
+      component: UserMainPage,
+      meta: {
+        requiresAuth: true,
+      },
+    },
   ],
 });
 
