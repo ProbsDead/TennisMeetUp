@@ -52,7 +52,7 @@
         >Members</span
       >
       <span> Photos </span>
-      <button>Join this Group</button>
+      <button :disabled='isDisabled'>Join this Group</button>
     </section>
 
     <section class="group-details">
@@ -74,6 +74,7 @@ import GroupService from "../services/GroupService.js";
 import GroupAboutSection from "./GroupAboutSection.vue";
 import GroupEventsSection from "./GroupEventsSection.vue";
 import GroupMembersSection from "./GroupMembersSection.vue";
+import RequestService from "../services/RequestService";
 
 export default {
   name: "group-main",
@@ -90,6 +91,14 @@ export default {
       memberNames: [],
       // currentTab indicates what the user clicked on: about / events / members
       currentTab: "About",
+      request: {
+        groupId: "",
+        joiningUserId: "",
+        status: "Pending",
+        inviteOrRequest: "Request",
+      },
+      buttonText: "Join this Group",
+      isDisabled: false
     };
   },
   created() {
@@ -141,8 +150,26 @@ export default {
           break;
       }
     },
+
     createRequest(){
-      
+      this.request.groupId = this.$route.params.groupId;
+      this.request.joiningUserId = this.$store.state.user.userId;
+      RequestService.sendRequestToJoin(this.request).then((response)=> {
+        if(response.status == 200 || response.status == 201){
+          this.buttonText = "Request Sent";
+          this.isDisabled = true;
+        }
+      }).catch((error) => {
+        this.handleError(error);
+      });
+    },
+
+    handleError(error){
+      if(error.request){
+        this.errorMsg = "Error submitting request. Server could not be reached.";
+      } else {
+        this.errorMsg = "An error occurred, please try again later.";
+      }
     }
   },
 };
