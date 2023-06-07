@@ -15,6 +15,22 @@
             <label for="city">City: </label>
             <input type="text" id="city">
             <label for="location">Meet Up Location: </label>
+            <section class="ui two column centered grid">
+                <div class="column">
+                    <form action="">
+                        <div class="ui message red"></div>
+                        <div class="ui segment">
+                            <div class="field">
+                                <div class="ui right icon input large">
+                                    <input type="text" placeholder="Enter Address">
+                                    <i class="map marker icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </section>
         </form>
 
     </div>
@@ -45,5 +61,5 @@ export default {
 }
 </script>
 <style scoped>
-
+    
 </style>
