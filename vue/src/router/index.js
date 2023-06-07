@@ -9,6 +9,7 @@ import GroupMainPage from "../views/GroupMainPage.vue";
 import MyGroups from "../views/MyGroups.vue";
 import AboutUs from "../views/AboutUs.vue";
 import SearchGroups from "../views/SearchGroups.vue";
+import CreateNewGroup from "../views/CreateNewGroup.vue";
 
 Vue.use(Router);
 
@@ -89,6 +90,14 @@ const router = new Router({
         requiresAuth: false,
       },
     },
+    {
+      path: "/create-group",
+      name: "create-group",
+      component: CreateNewGroup,
+      meta: {
+        requiresAuth: true,
+      },
+    }
   ],
 });
 
