@@ -97,7 +97,7 @@ export default {
         status: "Pending",
         inviteOrRequest: "Request",
       },
-      buttonText: "",
+      buttonText: "Join this Group",
       isDisabled: false,
       allRequests: {}
     };
@@ -128,6 +128,10 @@ export default {
           } else {
             this.memberNames.push(`${member.first_name} ${member.last_name}`);
           }
+          if(member.id == this.$store.state.user.id){
+            this.buttonText = "Already a Member";
+            this.isDisabled = true;
+          } 
         });
         this.memberNames.sort();
       }
@@ -140,9 +144,7 @@ export default {
         if(request.joiningUserId == this.$store.state.user.id){
           this.buttonText = "Request Sent"
           this.isDisabled = true;
-        } else {
-          this.buttonText = "Join this Group"
-        }
+        } 
       })
     }).catch((error) =>{
       this.handleError(error);
