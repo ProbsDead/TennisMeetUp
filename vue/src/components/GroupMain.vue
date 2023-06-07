@@ -52,7 +52,7 @@
         >Members</span
       >
       <span> Photos </span>
-      <button :disabled='isDisabled'>Join this Group</button>
+      <button :disabled='isDisabled' @click.prevent="createRequest()">{{buttonText}}</button>
     </section>
 
     <section class="group-details">
@@ -97,8 +97,9 @@ export default {
         status: "Pending",
         inviteOrRequest: "Request",
       },
-      buttonText: "Join this Group",
-      isDisabled: false
+      buttonText: "",
+      isDisabled: false,
+      allRequests: {}
     };
   },
   created() {
@@ -131,6 +132,21 @@ export default {
         this.memberNames.sort();
       }
     );
+
+    //Ensure that this user does not have a pending request
+    RequestService.getAllCurrentRequests(this.$route.params.groupId).then((response) =>{
+      this.allRequests = response.data;
+      this.allRequests.forEach((request) => {
+        if(request.joiningUserId == this.$store.state.user.id){
+          this.buttonText = "Request Sent"
+          this.isDisabled = true;
+        } else {
+          this.buttonText = "Join this Group"
+        }
+      })
+    }).catch((error) =>{
+      this.handleError(error);
+    });
   },
   methods: {
     renderSection(event) {
@@ -152,8 +168,9 @@ export default {
     },
 
     createRequest(){
+      //Sends join request, greys out button and changes text once sent
       this.request.groupId = this.$route.params.groupId;
-      this.request.joiningUserId = this.$store.state.user.userId;
+      this.request.joiningUserId = this.$store.state.user.id;
       RequestService.sendRequestToJoin(this.request).then((response)=> {
         if(response.status == 200 || response.status == 201){
           this.buttonText = "Request Sent";
@@ -165,6 +182,7 @@ export default {
     },
 
     handleError(error){
+      //A reusable error function to be used in the catch statements
       if(error.request){
         this.errorMsg = "Error submitting request. Server could not be reached.";
       } else {
