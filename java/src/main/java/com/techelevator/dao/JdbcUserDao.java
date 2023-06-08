@@ -136,8 +136,9 @@ public class JdbcUserDao implements UserDao {
         List<Match> matches = new ArrayList<>();
 
         String sql = "SELECT * FROM match " +
-             "JOIN match_user mu ON mu.match_id = match.match_id " +
-             "WHERE user_id=?;";
+                "JOIN match_user mu ON mu.match_id = match.match_id " +
+                "JOIN events ON events.event_id = match.event_id" +
+                "WHERE user_id=? ORDER BY events.start_time ASC;";
 
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
 
