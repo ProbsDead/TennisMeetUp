@@ -2,6 +2,7 @@ package com.techelevator.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Event {
@@ -13,15 +14,25 @@ public class Event {
 
     private String description;
     @JsonProperty("start_time")
-    private Date startTime;
+    private LocalDateTime startTime;
 
     @JsonProperty("end_time")
-    private Date endTime;
+    private LocalDateTime endTime;
     private String location;
     @JsonProperty("created_by")
     private int createdBy;
 
     public Event() {}
+    public Event(int eventId, String eventName, String description, LocalDateTime startTime,
+                 LocalDateTime endTime, String location, int createdBy) {
+        this.eventId = eventId;
+        this.eventName = eventName;
+        this.description = description;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.location = location;
+        this.createdBy = createdBy;
+    }
 
     public int getEventId() {
         return eventId;
@@ -31,7 +42,7 @@ public class Event {
         return description;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
@@ -51,7 +62,7 @@ public class Event {
         this.description = description;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
@@ -66,13 +77,13 @@ public class Event {
     public String getEventName() {
         return eventName;
     }
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 }

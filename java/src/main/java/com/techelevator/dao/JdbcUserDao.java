@@ -191,8 +191,8 @@ public class JdbcUserDao implements UserDao {
         event.setEventId(row.getInt("event_id"));
         event.setEventName(row.getString("event_name"));
         event.setDescription(row.getString("description"));
-        event.setStartTime(row.getTimestamp("start_time"));
-        event.setEndTime(row.getTimestamp("end_time"));
+        event.setStartTime(row.getTimestamp( "start_time").toLocalDateTime());
+        event.setEndTime(row.getTimestamp("end_time").toLocalDateTime());
         event.setCreatedBy(row.getInt("created_by"));
 
         return event;

@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Match;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -18,11 +19,12 @@ public class JdbcEventDao implements EventDao{
 
     public JdbcEventDao(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
 
+    @Override
     public List<Event> getAllEventsByGroupId(int groupId) {
         List<Event> groupEvents= new ArrayList<>();
 
         String sql = "SELECT e.event_id, e.event_name, e.description, e.start_time, " +
-                "e.location, e.created_by FROM events e " +
+                "e.end_time, e.location, e.created_by FROM events e " +
                 "JOIN groups_events ge on e.event_id = ge.event_id " +
                 "JOIN groups g on ge.group_id = g.group_id " +
                 "where g.group_id = ?;";
@@ -39,8 +41,14 @@ public class JdbcEventDao implements EventDao{
         return null;
     }
 
-    public Event addNewEvent(int groupId, int userId) {
-        return null;
+    public void addNewUserEvent(Event newEvent) {
+
+        String sql = "INSERT INTO events (event_name, description, start_time, " +
+                        "end_time, location, created_by) " +
+                        "VALUES (?,?,?,?,?,?);";
+
+            jdbcTemplate.update(sql, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
+                    newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
     }
 
     public Event getEventDetails(int eventId) {
@@ -69,7 +77,8 @@ public class JdbcEventDao implements EventDao{
         event.setEventId(rs.getInt("event_id"));
         event.setEventName(rs.getString("event_name"));
         event.setDescription(rs.getString("description"));
-        event.setStartTime(rs.getTimestamp("start_time"));
+        event.setStartTime(rs.getTimestamp("start_time").toLocalDateTime());
+        event.setEndTime(rs.getTimestamp("end_time").toLocalDateTime());
         event.setLocation(rs.getString("location"));
         event.setCreatedBy(rs.getInt("created_by"));
 
