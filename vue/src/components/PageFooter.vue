@@ -10,6 +10,6 @@ export default {};
 
 <style scoped>
 .footer {
-  background-color: aquamarine;
+  background-color: #dbe8ec;
 }
 </style>

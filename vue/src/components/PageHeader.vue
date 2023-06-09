@@ -27,8 +27,8 @@ export default {};
 
 <style scoped>
 .header {
-  background-color: rgb(224, 179, 120);
   display: inline;
+  border-bottom: 1.5px solid #f2ede2;
 }
 .header div {
   display: inline-block;

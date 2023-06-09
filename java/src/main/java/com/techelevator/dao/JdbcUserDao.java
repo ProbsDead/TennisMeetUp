@@ -137,7 +137,7 @@ public class JdbcUserDao implements UserDao {
 
         String sql = "SELECT * FROM match " +
                 "JOIN match_user mu ON mu.match_id = match.match_id " +
-                "JOIN events ON events.event_id = match.event_id" +
+                "JOIN events ON events.event_id = match.event_id " +
                 "WHERE user_id=? ORDER BY events.start_time ASC;";
 
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
@@ -164,9 +164,9 @@ public class JdbcUserDao implements UserDao {
     @Override
     public User updateUserGoal(User user, int userId) {
         String sql="UPDATE users SET goal=? WHERE user_id =?;";
-        jdbcTemplate.update(sql, user.getGoal(), user.getId());
+        jdbcTemplate.update(sql, user.getGoal(), userId);
 
-        return getUserById(user.getId());
+        return getUserById(userId);
     }
 
     private User mapRowToUser(SqlRowSet rs) {
@@ -179,12 +179,12 @@ public class JdbcUserDao implements UserDao {
         user.setCity(rs.getString("city"));
         user.setEmail(rs.getString("email"));
         user.setState(rs.getString("state"));
+        user.setRole(rs.getString("role"));
 
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
         return user;
     }
-
     private Event mapRowToEvent(SqlRowSet row) {
         Event event = new Event();
 

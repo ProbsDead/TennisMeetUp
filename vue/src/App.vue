@@ -91,7 +91,7 @@ export default {
 }
 .default-header {
   position: relative;
-  min-height: 18vh;
+  min-height: 10vh;
   width: calc(100%-75px);
   left: 75px;
   transition: all 0.5s ease;
@@ -116,7 +116,7 @@ export default {
 
 .expanded-header {
   position: relative;
-  min-height: 18vh;
+  min-height: 10vh;
   left: 250px;
   width: calc(100% - 250px);
   transition: all 0.5s ease;

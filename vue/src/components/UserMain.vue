@@ -6,14 +6,28 @@
         <h3 class="section-title">My Goal</h3>
         <div class="goal-box">
           <p>{{ user.goal ? user.goal : `No current goals` }}</p>
-          <p>Update goals</p>
+          <p class="update-goal-text" @click="updateText = !updateText">
+            Update goals
+          </p>
+          <div class="input-form" v-if="updateText">
+            <input
+              type="textarea"
+              class="free-text"
+              v-model="newGoal"
+              placeholder="Write a new goal"
+            />
+            <span class="btn" @click="updateGoal"> submit </span>
+          </div>
         </div>
       </div>
       <div class="stats">
         <h3 class="section-title">Stats</h3>
         <div class="stats-box">
           <div>Total matches: {{ matches.length }}</div>
-          <div>Total Wins: {{ (winsTotal / matches.length) * 100 }}%</div>
+          <div>
+            Total Wins:
+            {{ matches.length ? (winsTotal / matches.length) * 100 : 0 }}%
+          </div>
           <div>View all match history with scores</div>
         </div>
       </div>
@@ -33,6 +47,8 @@ export default {
       user: this.$store.state.user,
       matches: [],
       winsTotal: 0,
+      newGoal: "",
+      updateText: false,
     };
   },
   created() {
@@ -61,6 +77,12 @@ export default {
         this.errorMsg = "An error occurred, please try again later.";
       }
     },
+    updateGoal() {
+      this.user.goal = this.newGoal;
+      UserService.updateUserGoal(this.user.id, this.user);
+
+      this.updateText = false;
+    },
   },
 };
 </script>
@@ -68,23 +90,80 @@ export default {
 <style scoped>
 section.goal-and-stats {
   display: flex;
-  justify-content: space-evenly;
-  background-color: #cddfd6;
-  min-height: 35vw;
+  justify-content: center;
+  background-color: #fef9e9;
+  min-height: 30vw;
+  padding: 30px;
+  gap: 40px;
 }
+
+.stats {
+  padding-right: 60px;
+}
+
 div.goal-box,
 div.stats-box {
-  min-width: 35vw;
+  min-width: 40vw;
   min-height: 30vw;
   font-family: "Poppins", sans-serif;
   padding-left: 20px;
-  padding-right: 20px;
-  border: 1px solid black;
+  border: 1px solid rgb(183, 183, 183);
   border-radius: 5px;
+}
+
+.update-goal-text:hover {
+  cursor: pointer;
+  color: #2a9d8f;
 }
 
 .section-title,
 h1 {
   text-align: center;
+}
+
+.btn {
+  background-color: #5b919c;
+  border-radius: 5px;
+  border-style: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 500;
+  height: 40px;
+  letter-spacing: normal;
+  line-height: 1;
+  padding: 10px 12px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background-color: #3b6070;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 5px 30px, rgba(0, 0, 0, 0.05) 0 1px 4px;
+  opacity: 1;
+  transition-duration: 0.35s;
+}
+
+.input-form {
+  display: inline-block;
+}
+
+.free-text {
+  width: 80%;
+  padding: 8px 16px;
+  line-height: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  border-radius: 6px;
+  color: #99a3ba;
+  border: 1px solid #cdd9ed;
+  background: #fff;
+  transition: border 0.3s ease;
 }
 </style>

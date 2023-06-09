@@ -21,8 +21,10 @@ public class User {
    private String city;
    private String state;
    private String goal;
+   private String role;
    @JsonIgnore
    private boolean activated;
+   @JsonIgnore
    private Set<Authority> authorities = new HashSet<>();
 
    public User() { }
@@ -33,6 +35,7 @@ public class User {
       this.password = password;
       if(authorities != null) this.setAuthorities(authorities);
       this.activated = true;
+      role = "ROLE_USER";
    }
 
    public User(int id, String username, String password, String email, String city, String authorities) {
@@ -43,6 +46,7 @@ public class User {
       this.city = city;
       if(authorities != null) this.setAuthorities(authorities);
       this.activated = true;
+      role = "ROLE_USER";
    }
 
    public User(int id, String firstName, String lastName, String username, String password, String email,String state, String city, String authorities) {
@@ -56,6 +60,7 @@ public class User {
       this.city = city;
       if(authorities != null) this.setAuthorities(authorities);
       this.activated = true;
+      role = "ROLE_USER";
    }
 
 
@@ -165,6 +170,14 @@ public class User {
 
    public void setGoal(String goal) {
       this.goal = goal;
+   }
+
+   public String getRole() {
+      return role;
+   }
+
+   public void setRole(String role) {
+      this.role = role;
    }
 
    @Override
