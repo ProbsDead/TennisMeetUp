@@ -1,16 +1,13 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Match;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import com.techelevator.model.Event;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 public class JdbcEventDao implements EventDao{
@@ -25,9 +22,8 @@ public class JdbcEventDao implements EventDao{
 
         String sql = "SELECT e.event_id, e.event_name, e.description, e.start_time, " +
                 "e.end_time, e.location, e.created_by FROM events e " +
-                "JOIN groups_events ge on e.event_id = ge.event_id " +
-                "JOIN groups g on ge.group_id = g.group_id " +
-                "where g.group_id = ?;";
+                "JOIN groups_events ge ON e.event_id = ge.event_id " +
+                "WHERE ge.group_id = ?;";
 
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, groupId);
 
@@ -47,12 +43,22 @@ public class JdbcEventDao implements EventDao{
                         "end_time, location, created_by) " +
                         "VALUES (?,?,?,?,?,?);";
 
-            jdbcTemplate.update(sql, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
-                    newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
+        jdbcTemplate.update(sql, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
+            newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
+
     }
 
     public Event getEventDetails(int eventId) {
-        return null;
+        Event eventDetails = new Event();
+
+        String sql = "SELECT * FROM events WHERE event_id = ?;";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, eventId);
+
+        while(rowSet.next()) {
+            eventDetails = mapRowToEvent(rowSet);
+        }
+
+        return eventDetails;
     }
 
     public void updateEventDetails(int creatorId, int eventId) {
@@ -78,7 +84,7 @@ public class JdbcEventDao implements EventDao{
         event.setEventName(rs.getString("event_name"));
         event.setDescription(rs.getString("description"));
         event.setStartTime(rs.getTimestamp("start_time").toLocalDateTime());
-        event.setEndTime(rs.getTimestamp("end_time").toLocalDateTime());
+//        event.setEndTime(rs.getTimestamp("end_time").toLocalDateTime());
         event.setLocation(rs.getString("location"));
         event.setCreatedBy(rs.getInt("created_by"));
 

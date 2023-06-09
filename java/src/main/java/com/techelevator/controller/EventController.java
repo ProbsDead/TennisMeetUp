@@ -22,6 +22,11 @@ public class EventController {
         return eventDao.getAllEventsByGroupId(groupId);
     }
 
+    @GetMapping(path="/{eventId}")
+    public Event getEventDetails(@PathVariable int eventId) {
+        return eventDao.getEventDetails(eventId);
+    }
+
     @PostMapping(path="/add")
     public void addNewUserEvent(@RequestBody Event newEvent) {eventDao.addNewUserEvent(newEvent);}
 }
