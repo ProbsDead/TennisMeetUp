@@ -35,7 +35,14 @@
     </section>
     <h2>My Groups</h2>
     <section class="my-groups">
-      <my-group></my-group>
+      <div v-if="!userGroups.length">
+        You are not a member of any group. Join new groups.
+      </div>
+      <div v-else>
+        <div v-for="group in userGroups" v-bind:key="group.group_id">
+          <my-group v-bind:group-box="group"></my-group>
+        </div>
+      </div>
     </section>
     <section class="upcoming-events"></section>
     <section class="previous-events"></section>
@@ -55,6 +62,7 @@ export default {
   data() {
     return {
       user: this.$store.state.user,
+      userGroups: [],
       matches: [],
       winsTotal: 0,
       newGoal: "",
@@ -67,7 +75,8 @@ export default {
       .then((response) => {
         this.matches = response.data;
         this.matches.forEach((match) => {
-          if (  // was the user the winner?
+          if (
+            // was the user the winner?
             match.winner === this.user.id ||
             match.winner_two === this.user.id
           )
@@ -77,9 +86,11 @@ export default {
       .catch((error) => {
         this.handleError(error);
       });
-    
+
     // retrieve all of the groups the USER is part of
-    GroupService.getGroupsByUser(this.user.id);
+    GroupService.getGroupsByUser(this.user.id).then((response) => {
+      this.userGroups = response.data;
+    });
   },
   methods: {
     handleError(error) {
@@ -140,13 +151,14 @@ div.stats-box div {
   font-size: 1.5em;
 }
 
-h1, h2{
+h1,
+h2 {
   color: #264653;
   font-size: 2em;
   margin: 0.1em 0.6em 0.6em;
 }
 
-h2{
+h2 {
   font-size: 1.7em;
   margin: 0.8em;
 }
