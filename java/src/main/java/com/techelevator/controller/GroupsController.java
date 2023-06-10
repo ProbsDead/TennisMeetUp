@@ -69,7 +69,7 @@ public class GroupsController {
      * @param userId
      * @return List of Groups
      */
-    @GetMapping(path = "/groups/{userId}")
+    @GetMapping(path = "/user/{userId}")
     public List<Group> getUsersGroups(@PathVariable int userId){
         return groupsDao.getUsersGroups(userId);
     }

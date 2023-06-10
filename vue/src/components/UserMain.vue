@@ -5,10 +5,10 @@
       <div class="goal">
         <h3 class="section-title">My Goal</h3>
         <div class="goal-box">
-          <p>{{ user.goal ? user.goal : `No current goals` }}</p>
-          <p class="update-goal-text" @click="updateText = !updateText">
+          <div>{{ user.goal ? user.goal : `No current goals` }}</div>
+          <div class="update-goal-text" @click="updateText = !updateText">
             Update goals
-          </p>
+          </div>
           <div class="input-form" v-if="updateText">
             <input
               type="textarea"
@@ -23,16 +23,20 @@
       <div class="stats">
         <h3 class="section-title">Stats</h3>
         <div class="stats-box">
-          <div>Total matches: {{ matches.length }}</div>
+          <div><span>TOTAL MATCHES: </span>{{ matches.length }}</div>
           <div>
-            Total Wins:
+            <span> TOTAL WINS: </span>
+
             {{ matches.length ? (winsTotal / matches.length) * 100 : 0 }}%
           </div>
           <div>View all match history with scores</div>
         </div>
       </div>
     </section>
-    <section class="my-groups"></section>
+    <h2>My Groups</h2>
+    <section class="my-groups">
+      <my-group></my-group>
+    </section>
     <section class="upcoming-events"></section>
     <section class="previous-events"></section>
   </div>
@@ -40,8 +44,14 @@
 
 <script>
 import UserService from "../services/UserService.js";
+import GroupService from "../services/GroupService.js";
+import MyGroup from "./MyGroup.vue";
+
 export default {
   name: "user-main",
+  components: {
+    MyGroup,
+  },
   data() {
     return {
       user: this.$store.state.user,
@@ -52,11 +62,12 @@ export default {
     };
   },
   created() {
+    // retrieve all match history for stats calculation
     UserService.getUserMatches(this.user.id)
       .then((response) => {
         this.matches = response.data;
         this.matches.forEach((match) => {
-          if (
+          if (  // was the user the winner?
             match.winner === this.user.id ||
             match.winner_two === this.user.id
           )
@@ -66,6 +77,9 @@ export default {
       .catch((error) => {
         this.handleError(error);
       });
+    
+    // retrieve all of the groups the USER is part of
+    GroupService.getGroupsByUser(this.user.id);
   },
   methods: {
     handleError(error) {
@@ -79,8 +93,8 @@ export default {
     },
     updateGoal() {
       this.user.goal = this.newGoal;
-      UserService.updateUserGoal(this.user.id, this.user);
-
+      const updatedUser = UserService.updateUserGoal(this.user.id, this.user);
+      this.$store.state.user = updatedUser;
       this.updateText = false;
     },
   },
@@ -91,7 +105,7 @@ export default {
 section.goal-and-stats {
   display: flex;
   justify-content: center;
-  background-color: #fef9e9;
+  background-color: #f5f29e;
   min-height: 30vw;
   padding: 30px;
   gap: 40px;
@@ -104,21 +118,37 @@ section.goal-and-stats {
 div.goal-box,
 div.stats-box {
   min-width: 40vw;
-  min-height: 30vw;
+  min-height: 15vw;
   font-family: "Poppins", sans-serif;
   padding-left: 20px;
-  border: 1px solid rgb(183, 183, 183);
+  /* border: 1px solid rgb(183, 183, 183); */
   border-radius: 5px;
 }
 
+div.goal-box div,
+div.stats-box div {
+  font-size: 1.2em;
+}
 .update-goal-text:hover {
   cursor: pointer;
   color: #2a9d8f;
 }
 
-.section-title,
-h1 {
+.section-title {
   text-align: center;
+  color: #264653;
+  font-size: 1.5em;
+}
+
+h1, h2{
+  color: #264653;
+  font-size: 2em;
+  margin: 0.1em 0.6em 0.6em;
+}
+
+h2{
+  font-size: 1.7em;
+  margin: 0.8em;
 }
 
 .btn {

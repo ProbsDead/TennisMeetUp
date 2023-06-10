@@ -18,5 +18,8 @@ export default {
   },
   getAllPublicGroups() {
     return http.get('/public');
+  },
+  getGroupsByUser(userId) {
+    return http.get(`/user/${userId}`);
   }
 };

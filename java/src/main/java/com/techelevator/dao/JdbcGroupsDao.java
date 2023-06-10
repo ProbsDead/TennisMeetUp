@@ -110,8 +110,9 @@ public class JdbcGroupsDao implements GroupsDao {
     public List<Group> getUsersGroups(int userId) {
         List<Group> usersGroups = new ArrayList<>();
 
-        String sql = "SELECT groups.group_id, group_name, city, location, created_by, is_public, about " +
-                "FROM groups " +
+        String sql =
+//                "SELECT groups.group_id, group_name, city, location, created_by, is_public, about " +
+                "SELECT * FROM groups " +
                 "JOIN groups_player gp ON gp.group_id = groups.group_id " +
                 "WHERE user_id = ?;";
 
@@ -122,24 +123,6 @@ public class JdbcGroupsDao implements GroupsDao {
 
         return usersGroups;
     }
-
-    //    /**
-//     * This method retrieves the userId of the admin of a specific group before creating a new entity within
-//     * the requests table inviting another user to join said group.
-//     * @param groupId
-//     * @param joiningUserId
-//     */
-//    @Override
-//    public void inviteNewMember(int groupId, int joiningUserId) {
-//
-//        //retrieve admin Id
-//        String sql = "SELECT user_id FROM groups_player WHERE group_id=? AND role=?;";
-//        int adminId = jdbcTemplate.queryForObject(sql, int.class, groupId, "ROLE_ADMIN");
-//
-//        sql = "INSERT INTO requests(group_id, joining_user_id, admin_user_id, status, invite_or_request) VALUES(?,?,?,?,?);";
-//        jdbcTemplate.update(sql, groupId, joiningUserId, adminId, false, "invite");
-//
-//    }
 
     // mapping for group
     private Group mapRowToGroup(SqlRowSet row) {

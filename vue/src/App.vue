@@ -91,9 +91,12 @@ export default {
 }
 .default-header {
   position: relative;
+  left: 75px;
+  /* position: sticky;
+  top:0;  
+  z-index:1;*/
   min-height: 10vh;
   width: calc(100%-75px);
-  left: 75px;
   transition: all 0.5s ease;
 }
 
@@ -110,7 +113,6 @@ export default {
   position: relative;
   min-height: 100vh;
   left: 250px;
-  width: calc(100% - 250px);
   transition: all 0.5s ease;
 }
 
