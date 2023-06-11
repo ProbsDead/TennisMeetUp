@@ -6,8 +6,9 @@
         <h3 class="section-title">My Goal</h3>
         <div class="goal-box">
           <div>{{ user.goal ? user.goal : `No current goals` }}</div>
+          <br />
           <div class="update-goal-text" @click="updateText = !updateText">
-            Update goals
+            Update goal
           </div>
           <div class="input-form" v-if="updateText">
             <input
@@ -22,7 +23,20 @@
       </div>
       <div class="stats">
         <h3 class="section-title">Stats</h3>
-        <div class="stats-box">
+        <div class="ui statistics">
+          <div class="ui mini horizontal statistic">
+            <div class="value">{{ matches.length }}</div>
+            <div class="label">Total Matches</div>
+          </div>
+          <div class="ui mini horizontal statistic">
+            <div class="value">
+              {{ matches.length ? (winsTotal / matches.length) * 100 : 0 }}%
+            </div>
+            <div class="label">Total Wins</div>
+          </div>
+        </div>
+
+        <!-- <div class="stats-box">
           <div><span>TOTAL MATCHES: </span>{{ matches.length }}</div>
           <div>
             <span> TOTAL WINS: </span>
@@ -30,20 +44,44 @@
             {{ matches.length ? (winsTotal / matches.length) * 100 : 0 }}%
           </div>
           <div>View all match history with scores</div>
-        </div>
+        </div> -->
       </div>
     </section>
-    <h2>My Groups</h2>
+    <h2>My Groups ({{ userGroups.length }})</h2>
     <section class="my-groups">
       <div v-if="!userGroups.length">
         You are not a member of any group. Join new groups.
       </div>
       <div v-else>
-        <div v-for="group in userGroups" v-bind:key="group.group_id">
+        <div
+          class="ui four cards"
+          v-for="group in userGroups"
+          v-bind:key="group.group_id"
+        >
           <my-group v-bind:group-box="group"></my-group>
         </div>
       </div>
     </section>
+    <br />
+
+    <div>
+      <span class="link"
+        ><router-link
+          v-bind:to="{
+            name: 'search-groups',
+          }"
+          >Browse other groups</router-link
+        >
+      </span>
+      <span class="link"
+        ><router-link
+          v-bind:to="{
+            name: 'create-group',
+          }"
+          >Create a new group</router-link
+        ></span
+      >
+    </div>
     <section class="upcoming-events"></section>
     <section class="previous-events"></section>
   </div>
@@ -131,14 +169,14 @@ div.stats-box {
   min-width: 40vw;
   min-height: 15vw;
   font-family: "Poppins", sans-serif;
-  padding-left: 20px;
+  /* padding-left: 20px; */
   /* border: 1px solid rgb(183, 183, 183); */
   border-radius: 5px;
 }
 
 div.goal-box div,
 div.stats-box div {
-  font-size: 1.2em;
+  font-size: 16px;
 }
 .update-goal-text:hover {
   cursor: pointer;
@@ -146,7 +184,7 @@ div.stats-box div {
 }
 
 .section-title {
-  text-align: center;
+  /* text-align: center; */
   color: #264653;
   font-size: 1.5em;
 }
@@ -155,12 +193,12 @@ h1,
 h2 {
   color: #264653;
   font-size: 2em;
-  margin: 0.1em 0.6em 0.6em;
+  margin: 0.1em 0.8em 0.6em;
 }
 
 h2 {
   font-size: 1.7em;
-  margin: 0.8em;
+  margin: 0.9em;
 }
 
 .btn {
@@ -207,5 +245,14 @@ h2 {
   border: 1px solid #cdd9ed;
   background: #fff;
   transition: border 0.3s ease;
+}
+
+section {
+  padding-left: 20px;
+}
+
+a {
+  text-decoration: none;
+  padding-left: 20px;
 }
 </style>
