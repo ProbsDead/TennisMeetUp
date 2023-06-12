@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Event;
+import com.techelevator.model.Group;
 import com.techelevator.model.Match;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface EventDao {
 
     List<Event> getFutureEventsByGroupId(int groupId);
 
-    void addNewUserEvent(Event newEvent);
+    void addNewEvent(Event newEvent, Group sponsorGroup);
 
     Event getEventDetails(int eventId);
 

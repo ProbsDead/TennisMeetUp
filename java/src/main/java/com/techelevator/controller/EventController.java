@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.EventDao;
 import com.techelevator.dao.JdbcEventDao;
 import com.techelevator.model.Event;
+import com.techelevator.model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,5 +29,5 @@ public class EventController {
     }
 
     @PostMapping(path="/add")
-    public void addNewUserEvent(@RequestBody Event newEvent) {eventDao.addNewUserEvent(newEvent);}
+    public void addNewEvent(@RequestBody Event newEvent, Group sponsorGroup) {eventDao.addNewEvent(newEvent, sponsorGroup);}
 }

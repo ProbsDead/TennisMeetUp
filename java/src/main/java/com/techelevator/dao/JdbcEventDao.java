@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import com.techelevator.model.Event;
+import com.techelevator.model.Group;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,15 +38,16 @@ public class JdbcEventDao implements EventDao{
         return null;
     }
 
-    public void addNewUserEvent(Event newEvent) {
+    public void addNewEvent(Event newEvent, Group sponsorGroup) {
 
         String sql = "INSERT INTO events (event_name, description, start_time, " +
                         "end_time, location, created_by) " +
-                        "VALUES (?,?,?,?,?,?);";
+                        "VALUES (?,?,?,?,?,?);" +
+                    "INSERT INTO groups_events (event_id, group_id) " +
+                    "VALUES (?,?);";
 
         jdbcTemplate.update(sql, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
-            newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
-
+            newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy(), newEvent.getEventId(), sponsorGroup.getGroupId());
     }
 
     public Event getEventDetails(int eventId) {
@@ -62,11 +64,11 @@ public class JdbcEventDao implements EventDao{
     }
 
     public void updateEventDetails(int creatorId, int eventId) {
-
+        // why do we need the creatorId here?
     }
 
     public void deleteEvent(int creatorId, int eventId) {
-
+        // why do we need the creatorId here?
     }
 
     public void joinEvent(int userId, int eventId) {
@@ -74,6 +76,10 @@ public class JdbcEventDao implements EventDao{
     }
 
     public List<Match> getMatchesByEventId(int eventId) {
+        List <Match> matchList = new ArrayList<>();
+
+
+
         return null;
     }
 
@@ -84,9 +90,10 @@ public class JdbcEventDao implements EventDao{
         event.setEventName(rs.getString("event_name"));
         event.setDescription(rs.getString("description"));
         event.setStartTime(rs.getTimestamp("start_time").toLocalDateTime());
-//        event.setEndTime(rs.getTimestamp("end_time").toLocalDateTime());
+        event.setEndTime(rs.getTimestamp("end_time").toLocalDateTime());
         event.setLocation(rs.getString("location"));
         event.setCreatedBy(rs.getInt("created_by"));
+
 
         return event;
     }
