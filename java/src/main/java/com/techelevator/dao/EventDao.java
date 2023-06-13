@@ -11,7 +11,9 @@ public interface EventDao {
 
     List<Event> getFutureEventsByGroupId(int groupId);
 
-    void addNewEvent(Event newEvent, Group sponsorGroup);
+    int addNewEvent(Event newEvent, int groupId);
+
+    void addToGroupsEvents(int groupId, int newEventId);
 
     Event getEventDetails(int eventId);
 

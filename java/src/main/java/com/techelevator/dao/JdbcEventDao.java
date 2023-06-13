@@ -38,16 +38,21 @@ public class JdbcEventDao implements EventDao{
         return null;
     }
 
-    public void addNewEvent(Event newEvent, Group sponsorGroup) {
+    public int addNewEvent(Event newEvent, int groupId) {
 
-        String sql = "INSERT INTO events (event_name, description, start_time, " +
+        String eventSql = "INSERT INTO events (event_name, description, start_time, " +
                         "end_time, location, created_by) " +
-                        "VALUES (?,?,?,?,?,?);" +
-                    "INSERT INTO groups_events (event_id, group_id) " +
-                    "VALUES (?,?);";
+                        "VALUES (?,?,?,?,?,?) RETURNING event_id;";
 
-        jdbcTemplate.update(sql, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
-            newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy(), newEvent.getEventId(), sponsorGroup.getGroupId());
+        // this would return the event_id for the newly created event.  It is successfully doing this part.
+            return jdbcTemplate.update(eventSql, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
+                    newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
+    }
+
+    public void addToGroupsEvents(int groupId, int newEventId){
+        String groupEventSql = "INSERT INTO groups_events (group_id, event_id) " +
+                                "VALUES (?,?); ";
+        jdbcTemplate.update(groupEventSql, groupId, newEventId);
     }
 
     public Event getEventDetails(int eventId) {
