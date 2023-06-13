@@ -24,10 +24,11 @@ public class EventController {
     }
 
     @PostMapping(path="/add/group_id={groupId}")
-    public void addNewEvent(@RequestBody Event newEvent,@PathVariable int groupId) {
+    public Event addNewEvent(@RequestBody Event newEvent,@PathVariable int groupId) {
         // existing sql statement in this method returns the new event_id for this purpose
-        int newEventId = eventDao.addNewEvent(newEvent, groupId);
-        eventDao.addToGroupsEvents(groupId, newEventId);
+        Event event = eventDao.addNewEvent(newEvent, groupId);
+        eventDao.addToGroupsEvents(groupId, event.getEventId());
+        return event;
     }
 
     @GetMapping(path="/{eventId}")
@@ -35,4 +36,13 @@ public class EventController {
         return eventDao.getEventDetails(eventId);
     }
 
+    @GetMapping(path="/future/{groupId}")
+    public List<Event> getFutureEventsByGroupId(@PathVariable int groupId) {
+        return eventDao.getFutureEventsByGroupId(groupId);
+    }
+
+    @PutMapping(path="/{eventId}")
+    public Event updateEventDetails(@PathVariable int eventId, @RequestBody Event event){
+        return eventDao.updateEventDetails(event, eventId);
+    }
 }

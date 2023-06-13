@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import com.techelevator.model.Event;
-import com.techelevator.model.Group;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +34,21 @@ public class JdbcEventDao implements EventDao{
     }
 
     public List<Event> getFutureEventsByGroupId(int groupId) {
-        return null;
+        List<Event> events = new ArrayList<>();
+        String sql = "SELECT * FROM events e " +
+                "JOIN groups_events ge ON e.event_id = ge.event_id " +
+                "WHERE ge.group_id = ? AND e.start_time > NOW();";
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, groupId);
+
+        while(rowSet.next()) {
+            events.add(mapRowToEvent(rowSet));
+        }
+        return events;
+
     }
 
-    public int addNewEvent(Event newEvent, int groupId) {
+    public Event addNewEvent(Event newEvent, int groupId) {
 
         String eventSql = "INSERT INTO events (event_name, description, start_time, " +
                         "end_time, location, created_by) " +
@@ -54,7 +64,7 @@ public class JdbcEventDao implements EventDao{
         int eventId = jdbcTemplate.queryForObject(eventSql, int.class, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
                 newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
 
-        return eventId;
+        return getEventDetails(eventId);
     }
 
     public void addToGroupsEvents(int groupId, int newEventId){
@@ -76,10 +86,23 @@ public class JdbcEventDao implements EventDao{
         return eventDetails;
     }
 
-    public void updateEventDetails(int creatorId, int eventId) {
-        // why do we need the creatorId here?
-        // only the creator of the event should be able to update or delete the event
-            // to prevent random group member deleting events
+    /**
+     * This method receives a (updated) Event object from frontend, sets/updates the User goal and returns the updated User object
+        NOTE: make sure to check from frontend before sending the request
+              whether the person making this request is the one who created the event in the first place.
+              Only the user (group member) that created/added a new event should be able to modify/delete that event
+              so no one else messes with it
+     */
+    public Event updateEventDetails(Event event, int eventId) {
+
+        String sql = "UPDATE events SET event_name=?, description=?, start_time=?, " +
+                    "end_time=?, location=? WHERE event_id=?;";
+
+        jdbcTemplate.update(sql, event.getEventName(), event.getDescription(), event.getStartTime(),
+                            event.getEndTime(), event.getLocation(), eventId);
+
+        return getEventDetails(eventId);
+
     }
 
     public void deleteEvent(int creatorId, int eventId) {
