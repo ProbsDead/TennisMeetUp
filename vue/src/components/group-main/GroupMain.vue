@@ -3,7 +3,7 @@
     <section class="description">
       <div class="group-info">
         <div class="split-view">
-          <img src="../assets/tennis-court.jpg" alt="meetup-image" />
+          <img src="../../assets/tennis-court.jpg" alt="meetup-image" />
           <div class="details">
             <h1>{{ group.group_name }}</h1>
             <!-- <button class="request">Request Membership</button> -->
@@ -52,7 +52,9 @@
         >Members</span
       >
       <span> Photos </span>
-      <button :disabled='isDisabled' @click.prevent="createRequest()">{{buttonText}}</button>
+      <button :disabled="isDisabled" @click.prevent="createRequest()">
+        {{ buttonText }}
+      </button>
     </section>
 
     <section class="group-details">
@@ -70,11 +72,11 @@
 </template>
 
 <script>
-import GroupService from "../services/GroupService.js";
+import GroupService from "../../services/GroupService.js";
 import GroupAboutSection from "./GroupAboutSection.vue";
 import GroupEventsSection from "./GroupEventsSection.vue";
 import GroupMembersSection from "./GroupMembersSection.vue";
-import RequestService from "../services/RequestService";
+import RequestService from "../../services/RequestService";
 
 export default {
   name: "group-main",
@@ -99,7 +101,7 @@ export default {
       },
       buttonText: "Join this Group",
       isDisabled: false,
-      allRequests: {}
+      allRequests: {},
     };
   },
   created() {
@@ -128,27 +130,29 @@ export default {
           } else {
             this.memberNames.push(`${member.first_name} ${member.last_name}`);
           }
-          if(member.id == this.$store.state.user.id){
+          if (member.id == this.$store.state.user.id) {
             this.buttonText = "Already a Member";
             this.isDisabled = true;
-          } 
+          }
         });
         this.memberNames.sort();
       }
     );
 
     //Ensure that this user does not have a pending request
-    RequestService.getAllCurrentRequests(this.$route.params.groupId).then((response) =>{
-      this.allRequests = response.data;
-      this.allRequests.forEach((request) => {
-        if(request.joiningUserId == this.$store.state.user.id){
-          this.buttonText = "Request Sent"
-          this.isDisabled = true;
-        } 
+    RequestService.getAllCurrentRequests(this.$route.params.groupId)
+      .then((response) => {
+        this.allRequests = response.data;
+        this.allRequests.forEach((request) => {
+          if (request.joiningUserId == this.$store.state.user.id) {
+            this.buttonText = "Request Sent";
+            this.isDisabled = true;
+          }
+        });
       })
-    }).catch((error) =>{
-      this.handleError(error);
-    });
+      .catch((error) => {
+        this.handleError(error);
+      });
   },
   methods: {
     renderSection(event) {
@@ -169,28 +173,31 @@ export default {
       }
     },
 
-    createRequest(){
+    createRequest() {
       //Sends join request, greys out button and changes text once sent
       this.request.groupId = this.$route.params.groupId;
       this.request.joiningUserId = this.$store.state.user.id;
-      RequestService.sendRequestToJoin(this.request).then((response)=> {
-        if(response.status == 200 || response.status == 201){
-          this.buttonText = "Request Sent";
-          this.isDisabled = true;
-        }
-      }).catch((error) => {
-        this.handleError(error);
-      });
+      RequestService.sendRequestToJoin(this.request)
+        .then((response) => {
+          if (response.status == 200 || response.status == 201) {
+            this.buttonText = "Request Sent";
+            this.isDisabled = true;
+          }
+        })
+        .catch((error) => {
+          this.handleError(error);
+        });
     },
 
-    handleError(error){
+    handleError(error) {
       //A reusable error function to be used in the catch statements
-      if(error.request){
-        this.errorMsg = "Error submitting request. Server could not be reached.";
+      if (error.request) {
+        this.errorMsg =
+          "Error submitting request. Server could not be reached.";
       } else {
         this.errorMsg = "An error occurred, please try again later.";
       }
-    }
+    },
   },
 };
 </script>

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CreateNewGroup from "../components/CreateNewGroup.vue";
+import CreateNewGroup from "../components/all-groups/CreateNewGroup.vue";
 
 export default {
 name: "create-group",

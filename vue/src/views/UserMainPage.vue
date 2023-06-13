@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import UserMain from "../components/UserMain.vue";
+import UserMain from "../components/user-main/UserMain.vue";
 export default {
   components: {
     UserMain,

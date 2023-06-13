@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import GroupMain from "../components/GroupMain.vue";
+import GroupMain from "../components/group-main/GroupMain.vue";
 
 export default {
   components: {

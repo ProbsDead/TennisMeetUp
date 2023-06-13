@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SearchAndListGroups from "../components/SearchAndListGroups.vue";
+import SearchAndListGroups from "../components/all-groups/SearchAndListGroups.vue";
 
 export default {
   name: "search-groups",
