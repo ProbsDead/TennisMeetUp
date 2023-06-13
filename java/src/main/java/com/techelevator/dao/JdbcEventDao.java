@@ -44,9 +44,17 @@ public class JdbcEventDao implements EventDao{
                         "end_time, location, created_by) " +
                         "VALUES (?,?,?,?,?,?) RETURNING event_id;";
 
+        /* Kate: the query is fine, but Jdbc's update method actually returns the number of
+            rows returned, not the newly created serial id. You would need to use .queryForObject method
+         */
         // this would return the event_id for the newly created event.  It is successfully doing this part.
-            return jdbcTemplate.update(eventSql, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
-                    newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
+//            return jdbcTemplate.update(eventSql, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
+//                    newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
+        //
+        int eventId = jdbcTemplate.queryForObject(eventSql, int.class, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
+                newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
+
+        return eventId;
     }
 
     public void addToGroupsEvents(int groupId, int newEventId){
@@ -70,6 +78,8 @@ public class JdbcEventDao implements EventDao{
 
     public void updateEventDetails(int creatorId, int eventId) {
         // why do we need the creatorId here?
+        // only the creator of the event should be able to update or delete the event
+            // to prevent random group member deleting events
     }
 
     public void deleteEvent(int creatorId, int eventId) {
