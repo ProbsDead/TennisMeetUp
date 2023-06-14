@@ -3,6 +3,7 @@
         <form action="">
             <label for="groupName">Group Name: </label>
             <input type="text" id="groupName">
+            
             <label for="state">State: </label>
             <select name="state" id="state">
                 <option
@@ -15,22 +16,7 @@
             <label for="city">City: </label>
             <input type="text" id="city">
             <label for="location">Meet Up Location: </label>
-            <section class="ui two column centered grid">
-                <div class="column">
-                    <form action="">
-                        <div class="ui message red"></div>
-                        <div class="ui segment">
-                            <div class="field">
-                                <div class="ui right icon input large">
-                                    <input type="text" placeholder="Enter Address">
-                                    <i class="map marker icon"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                
-            </section>
+           
         </form>
 
     </div>
@@ -41,7 +27,7 @@ export default {
     name: "create-new-group",
 
     components: {
-
+        
     },
 
     data() {
@@ -53,9 +39,22 @@ export default {
     created() {
 
     },
+    mounted(){
+        const google = window.google;
+        const originAutocomplete = new google.maps.places.Autocomplete();
+        return originAutocomplete;
+    },
 
     methods: {
 
+        handleError(error){
+      //A reusable error function to be used in the catch statements
+      if(error.request){
+        this.errorMsg = "Error submitting request. Server could not be reached.";
+      } else {
+        this.errorMsg = "An error occurred, please try again later.";
+      }
+    }
     }
     
 }
