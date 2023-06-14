@@ -16,6 +16,7 @@
             <label for="city">City: </label>
             <input type="text" id="city">
             <label for="location">Meet Up Location: </label>
+            <input type="text" id="autocomplete" placeholder="Address" ref="origin"/>
            
         </form>
 
@@ -41,8 +42,14 @@ export default {
     },
     mounted(){
         const google = window.google;
-        const originAutocomplete = new google.maps.places.Autocomplete();
-        return originAutocomplete;
+        const originAutocomplete = new google.maps.places.Autocomplete(
+            this.$refs["origin"],    
+        );
+
+        originAutocomplete.addListener("place_changed", () => {
+            originAutocomplete.getPlace();
+        });
+   
     },
 
     methods: {
