@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import GroupService from "../services/GroupService.js";
+import GroupService from "../../services/GroupService.js";
 import ListGroups from "./ListGroups.vue";
 
 export default {

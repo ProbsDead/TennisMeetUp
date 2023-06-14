@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import GroupService from "../services/GroupService";
+import GroupService from "../../services/GroupService";
 export default {
   data() {
     return {

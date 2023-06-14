@@ -44,7 +44,7 @@ CREATE TABLE events (
 	event_name varchar(250) NOT NULL,
 	description varchar(300) NOT NULL,
 	start_time timestamp NOT NULL,
-	end_time timestamp NULL,
+	end_time timestamp NOT NULL,
 	location varchar (250) NOT NULL,
 	created_by int NOT NULL,
 	

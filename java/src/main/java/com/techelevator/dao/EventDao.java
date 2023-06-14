@@ -10,11 +10,13 @@ public interface EventDao {
 
     List<Event> getFutureEventsByGroupId(int groupId);
 
-    void addNewUserEvent(Event newEvent);
+    Event addNewEvent(Event newEvent, int groupId);
+
+    void addToGroupsEvents(int groupId, int newEventId);
 
     Event getEventDetails(int eventId);
 
-    void updateEventDetails(int creatorId, int eventId);
+    Event updateEventDetails(Event event, int eventId);
 
     void deleteEvent(int creatorId, int eventId);
 

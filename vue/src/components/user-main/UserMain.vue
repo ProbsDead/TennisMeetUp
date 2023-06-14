@@ -88,8 +88,8 @@
 </template>
 
 <script>
-import UserService from "../services/UserService.js";
-import GroupService from "../services/GroupService.js";
+import UserService from "../../services/UserService.js";
+import GroupService from "../../services/GroupService.js";
 import MyGroup from "./MyGroup.vue";
 
 export default {

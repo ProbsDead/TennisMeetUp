@@ -34,18 +34,43 @@ public class JdbcEventDao implements EventDao{
     }
 
     public List<Event> getFutureEventsByGroupId(int groupId) {
-        return null;
+        List<Event> events = new ArrayList<>();
+        String sql = "SELECT * FROM events e " +
+                "JOIN groups_events ge ON e.event_id = ge.event_id " +
+                "WHERE ge.group_id = ? AND e.start_time > NOW();";
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, groupId);
+
+        while(rowSet.next()) {
+            events.add(mapRowToEvent(rowSet));
+        }
+        return events;
+
     }
 
-    public void addNewUserEvent(Event newEvent) {
+    public Event addNewEvent(Event newEvent, int groupId) {
 
-        String sql = "INSERT INTO events (event_name, description, start_time, " +
+        String eventSql = "INSERT INTO events (event_name, description, start_time, " +
                         "end_time, location, created_by) " +
-                        "VALUES (?,?,?,?,?,?);";
+                        "VALUES (?,?,?,?,?,?) RETURNING event_id;";
 
-        jdbcTemplate.update(sql, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
-            newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
+        /* Kate: the query is fine, but Jdbc's update method actually returns the number of
+            rows returned, not the newly created serial id. You would need to use .queryForObject method
+         */
+        // this would return the event_id for the newly created event.  It is successfully doing this part.
+//            return jdbcTemplate.update(eventSql, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
+//                    newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
+        //
+        int eventId = jdbcTemplate.queryForObject(eventSql, int.class, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
+                newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
 
+        return getEventDetails(eventId);
+    }
+
+    public void addToGroupsEvents(int groupId, int newEventId){
+        String groupEventSql = "INSERT INTO groups_events (group_id, event_id) " +
+                                "VALUES (?,?); ";
+        jdbcTemplate.update(groupEventSql, groupId, newEventId);
     }
 
     public Event getEventDetails(int eventId) {
@@ -61,12 +86,27 @@ public class JdbcEventDao implements EventDao{
         return eventDetails;
     }
 
-    public void updateEventDetails(int creatorId, int eventId) {
+    /**
+     * This method receives a (updated) Event object from frontend, sets/updates the User goal and returns the updated User object
+        NOTE: make sure to check from frontend before sending the request
+              whether the person making this request is the one who created the event in the first place.
+              Only the user (group member) that created/added a new event should be able to modify/delete that event
+              so no one else messes with it
+     */
+    public Event updateEventDetails(Event event, int eventId) {
+
+        String sql = "UPDATE events SET event_name=?, description=?, start_time=?, " +
+                    "end_time=?, location=? WHERE event_id=?;";
+
+        jdbcTemplate.update(sql, event.getEventName(), event.getDescription(), event.getStartTime(),
+                            event.getEndTime(), event.getLocation(), eventId);
+
+        return getEventDetails(eventId);
 
     }
 
     public void deleteEvent(int creatorId, int eventId) {
-
+        // why do we need the creatorId here?
     }
 
     public void joinEvent(int userId, int eventId) {
@@ -74,6 +114,10 @@ public class JdbcEventDao implements EventDao{
     }
 
     public List<Match> getMatchesByEventId(int eventId) {
+        List <Match> matchList = new ArrayList<>();
+
+
+
         return null;
     }
 
@@ -84,9 +128,10 @@ public class JdbcEventDao implements EventDao{
         event.setEventName(rs.getString("event_name"));
         event.setDescription(rs.getString("description"));
         event.setStartTime(rs.getTimestamp("start_time").toLocalDateTime());
-//        event.setEndTime(rs.getTimestamp("end_time").toLocalDateTime());
+        event.setEndTime(rs.getTimestamp("end_time").toLocalDateTime());
         event.setLocation(rs.getString("location"));
         event.setCreatedBy(rs.getInt("created_by"));
+
 
         return event;
     }
