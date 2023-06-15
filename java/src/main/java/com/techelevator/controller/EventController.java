@@ -44,8 +44,11 @@ public class EventController {
     public Event updateEventDetails(@PathVariable int eventId, @RequestBody Event event){
         return eventDao.updateEventDetails(event, eventId);
     }
-    @DeleteMapping(path="/delete/?creatorId={creatorId}&eventId={eventId}")
-    public boolean deleteEvent (@RequestParam int creatorId, @RequestParam int eventId){
-        return eventDao.deleteEvent(creatorId, eventId);
+    @DeleteMapping(path="/delete/{eventId}")
+    public void deleteEvent(@PathVariable int eventId) { eventDao.deleteEvent(eventId); }
+
+    @PostMapping(path="/{eventId}/join/user/{userId}")
+    public void joinEvent(@PathVariable int eventId, @PathVariable int userId){
+        eventDao.joinEvent(userId, eventId);
     }
 }

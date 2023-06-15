@@ -98,20 +98,15 @@ public class JdbcEventDao implements EventDao{
 
     }
 
-    public boolean deleteEvent(int creatorId, int eventId) {
-        boolean authorized = false;
-
+    public void deleteEvent(int eventId) {
         String sql = "DELETE FROM groups_events WHERE event_id = ?;" +
                      "DELETE FROM events WHERE event_id = ?;";
-        if(getEventDetails(eventId).getCreatedBy() == creatorId) {
-            jdbcTemplate.update(sql, eventId);
-            authorized = true;
-        }
-        return authorized;
+            jdbcTemplate.update(sql, eventId, eventId);
     }
 
     public void joinEvent(int userId, int eventId) {
-
+        String sql = "INSERT INTO user_event (user_id, event_id) VALUES (?,?);";
+        jdbcTemplate.update(sql, userId, eventId);
     }
 
     public List<Match> getMatchesByEventId(int eventId) {
