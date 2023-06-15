@@ -3,7 +3,7 @@
         <form action="">
             <div>
                 <label for="groupName">Group Name: </label>
-                <input type="text" id="groupName">
+                <input type="text" id="groupName" v-model="groupName">
             </div>
             <div>
                 <label for="autocomplete">Meet-Up Home Location: </label>
@@ -26,6 +26,21 @@
             <div>
                 <input type="text" name="zip" id="zip" placeholder="Zip Code">
             </div>
+            <div>
+                <label for="description">Tell us about this group:</label>
+                <br>
+                <textarea name="description" id="description" cols="70" rows="6"></textarea>
+            </div>
+            <div>
+                <p>Do you want this group to be visible to the public?</p>
+                <label for="yes-public">Yes: </label>
+                <input type="checkbox" name="yes-public" id="yes-public">
+                <br>
+                <label for="no-public">No: </label>
+                <input type="checkbox" name="no-public" id="no-public">
+            </div>
+
+            <button type="submit">Create Group!</button>
            
         </form>
 
@@ -42,6 +57,7 @@ export default {
 
     data() {
         return{
+            groupName: "",
             
         }
     },
