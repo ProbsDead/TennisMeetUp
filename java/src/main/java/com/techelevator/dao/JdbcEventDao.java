@@ -54,13 +54,6 @@ public class JdbcEventDao implements EventDao{
                         "end_time, location, created_by) " +
                         "VALUES (?,?,?,?,?,?) RETURNING event_id;";
 
-        /* Kate: the query is fine, but Jdbc's update method actually returns the number of
-            rows returned, not the newly created serial id. You would need to use .queryForObject method
-         */
-        // this would return the event_id for the newly created event.  It is successfully doing this part.
-//            return jdbcTemplate.update(eventSql, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
-//                    newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
-        //
         int eventId = jdbcTemplate.queryForObject(eventSql, int.class, newEvent.getEventName(), newEvent.getDescription(), newEvent.getStartTime(),
                 newEvent.getEndTime(), newEvent.getLocation(), newEvent.getCreatedBy());
 
@@ -105,8 +98,16 @@ public class JdbcEventDao implements EventDao{
 
     }
 
-    public void deleteEvent(int creatorId, int eventId) {
-        // why do we need the creatorId here?
+    public boolean deleteEvent(int creatorId, int eventId) {
+        boolean authorized = false;
+
+        String sql = "DELETE FROM groups_events WHERE event_id = ?;" +
+                     "DELETE FROM events WHERE event_id = ?;";
+        if(getEventDetails(eventId).getCreatedBy() == creatorId) {
+            jdbcTemplate.update(sql, eventId);
+            authorized = true;
+        }
+        return authorized;
     }
 
     public void joinEvent(int userId, int eventId) {
@@ -115,8 +116,6 @@ public class JdbcEventDao implements EventDao{
 
     public List<Match> getMatchesByEventId(int eventId) {
         List <Match> matchList = new ArrayList<>();
-
-
 
         return null;
     }

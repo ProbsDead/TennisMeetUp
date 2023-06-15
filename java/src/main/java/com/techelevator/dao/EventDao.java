@@ -18,7 +18,7 @@ public interface EventDao {
 
     Event updateEventDetails(Event event, int eventId);
 
-    void deleteEvent(int creatorId, int eventId);
+    boolean deleteEvent(int creatorId, int eventId);
 
     void joinEvent(int userId, int eventId);
 

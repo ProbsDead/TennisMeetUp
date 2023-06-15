@@ -25,7 +25,6 @@ public class EventController {
 
     @PostMapping(path="/add/group_id={groupId}")
     public Event addNewEvent(@RequestBody Event newEvent,@PathVariable int groupId) {
-        // existing sql statement in this method returns the new event_id for this purpose
         Event event = eventDao.addNewEvent(newEvent, groupId);
         eventDao.addToGroupsEvents(groupId, event.getEventId());
         return event;
@@ -44,5 +43,9 @@ public class EventController {
     @PutMapping(path="/{eventId}")
     public Event updateEventDetails(@PathVariable int eventId, @RequestBody Event event){
         return eventDao.updateEventDetails(event, eventId);
+    }
+    @DeleteMapping(path="/delete/?creatorId={creatorId}&eventId={eventId}")
+    public boolean deleteEvent (@RequestParam int creatorId, @RequestParam int eventId){
+        return eventDao.deleteEvent(creatorId, eventId);
     }
 }
