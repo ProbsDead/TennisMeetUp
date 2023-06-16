@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.9.1",
+    "loadjs": "^4.3.0-rc1",
     "vue": "^2.6.12",
     "vue-meta": "^2.4.0",
     "vue-router": "^3.5.1",
