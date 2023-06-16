@@ -87,9 +87,9 @@ public class JdbcGroupsDao implements GroupsDao {
      */
     @Override
     public void createNewGroup(Group newGroup) {
-        String sql = "INSERT INTO groups (group_name, created_by, city, location, is_public, about) VALUES (?,?,?,?,?,?);";
+        String sql = "INSERT INTO groups (group_name, created_by, city, state, location, is_public, about) VALUES (?,?,?,?,?,?,?);";
 
-        jdbcTemplate.update(sql, newGroup.getGroupName(), newGroup.getCreatedBy(), newGroup.getCity(), newGroup.getLocation(), newGroup.isPublic(), newGroup.getAbout());
+        jdbcTemplate.update(sql, newGroup.getGroupName(), newGroup.getCreatedBy(), newGroup.getCity(), newGroup.getState(),newGroup.getLocation(), newGroup.isPublic(), newGroup.getAbout());
     }
 
     @Override

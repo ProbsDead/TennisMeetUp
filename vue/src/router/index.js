@@ -11,6 +11,7 @@ import AboutUs from "../views/AboutUs.vue";
 import SearchGroups from "../views/SearchGroups.vue";
 import CreateNewGroup from "../views/CreateNewGroup.vue";
 import UserMainPage from "../views/UserMainPage.vue";
+import ImageUploadTest from "../components/ImageUploadTest.vue";
 
 Vue.use(Router);
 
@@ -105,6 +106,15 @@ const router = new Router({
       component: UserMainPage,
       meta: {
         requiresAuth: true,
+      },
+    },
+    {
+      // temporary path for testing uploading images
+      path: "/test-image",
+      name: "test-image",
+      component: ImageUploadTest,
+      meta: {
+        requiresAuth: false,
       },
     },
   ],
