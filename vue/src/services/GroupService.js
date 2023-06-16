@@ -21,5 +21,8 @@ export default {
   },
   getGroupsByUser(userId) {
     return http.get(`/user/${userId}`);
+  },
+  createNewGroup(group){
+    return http.post('/add', group);
   }
 };

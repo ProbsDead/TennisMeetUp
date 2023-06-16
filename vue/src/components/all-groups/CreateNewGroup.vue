@@ -48,6 +48,7 @@
     </div>
 </template>
 <script>
+import GroupService from '../../services/GroupService';
 
 export default {
     name: "create-new-group",
@@ -66,7 +67,8 @@ export default {
                 createdBy: null,
                 about: "",
                 isPublic: true
-            }
+            },
+            zip: "",
             
         }
     },
@@ -92,7 +94,15 @@ export default {
         },
 
         submitBtn(){
+            this.group.createdBy = this.$store.state.user.id;
 
+            GroupService.createNewGroup(this.group).then((response) => {
+                if (response.status === 200 || response.status === 201){
+                    console.log("Group successfully created!")
+                }
+            }).catch((error) =>{
+                this.handleError(error);
+            })
         },
 
         handleError(error){
