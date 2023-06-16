@@ -4,6 +4,7 @@ import com.techelevator.dao.EventDao;
 import com.techelevator.dao.JdbcEventDao;
 import com.techelevator.model.Event;
 import com.techelevator.model.Group;
+import com.techelevator.model.Match;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,5 +51,9 @@ public class EventController {
     @PostMapping(path="/{eventId}/join/user/{userId}")
     public void joinEvent(@PathVariable int eventId, @PathVariable int userId){
         eventDao.joinEvent(userId, eventId);
+    }
+    @GetMapping(path="/{eventId}/matches")
+    public List<Match> getMatchesByEventId(@PathVariable int eventId) {
+        return eventDao.getMatchesByEventId(eventId);
     }
 }

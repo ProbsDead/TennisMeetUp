@@ -112,7 +112,15 @@ public class JdbcEventDao implements EventDao{
     public List<Match> getMatchesByEventId(int eventId) {
         List <Match> matchList = new ArrayList<>();
 
-        return null;
+        String sql = "SELECT * FROM match WHERE event_id = ?;";
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, eventId);
+
+        while(rowSet.next()) {
+            matchList.add(mapRowToMatch(rowSet));
+        }
+
+        return matchList;
     }
 
     private Event mapRowToEvent(SqlRowSet rs) {
@@ -126,8 +134,19 @@ public class JdbcEventDao implements EventDao{
         event.setLocation(rs.getString("location"));
         event.setCreatedBy(rs.getInt("created_by"));
 
-
         return event;
+    }
+    private Match mapRowToMatch(SqlRowSet rs) {
+        Match match = new Match();
+
+        match.setMatchId(rs.getInt("match_id"));
+        match.setEventId(rs.getInt("event_id"));
+        match.setScore(rs.getString("score"));
+        match.setWinner(rs.getInt("winner"));
+        match.setWinner(rs.getInt("winner_two"));
+        match.setMatchLength(rs.getInt("match_length"));
+
+        return match;
     }
 
 }
