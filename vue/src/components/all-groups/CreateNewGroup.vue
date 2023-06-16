@@ -74,17 +74,23 @@ export default {
     },
     
     mounted(){
-        const autocomplete = new window.google.maps.places.Autocomplete(
-            document.getElementById("autocomplete"),
-        );
-
-        autocomplete.setComponentRestrictions({
-            country: ["us"]
-        })
-   
+        this.initAutocomplete();
     },
 
     methods: {
+        initAutocomplete(){
+            const autocomplete = new window.google.maps.places.Autocomplete(
+                document.getElementById("autocomplete"),
+            );
+
+            autocomplete.setComponentRestrictions({
+                country: ["us"]
+            })
+        },
+        splitAddressIntoBoxes(){
+
+        },
+
         togglePublic (){
             if(this.group.isPublic === true){
                 this.group.isPublic = false;
