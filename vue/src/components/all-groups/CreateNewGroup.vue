@@ -16,6 +16,14 @@
           v-on:change="setAddress"
           required
         />
+        <vue-google-autocomplete 
+          ref="address"
+          id="map" 
+          classname="form-control" 
+          placeholder="Address" 
+          v-on:placechanged="getAddressData" 
+          country="us">
+        </vue-google-autocomplete>
       </div>
       <div>
         <input
@@ -85,12 +93,15 @@
 </template>
 <script>
 import GroupService from "../../services/GroupService";
-import loadjs from "loadjs";
+// import loadjs from "loadjs";
+import VueGoogleAutocomplete from 'vue-google-autocomplete';
 
 export default {
   name: "create-new-group",
 
-  components: {},
+  components: {
+    VueGoogleAutocomplete
+  },
 
   data() {
     return {
@@ -110,37 +121,39 @@ export default {
   },
 
   mounted() {
-    loadjs(
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyB4VHlZLaqtdPglGyfl0Uk2-AHDeeuJBfU&libraries=places",
-      {
-        returnPromise: true,
-      }
-    ).then(() => {
-      this.initAutocomplete();
-    });
+    // loadjs(
+    //   "https://maps.googleapis.com/maps/api/js?key=AIzaSyB4VHlZLaqtdPglGyfl0Uk2-AHDeeuJBfU&libraries=places",
+    //   {
+    //     returnPromise: true,
+    //   }
+    // ).then(() => {
+    //   this.initAutocomplete();
+    // });
+    this.$refs.address.focus();
   },
 
   methods: {
-    setAddress() {
-      this.group.location = document.getElementById("autocomplete").value;
+    getAddressData: function(addressData){
+      this.group.location = addressData;
     },
+    
   
-    initAutocomplete() {
-      const autocomplete = new window.google.maps.places.Autocomplete(
-        document.getElementById("autocomplete")
-      );
+    // initAutocomplete() {
+    //   const autocomplete = new window.google.maps.places.Autocomplete(
+    //     document.getElementById("autocomplete")
+    //   );
 
-      autocomplete.setComponentRestrictions({
-        country: ["us"],
-      });
+    //   autocomplete.setComponentRestrictions({
+    //     country: ["us"],
+    //   });
 
-      // autocomplete.addListener('place_changed', () => {
-      //   let place = this.autocomplete.getPlace();
-      //   let ac = place.address_components;
-      //   this.group.city = ac[0]["short_name"];
+    //   // autocomplete.addListener('place_changed', () => {
+    //   //   let place = this.autocomplete.getPlace();
+    //   //   let ac = place.address_components;
+    //   //   this.group.city = ac[0]["short_name"];
 
-      // })
-    },
+    //   // })
+    // },
     
     // togglePublic() {
     //   if (this.group.isPublic === true) {
