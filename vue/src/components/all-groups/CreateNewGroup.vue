@@ -68,15 +68,7 @@
         <label for="yes-public">Yes: </label>
         <!-- if user clicks on checkbox, isPublic will be true; if not clicked, false-->
         <input type="checkbox" name="isPrivate" v-model="isPrivate" />
-        <!-- <input type="checkbox" name="yes-public" id="yes-public" />
-        <br />
-        <label for="no-public">No: </label>
-        <input
-          type="checkbox"
-          name="no-public"
-          id="no-public"
-          @click="togglePublic"
-        /> -->
+      
       </div>
 
       <button type="submit" @click="submitBtn">Create Group!</button>
@@ -85,7 +77,6 @@
 </template>
 <script>
 import GroupService from "../../services/GroupService";
-// import loadjs from "loadjs";
 import VueGoogleAutocomplete from 'vue-google-autocomplete';
 
 export default {
