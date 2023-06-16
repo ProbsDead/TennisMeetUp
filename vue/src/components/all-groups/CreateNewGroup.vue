@@ -3,18 +3,18 @@
         <form action="">
             <div>
                 <label for="groupName">Group Name: </label>
-                <input type="text" id="groupName" v-model="groupName">
+                <input type="text" id="groupName" v-model="group.groupName">
             </div>
             <div>
                 <label for="autocomplete">Meet-Up Home Location: </label>
                 <br>
-                <input type="text" placeholder="Address or Place" id="autocomplete">
+                <input type="text" placeholder="Address or Place" id="autocomplete" v-model="group.address">
             </div>
             <div>
-                <input type="text" id="city" placeholder="City">
+                <input type="text" id="city" placeholder="City" v-model="group.city">
             </div>
             <div>
-                <select name="state" id="state" placeholder="Select State">
+                <select name="state" id="state" placeholder="Select State" v-model="group.state">
                     <option
                         v-for="(stateAbbrev, index) in this.$store.state.stateAbbrev"
                         v-bind:key="index"
@@ -24,12 +24,12 @@
                 </select>
             </div>
             <div>
-                <input type="text" name="zip" id="zip" placeholder="Zip Code">
+                <input type="text" name="zip" id="zip" placeholder="Zip Code" v-model="zip">
             </div>
             <div>
                 <label for="description">Tell us about this group:</label>
                 <br>
-                <textarea name="description" id="description" cols="70" rows="6"></textarea>
+                <textarea name="description" id="description" cols="70" rows="6" v-model="group.about"></textarea>
             </div>
             <div>
                 <p>Do you want this group to be visible to the public?</p>
@@ -37,12 +37,12 @@
                 <input type="checkbox" name="yes-public" id="yes-public">
                 <br>
                 <label for="no-public">No: </label>
-                <input type="checkbox" name="no-public" id="no-public">
+                <input type="checkbox" name="no-public" id="no-public" @click="togglePublic">
             </div>
 
-            <button type="submit">Create Group!</button>
+            <button type="submit" @click="submitBtn">Create Group!</button>
            
-            this is a test
+            
         </form>
 
     </div>
@@ -58,7 +58,15 @@ export default {
 
     data() {
         return{
-            groupName: "",
+            group: {
+                groupName: "",
+                address: "",
+                state: "",
+                city: "",
+                createdBy: null,
+                about: "",
+                isPublic: true
+            }
             
         }
     },
@@ -75,6 +83,17 @@ export default {
     },
 
     methods: {
+        togglePublic (){
+            if(this.group.isPublic === true){
+                this.group.isPublic = false;
+            } else {
+                this.group.isPublic = true;
+            }
+        },
+
+        submitBtn(){
+
+        },
 
         handleError(error){
       //A reusable error function to be used in the catch statements
