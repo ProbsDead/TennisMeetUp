@@ -13,6 +13,7 @@
           placeholder="Address or Place"
           id="autocomplete"
           v-model="group.location"
+          v-on:change="setAddress"
           required
         />
       </div>
@@ -104,6 +105,7 @@ export default {
       },
       zip: "",
       isPrivate: false,
+      
     };
   },
 
@@ -119,6 +121,10 @@ export default {
   },
 
   methods: {
+    setAddress() {
+      this.group.location = document.getElementById("autocomplete").value;
+    },
+  
     initAutocomplete() {
       const autocomplete = new window.google.maps.places.Autocomplete(
         document.getElementById("autocomplete")
@@ -127,9 +133,15 @@ export default {
       autocomplete.setComponentRestrictions({
         country: ["us"],
       });
-    },
-    splitAddressIntoBoxes() {},
 
+      // autocomplete.addListener('place_changed', () => {
+      //   let place = this.autocomplete.getPlace();
+      //   let ac = place.address_components;
+      //   this.group.city = ac[0]["short_name"];
+
+      // })
+    },
+    
     // togglePublic() {
     //   if (this.group.isPublic === true) {
     //     this.group.isPublic = false;
