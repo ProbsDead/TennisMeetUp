@@ -3,7 +3,7 @@
     <form action="">
       <div>
         <label for="groupName">Group Name: </label>
-        <input type="text" id="groupName" v-model="group.groupName" />
+        <input type="text" id="groupName" v-model="group.group_name" required />
       </div>
       <div>
         <label for="autocomplete">Meet-Up Home Location: </label>
@@ -12,11 +12,18 @@
           type="text"
           placeholder="Address or Place"
           id="autocomplete"
-          v-model="group.address"
+          v-model="group.location"
+          required
         />
       </div>
       <div>
-        <input type="text" id="city" placeholder="City" v-model="group.city" />
+        <input
+          type="text"
+          id="city"
+          placeholder="City"
+          v-model="group.city"
+          required
+        />
       </div>
       <div>
         <select
@@ -24,6 +31,7 @@
           id="state"
           placeholder="Select State"
           v-model="group.state"
+          required
         >
           <option
             v-for="(stateAbbrev, index) in this.$store.state.stateAbbrev"
@@ -40,6 +48,7 @@
           id="zip"
           placeholder="Zip Code"
           v-model="zip"
+          required
         />
       </div>
       <div>
@@ -54,9 +63,11 @@
         ></textarea>
       </div>
       <div>
-        <p>Do you want this group to be visible to the public?</p>
+        <p>Do you want this group to be private (not visible to the public)?</p>
         <label for="yes-public">Yes: </label>
-        <input type="checkbox" name="yes-public" id="yes-public" />
+        <!-- if user clicks on checkbox, isPublic will be true; if not clicked, false-->
+        <input type="checkbox" name="isPrivate" v-model="isPrivate" />
+        <!-- <input type="checkbox" name="yes-public" id="yes-public" />
         <br />
         <label for="no-public">No: </label>
         <input
@@ -64,7 +75,7 @@
           name="no-public"
           id="no-public"
           @click="togglePublic"
-        />
+        /> -->
       </div>
 
       <button type="submit" @click="submitBtn">Create Group!</button>
@@ -83,15 +94,16 @@ export default {
   data() {
     return {
       group: {
-        groupName: "",
-        address: "",
+        group_name: "",
+        location: "",
         state: "",
         city: "",
-        createdBy: null,
+        created_by: null,
         about: "",
-        isPublic: true,
+        is_public: true,
       },
       zip: "",
+      isPrivate: false,
     };
   },
 
@@ -118,16 +130,17 @@ export default {
     },
     splitAddressIntoBoxes() {},
 
-    togglePublic() {
-      if (this.group.isPublic === true) {
-        this.group.isPublic = false;
-      } else {
-        this.group.isPublic = true;
-      }
-    },
+    // togglePublic() {
+    //   if (this.group.isPublic === true) {
+    //     this.group.isPublic = false;
+    //   } else {
+    //     this.group.isPublic = true;
+    //   }
+    // },
 
     submitBtn() {
-      this.group.createdBy = this.$store.state.user.id;
+      this.group.created_by = this.$store.state.user.id;
+      if (this.isPrivate) this.group.is_public = false;
 
       GroupService.createNewGroup(this.group)
         .then((response) => {
