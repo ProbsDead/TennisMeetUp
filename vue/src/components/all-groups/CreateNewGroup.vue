@@ -8,14 +8,6 @@
       <div>
         <label for="autocomplete">Meet-Up Home Location: </label>
         <br />
-        <input
-          type="text"
-          placeholder="Address or Place"
-          id="autocomplete"
-          v-model="group.location"
-          v-on:change="setAddress"
-          required
-        />
         <vue-google-autocomplete 
           ref="address"
           id="map" 
@@ -121,47 +113,16 @@ export default {
   },
 
   mounted() {
-    // loadjs(
-    //   "https://maps.googleapis.com/maps/api/js?key=AIzaSyB4VHlZLaqtdPglGyfl0Uk2-AHDeeuJBfU&libraries=places",
-    //   {
-    //     returnPromise: true,
-    //   }
-    // ).then(() => {
-    //   this.initAutocomplete();
-    // });
     this.$refs.address.focus();
   },
 
   methods: {
     getAddressData: function(addressData){
-      this.group.location = addressData;
+      this.group.state = addressData.administrative_area_level_1;
+      this.zip = addressData.postal_code;
+      this.group.city = addressData.locality;
+      this.group.location = addressData.street_number + " " + addressData.route + ", " + this.group.city + ", " + this.group.state + " " + this.zip;
     },
-    
-  
-    // initAutocomplete() {
-    //   const autocomplete = new window.google.maps.places.Autocomplete(
-    //     document.getElementById("autocomplete")
-    //   );
-
-    //   autocomplete.setComponentRestrictions({
-    //     country: ["us"],
-    //   });
-
-    //   // autocomplete.addListener('place_changed', () => {
-    //   //   let place = this.autocomplete.getPlace();
-    //   //   let ac = place.address_components;
-    //   //   this.group.city = ac[0]["short_name"];
-
-    //   // })
-    // },
-    
-    // togglePublic() {
-    //   if (this.group.isPublic === true) {
-    //     this.group.isPublic = false;
-    //   } else {
-    //     this.group.isPublic = true;
-    //   }
-    // },
 
     submitBtn() {
       this.group.created_by = this.$store.state.user.id;
