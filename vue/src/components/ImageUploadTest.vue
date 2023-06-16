@@ -64,6 +64,9 @@
         ></textarea>
       </div>
       <div>
+        <input type="file" ref="fileInput" @change="uploadImage" />
+      </div>
+      <div>
         <p>Do you want this group to be private (not visible to the public)?</p>
         <label for="yes-public">Yes: </label>
         <!-- if user clicks on checkbox, isPublic will be true; if not clicked, false-->
@@ -77,6 +80,7 @@
 
 <script>
 import GroupService from "../services/GroupService";
+import ImageService from "../services/ImageService";
 
 export default {
   name: "create-new-group",
@@ -96,6 +100,7 @@ export default {
       },
       zip: "",
       isPrivate: false,
+      imageData: null,
     };
   },
   methods: {
@@ -112,8 +117,6 @@ export default {
       this.group.created_by = this.$store.state.user.id;
       if (this.isPrivate) this.group.is_public = false;
 
-      console.log(this.group);
-
       GroupService.createNewGroup(this.group)
         .then((response) => {
           if (response.status === 200 || response.status === 201) {
@@ -122,6 +125,17 @@ export default {
         })
         .catch((error) => {
           this.handleError(error);
+        });
+
+      // upload the image separately
+      ImageService.uploadImage(this.imageData, )
+        .then((response) => {
+          if (response.status === 200 || response.status === 201) {
+            console.log("Image successfully uploaded!");
+          }
+        })
+        .catch(() => {
+          console.log("Image was not uploaded");
         });
     },
 
@@ -133,6 +147,14 @@ export default {
       } else {
         this.errorMsg = "An error occurred, please try again later.";
       }
+    },
+
+    uploadImage(event) {
+      const file = event.target.files[0];
+      const formData = new FormData();
+      formData.append("image", file);
+
+      this.imageData = formData;
     },
   },
 };
