@@ -15,6 +15,6 @@ public interface GroupsDao {
     List<Group> getAllPublicGroups();
     List<Group> getUsersGroups(int userId);
 
-    void createNewGroup(Group newGroup);
+    Group createNewGroup(Group newGroup);
 
 }

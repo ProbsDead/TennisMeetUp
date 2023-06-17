@@ -50,8 +50,8 @@ public class GroupsController {
      * @param newGroup
      */
     @PostMapping(path="/add")
-    public void createNewGroup(@RequestBody Group newGroup){
-        groupsDao.createNewGroup(newGroup);
+    public Group createNewGroup(@RequestBody Group newGroup){
+        return groupsDao.createNewGroup(newGroup);
     }
 
     /**

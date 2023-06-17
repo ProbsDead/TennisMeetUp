@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form action="">
+    <form enctype="multipart/form-data">
       <div>
         <label for="groupName">Group Name: </label>
         <input type="text" id="groupName" v-model="group.group_name" required />
@@ -64,7 +64,7 @@
         ></textarea>
       </div>
       <div>
-        <input type="file" ref="fileInput" @change="uploadImage" />
+        <input type="file" ref="uploadImage" @change="uploadImage" />
       </div>
       <div>
         <p>Do you want this group to be private (not visible to the public)?</p>
@@ -101,6 +101,7 @@ export default {
       zip: "",
       isPrivate: false,
       imageData: null,
+      newGroupId: 0,
     };
   },
   methods: {
@@ -116,27 +117,31 @@ export default {
     submitBtn() {
       this.group.created_by = this.$store.state.user.id;
       if (this.isPrivate) this.group.is_public = false;
+      console.log(this.imageData);
 
       GroupService.createNewGroup(this.group)
         .then((response) => {
           if (response.status === 200 || response.status === 201) {
             console.log("Group successfully created!");
+            this.newGroupId = response.data.group_id;
           }
         })
         .catch((error) => {
           this.handleError(error);
         });
 
-      // upload the image separately
-      ImageService.uploadImage(this.imageData, )
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) {
-            console.log("Image successfully uploaded!");
-          }
-        })
-        .catch(() => {
-          console.log("Image was not uploaded");
-        });
+      if (this.imageData) {
+        ImageService.uploadImage(this.imageData, this.newGroupId)
+          .then((response) => {
+            console.log(response);
+            if (response.status === 200 || response.status === 201) {
+              console.log("Image successfully uploaded!");
+            }
+          })
+          .catch(() => {
+            console.log("Image was not uploaded");
+          });
+      }
     },
 
     handleError(error) {
@@ -151,6 +156,8 @@ export default {
 
     uploadImage(event) {
       const file = event.target.files[0];
+      this.imageData = file;
+
       const formData = new FormData();
       formData.append("image", file);
 

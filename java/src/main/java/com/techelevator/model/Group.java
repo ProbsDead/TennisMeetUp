@@ -2,6 +2,7 @@ package com.techelevator.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import org.springframework.web.multipart.MultipartFile;
 
 public class Group {
     @JsonProperty("group_id")
@@ -11,13 +12,15 @@ public class Group {
 
     @JsonProperty("created_by")
     private int createdBy;
-
     private String city;
     private String state;
     private String location;
     @JsonProperty("is_public")
     private boolean isPublic;
     private String about;
+
+    @JsonProperty("group_image")
+    private byte[] groupImage;
 
     public Group(int groupId, String groupName, int createdBy, String city, String state, String location, boolean isPublic, String about) {
         this.groupId = groupId;
@@ -93,5 +96,13 @@ public class Group {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public byte[] getGroupImage() {
+        return groupImage;
+    }
+
+    public void setGroupImage(byte[] groupImage) {
+        this.groupImage = groupImage;
     }
 }

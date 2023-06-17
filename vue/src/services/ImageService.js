@@ -6,6 +6,6 @@ const http = axios.create({
 
 export default {
   uploadImage(image, groupId) {
-    return http.post(`/${groupId}`, image);
+    return http.put(`/${groupId}`, image);
   },
 };

@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.io.InputStream;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -86,10 +88,11 @@ public class JdbcGroupsDao implements GroupsDao {
      * @param newGroup
      */
     @Override
-    public void createNewGroup(Group newGroup) {
-        String sql = "INSERT INTO groups (group_name, created_by, city, state, location, is_public, about) VALUES (?,?,?,?,?,?,?);";
+    public Group createNewGroup(Group newGroup) {
+        String sql = "INSERT INTO groups (group_name, created_by, city, state, location, is_public, about) VALUES (?,?,?,?,?,?,?) RETURNING group_id;";
 
-        jdbcTemplate.update(sql, newGroup.getGroupName(), newGroup.getCreatedBy(), newGroup.getCity(), newGroup.getState(),newGroup.getLocation(), newGroup.isPublic(), newGroup.getAbout());
+        int groupId = jdbcTemplate.queryForObject(sql, int.class, newGroup.getGroupName(), newGroup.getCreatedBy(), newGroup.getCity(), newGroup.getState(),newGroup.getLocation(), newGroup.isPublic(), newGroup.getAbout());
+        return getGroupInfo(groupId);
     }
 
     @Override
@@ -136,9 +139,21 @@ public class JdbcGroupsDao implements GroupsDao {
         group.setPublic(row.getBoolean("is_public"));
         group.setState(row.getString("state"));
         group.setAbout(row.getString("about"));
+        group.setGroupImage(getImageData(row.getInt("group_id")));
 
         return group;
     }
+
+    private byte[] getImageData(int groupId) {
+        String sql= "SELECT group_image FROM groups WHERE group_id=?;";
+        return jdbcTemplate.query(sql, new Object[]{groupId}, rs -> {
+            if (rs.next()) {
+                return rs.getBytes(1);
+            }
+            return null;
+        });
+    }
+
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getInt("user_id"));
