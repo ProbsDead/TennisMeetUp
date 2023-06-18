@@ -74,6 +74,7 @@
       
       </div>
         <div class="button-holder">
+            <button type="cancel">Cancel</button>
             <button type="submit" @click="submitBtn">Create Group!</button>
         </div>
       

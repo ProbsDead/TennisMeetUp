@@ -1,6 +1,19 @@
 <template>
   <div class="list-groups">
-    <h2>{{title}}</h2>
+    <div>
+      <h2>{{title}}</h2>
+      <button 
+      class="create-group" 
+      @click="() => TogglePopup('buttonTrigger')">
+      Create New Group
+      </button>
+    </div>
+    <create-new-group
+    v-if="popupTrigger.buttonTrigger"
+    :TogglePopup="() => TogglePopup('buttonTrigger')">
+
+    </create-new-group>
+    
     <section
       class="group-box"
       v-for="item in allGroups"
@@ -25,7 +38,24 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+import CreateNewGroup from './CreateNewGroup.vue';
+
 export default {
+  components: { CreateNewGroup },
+  setup() {
+    const popupTrigger = ref({
+      buttonTrigger: false
+    });
+    const toggleTrigger = (trigger) => {
+      popupTrigger.value[trigger] = !popupTrigger.value[trigger];
+    }
+    return {
+      CreateNewGroup,
+      popupTrigger,
+      toggleTrigger
+    }
+  },
     props: {
         allGroups: Array,
         title: String
