@@ -1,13 +1,14 @@
 <template>
-  <div>
-    <form action="">
-      <div>
+  <div class="form-parent">
+    <h2>Create A New Group</h2>
+    <form class="form-body">
+      <div class="name-group">
         <label for="groupName">Group Name: </label>
         <input type="text" id="groupName" v-model="group.group_name" required />
       </div>
-      <div>
+      <div class="address-group">
         <label for="autocomplete">Meet-Up Home Location: </label>
-        <br />
+        
         <vue-google-autocomplete 
           ref="address"
           id="map" 
@@ -17,7 +18,8 @@
           country="us">
         </vue-google-autocomplete>
       </div>
-      <div>
+      <div class="address-group">
+        <label for="city">Group Base City: </label>
         <input
           type="text"
           id="city"
@@ -26,7 +28,8 @@
           required
         />
       </div>
-      <div>
+      <div class="address-group">
+        <label for="state">Group Base State: </label>
         <select
           name="state"
           id="state"
@@ -42,7 +45,7 @@
           </option>
         </select>
       </div>
-      <div>
+      <!-- <div class="address-group">
         <input
           type="text"
           name="zip"
@@ -51,7 +54,7 @@
           v-model="zip"
           required
         />
-      </div>
+      </div> -->
       <div>
         <label for="description">Tell us about this group:</label>
         <br />
@@ -63,15 +66,17 @@
           v-model="group.about"
         ></textarea>
       </div>
-      <div>
+      <div class="private-public">
         <p>Do you want this group to be private (not visible to the public)?</p>
         <label for="yes-public">Yes: </label>
         <!-- if user clicks on checkbox, isPublic will be true; if not clicked, false-->
         <input type="checkbox" name="isPrivate" v-model="isPrivate" />
       
       </div>
-
-      <button type="submit" @click="submitBtn">Create Group!</button>
+        <div class="button-holder">
+            <button type="submit" @click="submitBtn">Create Group!</button>
+        </div>
+      
     </form>
   </div>
 </template>
@@ -142,4 +147,26 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+    .form-parent{
+        display: block;
+        text-align: center;
+    }
+    .form-body{
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+    div{
+        margin-bottom: 20px;
+    }
+    .button-holder{
+        text-align: center;
+    }
+    p{
+        display: inline-block;
+        margin-right: 5px;
+    }
+    
+</style>
