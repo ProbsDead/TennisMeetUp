@@ -1,4 +1,5 @@
 <template>
+<div class="div-parent">
   <div class="form-parent">
     <h2>Create A New Group</h2>
     <form class="form-body">
@@ -74,11 +75,12 @@
       
       </div>
         <div class="button-holder">
-            <button type="cancel">Cancel</button>
+            <button type="cancel" @click="TogglePopup()">Cancel</button>
             <button type="submit" @click="submitBtn">Create Group!</button>
         </div>
       
     </form>
+  </div>
   </div>
 </template>
 <script>
@@ -91,6 +93,7 @@ export default {
   components: {
     VueGoogleAutocomplete
   },
+  props: ['TogglePopup'],
 
   data() {
     return {
@@ -134,6 +137,7 @@ export default {
         .catch((error) => {
           this.handleError(error);
         });
+        this.TogglePopup();
     },
 
     handleError(error) {
@@ -149,7 +153,22 @@ export default {
 };
 </script>
 <style scoped>
+    .div-parent{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 99;
+        background-color: azure;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .form-parent{
+        background-color: aqua;
+        border: 32px;
         display: block;
         text-align: center;
     }

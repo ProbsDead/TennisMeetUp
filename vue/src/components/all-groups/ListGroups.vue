@@ -47,13 +47,13 @@ export default {
     const popupTrigger = ref({
       buttonTrigger: false
     });
-    const toggleTrigger = (trigger) => {
+    const TogglePopup = (trigger) => {
       popupTrigger.value[trigger] = !popupTrigger.value[trigger];
     }
     return {
       CreateNewGroup,
       popupTrigger,
-      toggleTrigger
+      TogglePopup
     }
   },
     props: {
