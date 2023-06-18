@@ -1,7 +1,13 @@
 package com.techelevator.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+
+import java.io.ByteArrayInputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 @Component
 public class JdbcImageDao {
@@ -17,4 +23,14 @@ public class JdbcImageDao {
         jdbcTemplate.update(sql,imageBytes, groupId);
 
     }
+
+//    public void uploadImage(byte[] imageBytes, int groupId) {
+//        jdbcTemplate.update(connection -> {
+//            PreparedStatement ps = connection.prepareStatement("UPDATE groups SET group_image=? WHERE group_id=?");
+//            ps.setBinaryStream(1, new ByteArrayInputStream(imageBytes), imageBytes.length);
+//            ps.setInt(2, groupId);
+//            return ps;
+//        });
+//
+//        }
 }

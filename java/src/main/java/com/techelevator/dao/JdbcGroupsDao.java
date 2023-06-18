@@ -127,6 +127,7 @@ public class JdbcGroupsDao implements GroupsDao {
         return usersGroups;
     }
 
+
     // mapping for group
     private Group mapRowToGroup(SqlRowSet row) {
         Group group = new Group();

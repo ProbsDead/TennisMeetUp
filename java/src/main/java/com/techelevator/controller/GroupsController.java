@@ -5,8 +5,12 @@ import com.techelevator.dao.JdbcGroupsDao;
 import com.techelevator.model.Group;
 import com.techelevator.model.Request;
 import com.techelevator.model.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin
@@ -74,14 +78,6 @@ public class GroupsController {
         return groupsDao.getUsersGroups(userId);
     }
 
-//    /**
-//     * This method creates an invitation to join a group of a request to join a group
-//     * @param groupId
-//     * @param userId
-//     */
-//    @PostMapping(path="/{groupId}/{userId}")
-//    public void sendRequestOrInvite(@PathVariable int groupId, @PathVariable int userId) {
-//         groupsDao.inviteNewMember(groupId, userId);
-//    }
+
 
 }

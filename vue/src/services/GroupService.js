@@ -24,5 +24,5 @@ export default {
   },
   createNewGroup(group){
     return http.post('/add', group);
-  }
+  },
 };
