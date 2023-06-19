@@ -16,7 +16,8 @@
           classname="form-control" 
           placeholder="Address" 
           v-on:placechanged="getAddressData" 
-          country="us">
+          country="us"
+          style="width: 300px;">
         </vue-google-autocomplete>
       </div>
       <div class="address-group">
@@ -46,16 +47,6 @@
           </option>
         </select>
       </div>
-      <!-- <div class="address-group">
-        <input
-          type="text"
-          name="zip"
-          id="zip"
-          placeholder="Zip Code"
-          v-model="zip"
-          required
-        />
-      </div> -->
       <div>
         <label for="description">Tell us about this group:</label>
         <br />
@@ -86,7 +77,6 @@
 <script>
 import GroupService from "../../services/GroupService";
 import VueGoogleAutocomplete from 'vue-google-autocomplete';
-
 export default {
   name: "create-new-group",
 
@@ -138,6 +128,7 @@ export default {
           this.handleError(error);
         });
         this.TogglePopup();
+        window.location.reload;
     },
 
     handleError(error) {
@@ -160,15 +151,18 @@ export default {
         left: 0;
         right: 0;
         z-index: 99;
-        background-color: azure;
-
+        background-color: rgba(255,255,255,0.5);
         display: flex;
         align-items: center;
         justify-content: center;
     }
     .form-parent{
-        background-color: aqua;
-        border: 32px;
+        background-color: rgba(42, 157, 143, 0.8);
+        border: 2px;
+        border-style: solid;
+        border-color: black;
+        border-radius: 10%;
+        padding: 8px;
         display: block;
         text-align: center;
     }
@@ -188,5 +182,5 @@ export default {
         display: inline-block;
         margin-right: 5px;
     }
-    
+  
 </style>
