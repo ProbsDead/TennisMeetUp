@@ -90,11 +90,11 @@ export default {
 </script>
 <style scoped>
 #login {
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(234, 250, 176);
+  background-color: rgba(42, 157, 143, 0.9);
   font-family: "Dosis", monospace, sans-serif;
   padding: 30px;
   background-position: bottom;
@@ -104,15 +104,24 @@ export default {
   width: 70%;
 }
 .form {
-  width: 30%;
-  align-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* width: 30%;
   text-align: center;
   background-color: white;
   padding-top: 50px;
   border: solid 4px;
   border-radius: 25px;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 }
 .form-signin {
   max-width: 330px;
