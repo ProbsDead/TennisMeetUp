@@ -10,7 +10,8 @@
 </template>
 
 <script>
-import 
+import EventService from '../../services/EventService';
+
 export default {
   name:"group-events",
   components:{},
@@ -19,8 +20,25 @@ export default {
       events: []
     }
   },
+  
   created(){
+    EventService.getEventsByGroupId(this.$route.params.groupId).then((response) => {
+      this.events = response.data;
+    }).catch((error) => {
+      this.handleError(error);
+    })
+  },
 
+  methods: {
+    handleError(error) {
+      //A reusable error function to be used in the catch statements
+      if (error.request) {
+        this.errorMsg =
+          "Error submitting request. Server could not be reached.";
+      } else {
+        this.errorMsg = "An error occurred, please try again later.";
+      }
+    },
   }
 };
 </script>

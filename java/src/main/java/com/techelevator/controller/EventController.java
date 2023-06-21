@@ -19,12 +19,12 @@ public class EventController {
 
 //    public EventController(EventDao eventDao) { this.eventDao = eventDao; }
 
-    @GetMapping(path="/group_id={groupId}")
+    @GetMapping(path="/{groupId}")
     public List<Event> eventsByGroupId(@PathVariable int groupId) {
         return eventDao.getAllEventsByGroupId(groupId);
     }
 
-    @PostMapping(path="/add/group_id={groupId}")
+    @PostMapping(path="/add/{groupId}")
     public Event addNewEvent(@RequestBody Event newEvent,@PathVariable int groupId) {
         Event event = eventDao.addNewEvent(newEvent, groupId);
         eventDao.addToGroupsEvents(groupId, event.getEventId());
@@ -41,7 +41,7 @@ public class EventController {
         return eventDao.getFutureEventsByGroupId(groupId);
     }
 
-    @PutMapping(path="/{eventId}")
+    @PutMapping(path="/update/{eventId}")
     public Event updateEventDetails(@PathVariable int eventId, @RequestBody Event event){
         return eventDao.updateEventDetails(event, eventId);
     }
