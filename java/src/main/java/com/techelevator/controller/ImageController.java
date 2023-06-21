@@ -45,4 +45,9 @@ public class ImageController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image.");
         }
     }
+
+    @GetMapping("/retrieve/{groupId}")
+    public MultipartFile retrieveImage(@PathVariable int groupId) {
+        return null;
+    }
 }
