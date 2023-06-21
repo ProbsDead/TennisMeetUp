@@ -1,9 +1,28 @@
 <template>
-  <div class="events"></div>
+  <div class="all-events">
+    <div class="event" v-for="event in events" :key="event.event_id">
+      <h3>{{ event.event_name }}</h3>
+      <h4>{{ event.description }}</h4>
+      <h4>{{ event.start_time }} - {{ event.end_time }}</h4>
+      <h4>{{ event.location }}</h4>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {};
+import 
+export default {
+  name:"group-events",
+  components:{},
+  data() {
+    return{
+      events: []
+    }
+  },
+  created(){
+
+  }
+};
 </script>
 
 <style scoped>

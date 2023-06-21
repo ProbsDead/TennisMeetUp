@@ -59,7 +59,8 @@
         ></textarea>
       </div>
       <div>
-        <input type="file" ref="uploadImage" @change="uploadImage" />
+        <label for="image-upload">Banner Picture: </label>
+        <input id="image-upload" type="file" ref="uploadImage" @change="uploadImage" />
       </div>
       <div class="private-public">
         <p>Do you want this group to be private (not visible to the public)?</p>
@@ -101,7 +102,6 @@ export default {
         about: "",
         is_public: true,
       },
-      zip: "",
       isPrivate: false,
       imageData: null,
       newGroupId: 0,
@@ -147,7 +147,7 @@ export default {
           this.handleError(error);
         });
         this.TogglePopup();
-        window.location.reload;
+        this.$router.go();
     },
     uploadImage(event) {
       const file = event.target.files[0];

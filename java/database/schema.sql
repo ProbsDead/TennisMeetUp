@@ -25,7 +25,7 @@ CREATE TABLE groups (
 	created_by int NOT NULL,
 	is_public boolean DEFAULT true,
 	about text NULL,
-	group_image bytea NULL,
+	group_image bytea,
 	
 	CONSTRAINT PK_groups PRIMARY KEY (group_id)
 );
