@@ -31,7 +31,7 @@ public class EventController {
         return event;
     }
 
-    @GetMapping(path="/{eventId}")
+    @GetMapping(path="/details/{eventId}")
     public Event getEventDetails(@PathVariable int eventId) {
         return eventDao.getEventDetails(eventId);
     }
