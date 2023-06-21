@@ -48,7 +48,7 @@ public class EventController {
     @DeleteMapping(path="/delete/{eventId}")
     public void deleteEvent(@PathVariable int eventId) { eventDao.deleteEvent(eventId); }
 
-    @PostMapping(path="/{eventId}/join/user/{userId}")
+    @PostMapping(path="/{eventId}/join/{userId}")
     public void joinEvent(@PathVariable int eventId, @PathVariable int userId){
         eventDao.joinEvent(userId, eventId);
     }

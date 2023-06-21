@@ -10,8 +10,26 @@ export default{
     },
 
     addNewEvent(groupId, event){
-        return http.get(`/add/${groupId}`, event);
-    }
+        return http.post(`/add/${groupId}`, event);
+    },
 
-    
+    getEventDetails(eventId){
+        return http.get(`/details/${eventId}`);
+    },
+
+    updateEventDetails(eventId, event){
+        return http.put(`/update/${eventId}`, event);
+    },
+
+    deleteEvent(eventId){
+        return http.delete(`/delete/${eventId}`);
+    },
+
+    joinEvent(eventId, userId){
+        return http.post(`/${eventId}/join/${userId}`);
+    },
+
+    getMatchesByEventId(eventId){
+        return http.get(`/matches/${eventId}`);
+    }
 }
