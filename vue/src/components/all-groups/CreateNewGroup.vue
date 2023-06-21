@@ -58,6 +58,9 @@
           v-model="group.about"
         ></textarea>
       </div>
+      <div>
+        <input type="file" ref="uploadImage" @change="uploadImage" />
+      </div>
       <div class="private-public">
         <p>Do you want this group to be private (not visible to the public)?</p>
         <label for="yes-public">Yes: </label>
@@ -77,6 +80,8 @@
 <script>
 import GroupService from "../../services/GroupService";
 import VueGoogleAutocomplete from 'vue-google-autocomplete';
+import ImageService from '../../services/ImageService';
+
 export default {
   name: "create-new-group",
 
@@ -98,7 +103,8 @@ export default {
       },
       zip: "",
       isPrivate: false,
-      
+      imageData: null,
+      newGroupId: 0,
     };
   },
 
@@ -122,6 +128,19 @@ export default {
         .then((response) => {
           if (response.status === 200 || response.status === 201) {
             console.log("Group successfully created!");
+            this.newGroupId = response.data.group_id;
+            if (this.imageData) {
+        ImageService.uploadImage(this.imageData, this.newGroupId)
+          .then((response) => {
+            console.log(response);
+            if (response.status === 200 || response.status === 201) {
+              console.log("Image successfully uploaded!");
+            }
+          })
+          .catch(() => {
+            console.log("Image was not uploaded");
+          });
+      }
           }
         })
         .catch((error) => {
@@ -129,6 +148,15 @@ export default {
         });
         this.TogglePopup();
         window.location.reload;
+    },
+    uploadImage(event) {
+      const file = event.target.files[0];
+      this.imageData = file;
+
+      const formData = new FormData();
+      formData.append("image", file);
+
+      this.imageData = formData;
     },
 
     handleError(error) {
