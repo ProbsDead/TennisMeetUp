@@ -141,6 +141,7 @@ public class JdbcGroupsDao implements GroupsDao {
         group.setState(row.getString("state"));
         group.setAbout(row.getString("about"));
         group.setGroupImage(getImageData(row.getInt("group_id")));
+        group.setImageType(row.getString("image_type"));
 
         return group;
     }

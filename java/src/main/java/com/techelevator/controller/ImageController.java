@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -25,12 +26,18 @@ public class ImageController {
 
     // receiving & storing the image file
     @PutMapping("/{groupId}")
-    public ResponseEntity<String> uploadImage(@PathVariable int groupId, @RequestParam("image") MultipartFile file) {
+    public ResponseEntity<String> uploadImage(@PathVariable int groupId, @RequestParam("image") MultipartFile file, HttpServletRequest request) {
         //save the image to the database using Spring JDBC
         try {
             //Extract relevant info from the file object
+
+            // image in byte array
             byte[] imageBytes = file.getBytes();
-            imageDao.uploadImageToGroupTable(imageBytes, groupId);
+
+            // content type field value (ex. image/png)
+            // HttpServletRequest object : you can access various details of the incoming HTTP request
+            String contentType = request.getParameter("contentType");
+            imageDao.uploadImageToGroupTable(imageBytes, contentType, groupId);
             return ResponseEntity.ok("Image uploaded successfully!");
 
 //            jdbcTemplate.update(connection -> {

@@ -3,7 +3,7 @@
     <section class="description">
       <div class="group-info">
         <div class="split-view">
-          <img src="../../assets/tennis-court.jpg" alt="meetup-image" />
+          <img :src="getImage" alt="meetup-image" />
           <div class="details">
             <h1>{{ group.group_name }}</h1>
             <!-- <button class="request">Request Membership</button> -->
@@ -102,20 +102,34 @@ export default {
       buttonText: "Join this Group",
       isDisabled: false,
       allRequests: {},
+      imgSrc: require("../../assets/tennis-court.jpg"),
     };
+  },
+ computed: {
+    getImage(){
+      return this.imgSrc;
+    }
   },
   created() {
     GroupService.getGroupDetails(this.$route.params.groupId).then(
       (response) => {
         this.group = response.data;
-        //     response comes in this format:
-        //  "city": "Burlington",
-        // "location": "45 Tennis Ct, South Burlington, VT 05403",
-        // "public": false,
-        // "group_id": 1,
-        // "group_name": "Volley Girls",
-        // "created_by": 1,
-        // "is_public": false
+        const imageData = response.data.group_image;
+        const imageType = response.data.image_type;
+
+        // if image is not null, Convert the byte array to a data URL
+        if (imageData != null) {
+          const base64Img = btoa(
+            new Uint8Array(imageData).reduce(
+              (data, byte) => data + String.fromCharCode(byte),
+              ""
+            )
+          );
+          const dataURL = `data:${imageType};base64,${base64Img}`;
+
+          // use the dataURL to display the image
+          this.imgSrc = dataURL;
+        }
       }
     );
 

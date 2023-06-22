@@ -22,6 +22,9 @@ public class Group {
     @JsonProperty("group_image")
     private byte[] groupImage;
 
+    @JsonProperty("image_type")
+    private String imageType;
+
     public Group(int groupId, String groupName, int createdBy, String city, String state, String location, boolean isPublic, String about) {
         this.groupId = groupId;
         this.groupName = groupName;
@@ -104,5 +107,13 @@ public class Group {
 
     public void setGroupImage(byte[] groupImage) {
         this.groupImage = groupImage;
+    }
+
+    public String getImageType() {
+        return imageType;
+    }
+
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
     }
 }
