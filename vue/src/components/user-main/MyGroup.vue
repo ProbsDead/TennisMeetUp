@@ -1,7 +1,7 @@
 <template>
   <div class="list-groups">
     <section class="card">
-        <img class="card-image" src="" alt="">
+        <img class="card-image" :src="getImage" alt="">
       <div class="headline">
         {{ groupBox.group_name }}
       </div>
@@ -24,10 +24,39 @@
 </template>
 
 <script>
+import GroupService from '../../services/GroupService';
+
 export default {
   props: {
     groupBox: Object,
   },
+  data(){
+    return{
+       imgSrc: require("../../assets/tennis-court.jpg"),
+    }
+  },
+  created() {
+GroupService.getGroupDetails(this.groupBox.group_id).then(
+      (response) => {
+        this.group = response.data;
+        const imageData = response.data.group_image;
+        const imageType = response.data.image_type;
+
+        // if image is not null, Convert the byte array to a data URL
+        if (imageData != null) {
+          // const base64Img = btoa(String.fromCharCode.apply(null, imageData));
+          const dataURL = `data:${imageType};base64,${imageData}`;
+
+          // use the dataURL to display the image
+          this.imgSrc = dataURL;
+        }   
+  });
+  },
+  computed: {
+    getImage(){
+      return this.imgSrc;
+    }
+  }
 };
 </script>
 

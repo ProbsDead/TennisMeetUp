@@ -23,36 +23,23 @@
       </div>
       <div class="stats">
         <h3 class="section-title">Stats</h3>
-        <div class="ui statistics">
-          <div class="ui mini horizontal statistic">
-            <div class="value">{{ matches.length }}</div>
-            <div class="label">Total Matches</div>
-          </div>
-          <div class="ui mini horizontal statistic">
-            <div class="value">
-              {{ matches.length ? (winsTotal / matches.length) * 100 : 0 }}%
-            </div>
-            <div class="label">Total Wins</div>
-          </div>
+
+        <div class="total-matches">
+          {{ matches.length }} <span>Total Matches</span>
         </div>
 
-        <!-- <div class="stats-box">
-          <div><span>TOTAL MATCHES: </span>{{ matches.length }}</div>
-          <div>
-            <span> TOTAL WINS: </span>
-
-            {{ matches.length ? (winsTotal / matches.length) * 100 : 0 }}%
-          </div>
-          <div>View all match history with scores</div>
-        </div> -->
+        <div class="wins">
+          {{ matches.length ? (winsTotal / matches.length) * 100 : 0 }}%
+          <span>Wins</span>
+        </div>
       </div>
     </section>
     <h2>My Groups ({{ userGroups.length }})</h2>
     <section class="my-groups">
       <div v-if="!userGroups.length">
-        You are not a member of any group. Join new groups.
+        You are not a member of any group. Join new groups!
       </div>
-      <div v-else>
+      <div v-else class="group-cards">
         <div
           class="ui four cards"
           v-for="group in userGroups"
@@ -82,7 +69,13 @@
         ></span
       >
     </div>
-    <section class="upcoming-events"></section>
+
+    <h2>Upcoming Events</h2>
+    <section class="upcoming-events">
+      <div v-for="event in upcomingEvents" :key="event.event_id">
+        <user-event v-bind:eventInfo="event"></user-event>
+      </div>
+    </section>
     <section class="previous-events"></section>
   </div>
 </template>
@@ -91,11 +84,13 @@
 import UserService from "../../services/UserService.js";
 import GroupService from "../../services/GroupService.js";
 import MyGroup from "./MyGroup.vue";
+import UserEvent from "./UserEvent.vue";
 
 export default {
   name: "user-main",
   components: {
     MyGroup,
+    UserEvent,
   },
   data() {
     return {
@@ -105,6 +100,7 @@ export default {
       winsTotal: 0,
       newGoal: "",
       updateText: false,
+      upcomingEvents: [],
     };
   },
   created() {
@@ -128,6 +124,12 @@ export default {
     // retrieve all of the groups the USER is part of
     GroupService.getGroupsByUser(this.user.id).then((response) => {
       this.userGroups = response.data;
+    });
+
+    // retrieve user events
+    UserService.getUpcomingUserEvents(this.user.id).then((response) => {
+      this.upcomingEvents = response.data;
+      console.log(this.upcomingEvents);
     });
   },
   methods: {
@@ -153,11 +155,10 @@ export default {
 <style scoped>
 section.goal-and-stats {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: #f5f29e;
-  min-height: 30vw;
-  padding: 30px;
-  gap: 40px;
+  min-height: 25vw;
+  padding-left: 30px;
 }
 
 .stats {
@@ -193,12 +194,12 @@ h1,
 h2 {
   color: #264653;
   font-size: 2em;
-  margin: 0.1em 0.8em 0.6em;
+  margin: 0.1em 0.6em 0.2em;
 }
 
 h2 {
-  font-size: 1.7em;
-  margin: 0.9em;
+  font-size: 1.5em;
+  margin: 0.8em;
 }
 
 .btn {
@@ -249,6 +250,11 @@ h2 {
 
 section {
   padding-left: 20px;
+}
+
+.group-cards {
+  display: flex;
+  gap: 20px;
 }
 
 a {
