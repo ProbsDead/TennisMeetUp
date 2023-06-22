@@ -9,7 +9,7 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	email varchar(100) NOT NULL,
-	state varchar (20) NOT NULL,
+	state varchar (2) NOT NULL,
 	city varchar(100) NOT NULL,
 	role varchar(50) NOT NULL,
 	goal varchar(500) NULL,
