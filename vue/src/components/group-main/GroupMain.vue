@@ -105,10 +105,10 @@ export default {
       imgSrc: require("../../assets/tennis-court.jpg"),
     };
   },
- computed: {
-    getImage(){
+  computed: {
+    getImage() {
       return this.imgSrc;
-    }
+    },
   },
   created() {
     GroupService.getGroupDetails(this.$route.params.groupId).then(
@@ -124,28 +124,29 @@ export default {
 
           // use the dataURL to display the image
           this.imgSrc = dataURL;
-          console.log(this.imgSrc);
         }
-      }
-    );
-
-    // retrieve all group members, and store in an alphabetical order
-    GroupService.getGroupMembers(this.$route.params.groupId).then(
-      (response) => {
-        this.groupMembers = response.data;
-        this.groupMembers.forEach((member) => {
-          // if the user id matches the admin id, store admin name
-          if (member.id === this.group.created_by) {
-            this.adminName = `${member.first_name} ${member.last_name}`;
-          } else {
-            this.memberNames.push(`${member.first_name} ${member.last_name}`);
+        // retrieve all group members, and store in an alphabetical order
+        GroupService.getGroupMembers(this.$route.params.groupId).then(
+          (response) => {
+            console.log(this.group.created_by);
+            this.groupMembers = response.data;
+            this.groupMembers.forEach((member) => {
+              // if the user id matches the admin id, store admin name
+              if (member.id === this.group.created_by) {
+                this.adminName = `${member.first_name} ${member.last_name}`;
+              } else {
+                this.memberNames.push(
+                  `${member.first_name} ${member.last_name}`
+                );
+              }
+              if (member.id == this.$store.state.user.id) {
+                this.buttonText = "Already a Member";
+                this.isDisabled = true;
+              }
+            });
+            this.memberNames.sort();
           }
-          if (member.id == this.$store.state.user.id) {
-            this.buttonText = "Already a Member";
-            this.isDisabled = true;
-          }
-        });
-        this.memberNames.sort();
+        );
       }
     );
 

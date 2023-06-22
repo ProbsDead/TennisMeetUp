@@ -84,14 +84,17 @@ public class JdbcGroupsDao implements GroupsDao {
     }
 
     /**
-     * Create a new group from a received Group Object.  Currently, returns nothing but has been tested in Postman
+     * Create a new group from a received Group Object. Add to the groups table AND the groups_player table the new group and the new member
      * @param newGroup
      */
     @Override
     public Group createNewGroup(Group newGroup) {
         String sql = "INSERT INTO groups (group_name, created_by, city, state, location, is_public, about) VALUES (?,?,?,?,?,?,?) RETURNING group_id;";
-
         int groupId = jdbcTemplate.queryForObject(sql, int.class, newGroup.getGroupName(), newGroup.getCreatedBy(), newGroup.getCity(), newGroup.getState(),newGroup.getLocation(), newGroup.isPublic(), newGroup.getAbout());
+
+        sql = "INSERT INTO groups_player (group_id, user_id, role) VALUES (?, ?, ?);";
+        jdbcTemplate.update(sql, groupId, newGroup.getCreatedBy(), "ROLE_ADMIN");
+
         return getGroupInfo(groupId);
     }
 
