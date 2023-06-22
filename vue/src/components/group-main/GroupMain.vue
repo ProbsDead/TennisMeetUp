@@ -119,16 +119,12 @@ export default {
 
         // if image is not null, Convert the byte array to a data URL
         if (imageData != null) {
-          const base64Img = btoa(
-            new Uint8Array(imageData).reduce(
-              (data, byte) => data + String.fromCharCode(byte),
-              ""
-            )
-          );
-          const dataURL = `data:${imageType};base64,${base64Img}`;
+          // const base64Img = btoa(String.fromCharCode.apply(null, imageData));
+          const dataURL = `data:${imageType};base64,${imageData}`;
 
           // use the dataURL to display the image
           this.imgSrc = dataURL;
+          console.log(this.imgSrc);
         }
       }
     );
