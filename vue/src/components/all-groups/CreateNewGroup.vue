@@ -149,12 +149,14 @@ export default {
           if (response.status === 200 || response.status === 201) {
             console.log("Group successfully created!");
             this.newGroupId = response.data.group_id;
+            console.log(this.newGroupId);
             if (this.imageData) {
               ImageService.uploadImage(this.imageData, this.newGroupId)
                 .then((response) => {
                   console.log(response);
                   if (response.status === 200 || response.status === 201) {
                     console.log("Image successfully uploaded!");
+                    this.$router.go();
                   }
                 })
                 .catch(() => {
@@ -167,7 +169,7 @@ export default {
           this.handleError(error);
         });
       this.TogglePopup();
-      this.$router.go();
+      
     },
     uploadImage(event) {
       const file = event.target.files[0];
