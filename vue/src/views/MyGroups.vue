@@ -1,9 +1,16 @@
 <template>
-  <div></div>
+  <div>
+    <user-main></user-main>
+  </div>
 </template>
 
 <script>
-export default {};
+import UserMain from '../components/user-main/UserMain.vue'
+export default {
+  components:{
+    UserMain
+  }
+};
 </script>
 
 <style scoped></style>
