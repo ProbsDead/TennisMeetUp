@@ -85,7 +85,7 @@ export default {
 .default-content {
   position: relative;
   min-height: 90vh;
-  width: calc(100%-75px);
+  width: calc(100% - 75px);
   left: 75px;
   transition: all 0.5s ease;
 }
@@ -94,16 +94,16 @@ export default {
   left: 75px;
   /* position: sticky;
   top:0;  
-  z-index:1;*/
+  z-index:1; */
   min-height: 10vh;
-  width: calc(100%-75px);
+  width: calc(100% - 75px);
   transition: all 0.5s ease;
 }
 
 .default-footer {
   position: relative;
   min-height: 18vh;
-  width: calc(100%-75px);
+  width: calc(100% - 75px);
   left: 75px;
   transition: all 0.5s ease;
 }
@@ -111,8 +111,9 @@ export default {
 /* when sidebar is open */
 .expanded-content {
   position: relative;
-  min-height: 100vh;
+  min-height: 90vh;
   left: 250px;
+  width: calc(100% - 250px);
   transition: all 0.5s ease;
 }
 
@@ -123,6 +124,8 @@ export default {
   width: calc(100% - 250px);
   transition: all 0.5s ease;
 }
+
+
 
 .expanded-footer {
   position: relative;

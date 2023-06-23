@@ -55,7 +55,7 @@ export default {
 
 #logo-image {
   max-width: 250px;
-
+  height: auto;
 }
 .links-container {
   margin-top: auto;
