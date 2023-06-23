@@ -1,6 +1,8 @@
 <template>
   <div class="footer">
-    <p>Footer placeholder</p>
+    <h3 id="aboutUs">
+          <router-link v-bind:to="{ name: 'about-us' }">About Us</router-link>
+    </h3>
   </div>
 </template>
 

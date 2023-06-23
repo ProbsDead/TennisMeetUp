@@ -13,17 +13,20 @@
     <div class="links-container">
       <ul class="nav-links">
         <li id="my-page">
-          <router-link v-bind:to="{ name: 'user-main', params: { id:$store.state.user.id } }">My Page</router-link>
+          <router-link v-bind:to="{ name: 'home' }">Home</router-link>
         </li>
-        <li id="aboutUs">
-          <router-link v-bind:to="{ name: 'about-us' }">About Us</router-link>
-        </li>
-        <li id="logout">
+
+        <li id="logout-login">
           <router-link
             v-bind:to="{ name: 'logout' }"
-            v-if="$store.state.token != ''"
-            >Logout</router-link
-          >
+            v-if="$store.state.token != ''">Logout
+          </router-link>
+        <!-- </li>
+        <li id="login"> -->
+          <router-link
+            v-bind:to="{ name: 'login' }"
+            v-if="$store.state.token == ''">Login
+          </router-link>
         </li>
       </ul>
     </div>

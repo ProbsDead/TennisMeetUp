@@ -8,21 +8,24 @@
     </div>
     <ul class="nav-links">
       <li>
-        <router-link v-bind:to="{ name: 'home' }">
-          <i class="bx bx-grid-alt menu-icon"> </i
-          ><span class="link_name">Dashboard</span></router-link
-        >
+        <router-link 
+          v-bind:to="{ name: 'user-main', 
+                       params: { id:$store.state.user.id } }">
+          <i class="bx bx-grid-alt menu-icon"> </i>
+          <span class="link_name">Dashboard</span>
+        </router-link>
         <span class="tooltip">Dashboard</span>
       </li>
+
       <li>
-        <router-link v-bind:to="{ name: 'my-groups-list' }"
-          ><i class="bx bxs-group menu-icon"></i>
-          <span class="link_name">My Groups</span></router-link
-        >
+        <router-link v-bind:to="{ name: 'my-groups-list' }">
+          <i class="bx bxs-group menu-icon"></i>
+          <span class="link_name">My Groups</span>
+        </router-link>
         <span class="tooltip">My Groups</span>
       </li>
+
       <li>
-        <!-- change the link to viewing all public groups page (not present yet)-->
         <router-link v-bind:to="{ name: 'search-groups' }">
           <i class="bx bx-search-alt menu-icon"> </i>
           <span class="link_name">Find a Group</span>
@@ -42,10 +45,19 @@
       <li id="log-out-link">
         <!-- Change router rink once logout page
      -->
-        <router-link v-bind:to="{ name: '/login' }">
-          <i class="bx bx-log-out menu-icon" id="log_out"></i>
-          <span class="link_name">Logout </span></router-link
-        >
+        <router-link 
+          v-bind:to="{ name: 'logout' }"
+          v-if="$store.state.token != ''">
+            <i class="bx bx-log-out menu-icon" id="log_out"></i>
+            <span class="link_name">Logout </span>
+        </router-link>
+        <router-link
+            v-bind:to="{ name: 'login' }"
+            v-if="$store.state.token == ''">
+            <i class="bx bx-log-in menu-icon"></i>
+            <span class="link_name">Login</span> 
+          </router-link>
+
         <span class="tooltip">Logout</span>
       </li>
     </ul>
