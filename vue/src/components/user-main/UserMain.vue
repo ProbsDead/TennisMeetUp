@@ -60,14 +60,6 @@
           >Browse other groups</router-link
         >
       </span>
-      <span class="link"
-        ><router-link
-          v-bind:to="{
-            name: 'create-group',
-          }"
-          >Create a new group</router-link
-        ></span
-      >
     </div>
 
     <h2>Upcoming Events</h2>
@@ -194,12 +186,12 @@ h1,
 h2 {
   color: #264653;
   font-size: 2em;
-  margin: 0.1em 0.6em 0.2em;
+  margin: 0.1em 0.3em 0.2em;
 }
 
 h2 {
   font-size: 1.5em;
-  margin: 0.8em;
+  margin: 0.5em;
 }
 
 .btn {
@@ -249,7 +241,7 @@ h2 {
 }
 
 section {
-  padding-left: 20px;
+  padding-left: 8px;
 }
 
 .group-cards {

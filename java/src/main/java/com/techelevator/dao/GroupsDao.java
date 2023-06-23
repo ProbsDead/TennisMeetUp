@@ -16,4 +16,6 @@ public interface GroupsDao {
     List<Group> getUsersGroups(int userId);
 
     Group createNewGroup(Group newGroup);
+
+    Group findGroupWithEventId(int eventId);
 }

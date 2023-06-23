@@ -79,6 +79,10 @@ public class GroupsController {
         return groupsDao.getUsersGroups(userId);
     }
 
+    @GetMapping(path= "/event/{eventId}")
+    public Group getGroupByEventId(@PathVariable int eventId){
+        return groupsDao.findGroupWithEventId(eventId);
+    }
 
 
 }

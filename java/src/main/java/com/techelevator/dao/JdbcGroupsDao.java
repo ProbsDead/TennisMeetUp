@@ -41,6 +41,15 @@ public class JdbcGroupsDao implements GroupsDao {
         return group;
     }
 
+    // helper function for processing request from frontend
+    public Group findGroupWithEventId(int eventId) {
+
+        String sql = "SELECT groups.group_id FROM groups JOIN groups_events ge ON groups.group_id=ge.group_id "
+                + "WHERE event_id=?;";
+        int groupId = jdbcTemplate.queryForObject(sql, int.class, eventId);
+        return getGroupInfo(groupId);
+    }
+
     /**
      * This method returns a list of User Objects that belong to a specific group
      * @param groupId

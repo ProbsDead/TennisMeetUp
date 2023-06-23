@@ -9,6 +9,10 @@ export default {
     return http.get(`/${groupId}`);
   },
 
+  getGroupByEventId(eventId) {
+    return http.get(`/event/${eventId}`);
+  },
+
   getGroupMembers(groupId) {
     return http.get(`/${groupId}/players`);
   },
