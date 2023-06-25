@@ -82,8 +82,8 @@
           <input type="checkbox" name="isPrivate" v-model="isPrivate" />
         </div>
         <div class="button-holder">
-          <button type="cancel" @click="TogglePopup()">Cancel</button>
-          <button type="submit" @click="submitBtn">Create Group!</button>
+          <button type="cancel" @click="TogglePopup()" class="cancel">Cancel</button>
+          <button type="submit" @click="submitBtn" class="submit">Create Group!</button>
         </div>
       </form>
     </div>
@@ -208,11 +208,11 @@ export default {
   justify-content: center;
 }
 .form-parent {
-  background-color: rgba(42, 157, 143, 0.8);
+  background-color: rgba(42, 157, 143, 0.9);
   border: 2px;
   border-style: solid;
   border-color: black;
-  border-radius: 10%;
+  border-radius: 2%;
   padding: 8px;
   display: block;
   text-align: center;
@@ -232,5 +232,23 @@ div {
 p {
   display: inline-block;
   margin-right: 5px;
+}
+button{
+  background-color: #35687c;
+  border: 2px solid #0c0c0c;
+  border-radius: 2px;
+  box-shadow: #000000 2px 2px 0 0;
+  cursor: pointer;
+  /* display: inline-block; */
+  font-weight: 400;
+  font-size: 15px;
+  padding: 0 3px;
+  line-height: 25px;
+  /* text-align: center; */
+  /* text-decoration: none; */
+  color: white;
+}
+.cancel{
+  margin-right: 40px;
 }
 </style>

@@ -4,7 +4,8 @@
       <h2>{{title}}</h2>
       <button 
       class="create-group" 
-      @click="() => TogglePopup('buttonTrigger')">
+      @click="() => TogglePopup('buttonTrigger')" 
+      v-if="$store.state.token != ''">
       Create New Group
       </button>
     </div>
