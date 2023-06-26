@@ -32,8 +32,12 @@
           {{ matches.length ? (winsTotal / matches.length) * 100 : 0 }}%
           <span>Wins</span>
         </div>
+       <div class="view-match" @click="() => TogglePopup('buttonTrigger')">View match history</div>
       </div>
     </section>
+    
+        <user-matches v-if="popupTrigger.buttonTrigger" :TogglePopup="() => TogglePopup('buttonTrigger')" :matches="matches"></user-matches>
+    
     <h2>My Groups ({{ userGroups.length }})</h2>
     <section class="my-groups">
       <div v-if="!userGroups.length">
@@ -75,14 +79,31 @@
 <script>
 import UserService from "../../services/UserService.js";
 import GroupService from "../../services/GroupService.js";
+import EventService from "../../services/EventService.js";
 import MyGroup from "./MyGroup.vue";
 import UserEvent from "./UserEvent.vue";
+import UserMatches from "./UserMatches.vue";
+import { ref } from 'vue';
 
 export default {
   name: "user-main",
   components: {
     MyGroup,
     UserEvent,
+    UserMatches
+  },
+  setup() {
+    const popupTrigger = ref({
+      buttonTrigger: false
+    });
+    const TogglePopup = (trigger) => {
+      popupTrigger.value[trigger] = !popupTrigger.value[trigger];
+    }
+    return {
+      UserMatches,
+      popupTrigger,
+      TogglePopup
+    }
   },
   data() {
     return {
@@ -107,6 +128,19 @@ export default {
             match.winner_two === this.user.id
           )
             this.winsTotal++;
+
+            EventService.getEventDetails(match.event_id).then((response) => {
+            const event = response.data;
+
+            // adding relevant event related properties to match object
+            match.date = event.start_time;
+            match.event = event.event_name;
+            match.result =
+              match.winner === this.$store.state.user.id ||
+              match.winner_two === this.$store.state.user.id
+                ? "Win"
+                : "Lost";
+          });
         });
       })
       .catch((error) => {
@@ -124,6 +158,7 @@ export default {
       console.log(this.upcomingEvents);
     });
   },
+ 
   methods: {
     handleError(error) {
       //A reusable error function to be used in the catch statements
