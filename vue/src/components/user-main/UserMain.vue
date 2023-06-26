@@ -3,7 +3,7 @@
     <h1>Welcome back, {{ user.first_name }}! &#128075;</h1>
     <section class="goal-and-stats">
       <div class="goal">
-        <h3 class="section-title">My Goal</h3>
+        <h3 class="goal-title">My Goal</h3>
         <div class="goal-box">
           <div>{{ user.goal ? user.goal : `No current goals` }}</div>
           <br />
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="stats">
-        <h3 class="section-title">Stats</h3>
+        <h3 class="stats-title">Stats</h3>
 
         <div class="total-matches">
           {{ matches.length }} <span>Total Matches</span>
@@ -32,30 +32,22 @@
           {{ matches.length ? (winsTotal / matches.length) * 100 : 0 }}%
           <span>Wins</span>
         </div>
-       <div class="view-match" @click="() => TogglePopup('buttonTrigger')">View match history</div>
-      </div>
-    </section>
-    
-        <user-matches v-if="popupTrigger.buttonTrigger" :TogglePopup="() => TogglePopup('buttonTrigger')" :matches="matches"></user-matches>
-    
-    <h2>My Groups ({{ userGroups.length }})</h2>
-    <section class="my-groups">
-      <div v-if="!userGroups.length">
-        You are not a member of any group. Join new groups!
-      </div>
-      <div v-else class="group-cards">
-        <div
-          class="ui four cards"
-          v-for="group in userGroups"
-          v-bind:key="group.group_id"
-        >
-          <my-group v-bind:group-box="group"></my-group>
+        <div class="view-match" @click="() => TogglePopup('buttonTrigger')">
+          View match history
         </div>
       </div>
     </section>
-    <br />
+
+    <user-matches
+      v-if="popupTrigger.buttonTrigger"
+      :TogglePopup="() => TogglePopup('buttonTrigger')"
+      :matches="matches"
+    ></user-matches>
 
     <div>
+      <h2 class="section-title my-groups"
+        >My Groups ({{ userGroups.length }})
+      </h2>
       <span class="link"
         ><router-link
           v-bind:to="{
@@ -65,8 +57,22 @@
         >
       </span>
     </div>
+    <section class="my-groups">
+      <div v-if="!userGroups.length">
+        You are not a member of any group. Join new groups!
+      </div>
+      <div v-else class="group-cards">
+        <div
+          class="cards"
+          v-for="group in userGroups"
+          v-bind:key="group.group_id"
+        >
+          <my-group v-bind:group-box="group"></my-group>
+        </div>
+      </div>
+    </section>
 
-    <h2>Upcoming Events</h2>
+    <h2 class="section-title">Upcoming Events</h2>
     <section class="upcoming-events">
       <div v-for="event in upcomingEvents" :key="event.event_id">
         <user-event v-bind:eventInfo="event"></user-event>
@@ -83,27 +89,27 @@ import EventService from "../../services/EventService.js";
 import MyGroup from "./MyGroup.vue";
 import UserEvent from "./UserEvent.vue";
 import UserMatches from "./UserMatches.vue";
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export default {
   name: "user-main",
   components: {
     MyGroup,
     UserEvent,
-    UserMatches
+    UserMatches,
   },
   setup() {
     const popupTrigger = ref({
-      buttonTrigger: false
+      buttonTrigger: false,
     });
     const TogglePopup = (trigger) => {
       popupTrigger.value[trigger] = !popupTrigger.value[trigger];
-    }
+    };
     return {
       UserMatches,
       popupTrigger,
-      TogglePopup
-    }
+      TogglePopup,
+    };
   },
   data() {
     return {
@@ -117,7 +123,12 @@ export default {
     };
   },
   created() {
-    // retrieve all match history for stats calculation
+    // get user info
+    UserService.getUserInfo(this.$store.state.user.id).then((response) =>{
+      this.user = response.data;
+    })
+
+     // retrieve all match history for stats calculation
     UserService.getUserMatches(this.user.id)
       .then((response) => {
         this.matches = response.data;
@@ -129,7 +140,7 @@ export default {
           )
             this.winsTotal++;
 
-            EventService.getEventDetails(match.event_id).then((response) => {
+          EventService.getEventDetails(match.event_id).then((response) => {
             const event = response.data;
 
             // adding relevant event related properties to match object
@@ -158,7 +169,7 @@ export default {
       console.log(this.upcomingEvents);
     });
   },
- 
+
   methods: {
     handleError(error) {
       //A reusable error function to be used in the catch statements
@@ -180,22 +191,38 @@ export default {
 </script>
 
 <style scoped>
+.user-main {
+  padding-left: 5px;
+  padding-right: 5px;
+}
 section.goal-and-stats {
   display: flex;
   justify-content: flex-start;
   background-color: #f5f29e;
   min-height: 25vw;
-  padding-left: 30px;
+  max-height: 100vw;
+  /* padding-left: 30px; */
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  
 }
 
-.stats {
+/* .stats {
   padding-right: 60px;
+} */
+
+div.goal, div.stats{
+  flex: 1 1 0;
+  width: 0; 
+  margin-right: 50px;
+  margin-left: 10px;
+  flex-wrap: wrap;
 }
 
 div.goal-box,
 div.stats-box {
   min-width: 40vw;
-  min-height: 15vw;
+  min-height: 18vw;
   font-family: "Poppins", sans-serif;
   /* padding-left: 20px; */
   /* border: 1px solid rgb(183, 183, 183); */
@@ -208,25 +235,34 @@ div.stats-box div {
 }
 .update-goal-text:hover {
   cursor: pointer;
-  color: #2a9d8f;
+  color: #158479;
 }
 
-.section-title {
+.goal-title, .stats-title {
   /* text-align: center; */
   color: #264653;
   font-size: 1.5em;
 }
 
-h1,
-h2 {
+h1 {
   color: #264653;
   font-size: 2em;
+  /* margin: 0.1em 0.3em 0.2em; */
+}
+
+ h2 {
+   color: #264653;
+  font-size: 1.5em;
+}
+
+h2.section-title.my-groups{
+  display: inline;
   margin: 0.1em 0.3em 0.2em;
 }
 
-h2 {
-  font-size: 1.5em;
-  margin: 0.5em;
+span.link {
+  float: right;
+  padding-right: 50px;
 }
 
 .btn {
@@ -275,17 +311,32 @@ h2 {
   transition: border 0.3s ease;
 }
 
-section {
-  padding-left: 8px;
-}
 
 .group-cards {
   display: flex;
   gap: 20px;
+  margin-top: 10px;
 }
 
 a {
   text-decoration: none;
   padding-left: 20px;
+  color:#264653;
+}
+
+.view-match{
+  position: relative;
+  top: 50px;
+}
+
+a:hover, .view-match:hover{
+  cursor: pointer;
+  color: #158479;
+}
+
+@media print{
+.noprint{
+  display: none;
+}
 }
 </style>

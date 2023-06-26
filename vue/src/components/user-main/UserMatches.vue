@@ -1,7 +1,7 @@
 <template>
   <div class="div-parent">
     <div class="content-box">
-      <div>x icon</div>
+      <div class="x-icon"><i class='bx bx-x' @click="TogglePopup()"></i></div>
       <p v-if="!matches.length">You have no match history.</p>
       <table v-else>
         <thead>
@@ -36,38 +36,7 @@ export default {
   mounted() {
     this.$refs.address.focus();
   },
-  created() {
-    // UserService.getUserMatches(this.$store.state.user.id)
-    //   .then((response) => {
-    //     this.matches = response.data;
-    //     // match info to display: match date, score, win/loss, match length, event
-    // //     this.matches = data.forEach((match) => {
-    // //       /* match object
-    // //   event_id: 3
-    // // match_id: 1
-    // // match_length: 150
-    // // score: "3 : 1"
-    // // winner: 1
-    // // winner_two: 0
-    // //   */
-    // //       EventService.getEventDetails(match.event_id).then((response) => {
-    // //         const event = response.data;
-    // //         match.eventDetails = event;
-    // //         // adding relevant event related properties to match object
-    // //         match.date = this.formattedDate(event.start_time);
-    // //         match.event = event.event_name;
-    // //         match.result =
-    // //           match.winner === this.$store.state.user.id ||
-    // //           match.winner_two === this.$store.state.user.id
-    // //             ? "Win"
-    // //             : "Lost";
-    // //       });
-    // //     });
-    //   })
-    //   .catch((error) => {
-    //     this.handleError(error);
-    //   });
-  },
+ 
   methods: {
     formattedDate(startTime) {
       const dateObject = new Date(startTime);
@@ -116,8 +85,12 @@ export default {
   min-width: 85vh;
 }
 
+div.x-icon{
+  font-size: 30px;
+  text-align: right;
+}
 table {
-  padding: 1em;
+  padding: 0.5em;
   min-width: 100%;
   margin: 0 auto;
   font-weight: bold;

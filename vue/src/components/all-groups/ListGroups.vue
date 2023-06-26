@@ -15,15 +15,18 @@
 
     </create-new-group>
     
+    <div class="groups">
+
+    
     <section
       class="group-box"
       v-for="item in allGroups"
       v-bind:key="item.groupId"
     >
-      <div class="headline">
-        <h2 class="group-name">{{ item.group_name }}</h2>
-        <h4 class="group-city">{{ item.city }}</h4>
-      </div>
+     
+        <div class="group-name">{{ item.group_name }}</div>
+        <div class="group-city">{{ item.city }}, {{item.state}}</div>
+     
       <div class="group-description">
         <p>{{ item.about }}</p>
       </div>
@@ -34,7 +37,7 @@
         }"
         >Learn More</router-link
       >
-    </section>
+    </section></div>
   </div>
 </template>
 
@@ -74,18 +77,30 @@ export default {
 div.list-groups > h2 {
   padding-left:20px;
 }
+
+div.groups{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+
 .group-box {
-  width: 80vw;
+  max-width: 35vw;
   font-family: "Poppins", sans-serif;
   padding-left: 20px;
   padding-right: 20px;
-  border: 1px solid black;
+  box-shadow: rgba(0, 0, 0, 0.16) 4px 3px 4px;
   border-radius: 5px;
   margin: 10px;
 }
-.headline {
-  display: inline-flex;
-  width: 100%;
-  justify-content: space-between;
+
+.group-name{
+  font-size: 1.5em;
+}
+@media print{
+.noprint{
+  display: none;
+}
 }
 </style>

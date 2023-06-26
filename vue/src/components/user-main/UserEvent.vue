@@ -84,12 +84,12 @@ export default {
 <style scoped>
 h2{
   margin: 0px;
+  font-size: 1.2em;
 }
 .event-box{
   display: flex;
  justify-content: flex-start;
- background-color: rgb(253, 253, 247);
-
+box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
 }
 div.left{
   padding-right: 30px;
@@ -101,7 +101,8 @@ div.right{
 }
 
 span.event-name{
-  color:rgb(160, 125, 10);
+  color:#1c736a;
 }
+
 
 </style>
