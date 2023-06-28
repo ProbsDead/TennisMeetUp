@@ -3,7 +3,7 @@
     <div class="event" v-for="event in events" :key="event.event_id">
       <u><h3 class="name">{{ event.event_name }}</h3></u>
       <h4 class="description">What: {{ event.description }}</h4>
-      <h4 class="times">When: {{ event.start_time }} - {{ event.end_time }}</h4>
+      <h4 class="times">When: {{ formatDates(event.start_time) }}  : {{ formatTimes(event.start_time) }} - {{ formatTimes(event.end_time) }}</h4>
       <h4 class="address">Where: {{ event.location }}</h4>
     </div>
   </div>
@@ -35,16 +35,31 @@ export default {
   },
 
   methods: {
-    formatTimes(){ //This function is being called but the forEach is not running
-      console.log("formatTimes is entered")
-      let i = 0;
-      this.events.forEach((event) => {
-        console.log("forEach is entered")
-        this.start[i] = event.start_time;
-        this.end[i] = event.end_time;
-        i++;
-      });
+    formatTimes(timeStamp){
+      const dateObject = new Date(timeStamp);
+      const hours = dateObject.getHours();
+      const minutes = dateObject.getMinutes();
 
+      let formattedTime;
+      if(hours === 0){
+        formattedTime = `12:${minutes < 10 ? "0" + minutes : minutes} AM`;
+      } else if(hours < 12){
+        formattedTime = `${hours}:${minutes < 10 ? "0" + minutes : minutes} AM`;
+      } else if(hours === 12){
+        formattedTime = `12:${minutes < 10 ? "0" + minutes : minutes} PM`;
+      } else {
+        formattedTime = `${hours - 12}:${minutes < 10 ? "0"+ minutes : minutes} PM`;
+      }
+      return formattedTime;
+    },
+    formatDates(timeStamp){
+      const dateObject = new Date(timeStamp);
+      const month = dateObject.getMonth();
+      const day = dateObject.getDate();
+      const year = dateObject.getFullYear();
+
+      let formattedDate = `${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}-${year}`;
+      return formattedDate;
     },
 
     handleError(error) {
