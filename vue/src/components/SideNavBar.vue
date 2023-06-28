@@ -194,6 +194,7 @@ export default {
   top: 50%;
   left: 100%;
   transform: translateY(-50%);
+  z-index: 1;
 }
 
 .sidebar li a {

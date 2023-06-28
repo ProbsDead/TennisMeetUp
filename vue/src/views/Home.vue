@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <main-home></main-home>
+    <main-home />
   </div>
 </template>
 
@@ -17,5 +17,6 @@ export default {
 <style scoped>
 .home{
    background: #e0e6f7;
+   
 }
 </style>
