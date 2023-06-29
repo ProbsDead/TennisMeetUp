@@ -104,7 +104,7 @@ export default {
   width: 70%;
 }
 .form {
-  position: fixed;
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
