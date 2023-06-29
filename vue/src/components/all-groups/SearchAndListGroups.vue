@@ -1,5 +1,8 @@
 <template>
   <div class="all-groups">
+    <h2>Find a tennis group near you</h2>
+     <img src="../../assets/court-hills.jpg" alt="">
+
     <div>
       <div class="browse-all" @click="listAll">
         <i class="bx bx-sidebar"></i>
@@ -17,7 +20,6 @@
             search by city</span
           >
         </div>
-
         <div class="search-expand-name" v-show="filterType === 'name'">
           <label for="search-name"> Group name: </label>
           <input type="text" v-model="searchName" />
@@ -135,8 +137,19 @@ export default {
 </script>
 
 <style scoped>
-* {
-  margin-left: 5px;
+
+
+img{
+      display: flex;
+      justify-content: flex-start; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-height: 40vh;
+}
+
+h2{
+  text-align: center;
 }
 
 .headline {

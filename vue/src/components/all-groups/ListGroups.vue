@@ -1,14 +1,16 @@
 <template>
   <div class="list-groups">
+   
     <div>
       <h2>{{ title }}</h2>
-      <button
+      <div class="btn"><button
         class="create-group"
         @click="() => TogglePopup('buttonTrigger')"
         v-if="$store.state.token != ''"
       >
         Create New Group
-      </button>
+      </button></div>
+      
     </div>
     <create-new-group
       v-if="popupTrigger.buttonTrigger"
@@ -75,6 +77,10 @@ export default {
 <style scoped>
 div.list-groups > h2 {
   padding-left: 20px;
+}
+
+h2, .btn{
+   text-align: center;
 }
 
 div.groups {
