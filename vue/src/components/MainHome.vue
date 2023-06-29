@@ -21,7 +21,10 @@
       <div class="box"></div>
       <div class="box"></div> -->
       <div class="options">
-        <h2 class="greeting">Meet your new</h2>
+        <div class="typewriters">
+          <h2 class="greeting">Meet your</h2>
+          <h2 id="type"></h2>
+        </div>
         <div class="buttons">
           <button>Browse Groups</button>
           <button>Register</button>
@@ -35,7 +38,23 @@
 
 <script>
 export default {
-  
+  data() {
+    return {
+      type1: " new practice partner.",
+      index: 0,
+      speed: 100
+    }
+  },
+  methods: {
+    writer() {
+      const container = document.getElementById("type");
+      if (this.index < this.type1.length) {
+        container.innerHTML += this.type1.charAt(this.index);
+        this.index++;
+        setTimeout(this.writer, this.speed);
+      }
+    }
+  }
 };
 </script>
 
@@ -59,8 +78,12 @@ export default {
   grid-area: 2 / 2 / 2 / 6;
   opacity: 0.7;
 }
+.typewriters {
+  display: flex;
+  justify-content: center;
+}
 .greeting {
-  padding-left: 5%;
+  /* padding-left: 5%; */
 }
 .buttons {
   display: flex;
