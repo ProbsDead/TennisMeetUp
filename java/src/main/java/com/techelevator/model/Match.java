@@ -18,6 +18,11 @@ public class Match {
     @JsonProperty("winner_two")
     private int winnerTwo;
 
+    private int lost;
+
+    @JsonProperty("lost_two")
+    private int lostTwo;
+
     @JsonProperty("match_length")
     private int matchLength;
 
@@ -65,6 +70,22 @@ public class Match {
 
     public void setWinnerTwo(int winnerTwo) {
         this.winnerTwo = winnerTwo;
+    }
+
+    public int getLost() {
+        return lost;
+    }
+
+    public void setLost(int lost) {
+        this.lost = lost;
+    }
+
+    public int getLostTwo() {
+        return lostTwo;
+    }
+
+    public void setLostTwo(int lostTwo) {
+        this.lostTwo = lostTwo;
     }
 
     public void setMatchLength(int matchLength) {

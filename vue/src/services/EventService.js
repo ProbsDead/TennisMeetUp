@@ -31,5 +31,9 @@ export default{
 
     getMatchesByEventId(eventId){
         return http.get(`/matches/${eventId}`);
+    },
+
+    getPlayersByEventId(eventId) {
+        return http.get(`/${eventId}/attending`);
     }
 }

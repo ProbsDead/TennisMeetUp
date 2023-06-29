@@ -88,8 +88,10 @@ CREATE TABLE match (
 	match_id serial,
 	event_id int NOT NULL,
 	score varchar(50),
-	winner int,
+	winner int NOT NULL,
 	winner_two int,
+	lost int NOT NULL,
+	lost_two int,
 	match_length int NULL,
 	
 	CONSTRAINT PK_match PRIMARY KEY (match_id),

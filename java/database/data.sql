@@ -34,7 +34,7 @@ INSERT INTO user_event(user_id, event_id) VALUES(2, 3);
 INSERT INTO user_event(user_id, event_id) VALUES(1, 1);
 
 
-INSERT INTO match(event_id, score, winner, match_length) VALUES(3, '3 : 1', 1, 150);
+INSERT INTO match(event_id, score, winner, lost, match_length) VALUES(3, '3 : 1', 1, 2, 150);
 
 --> for match_1, two users, user1 and user2 will be participating
 INSERT INTO match_user(user_id, match_id) VALUES(1, 1);

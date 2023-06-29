@@ -1,69 +1,68 @@
 <template>
   <div class="list-groups">
     <div>
-      <h2>{{title}}</h2>
-      <button 
-      class="create-group" 
-      @click="() => TogglePopup('buttonTrigger')" 
-      v-if="$store.state.token != ''">
-      Create New Group
+      <h2>{{ title }}</h2>
+      <button
+        class="create-group"
+        @click="() => TogglePopup('buttonTrigger')"
+        v-if="$store.state.token != ''"
+      >
+        Create New Group
       </button>
     </div>
     <create-new-group
-    v-if="popupTrigger.buttonTrigger"
-    :TogglePopup="() => TogglePopup('buttonTrigger')">
-
-    </create-new-group>
-    
-    <div class="groups">
-
-    
-    <section
-      class="group-box"
-      v-for="item in allGroups"
-      v-bind:key="item.groupId"
+      v-if="popupTrigger.buttonTrigger"
+      :TogglePopup="() => TogglePopup('buttonTrigger')"
     >
-     
-        <div class="group-name">{{ item.group_name }}</div>
-        <div class="group-city">{{ item.city }}, {{item.state}}</div>
-     
-      <div class="group-description">
-        <p>{{ item.about }}</p>
-      </div>
-      <router-link
-        v-bind:to="{
-          name: 'group-mainpage',
-          params: { groupId: item.group_id },
-        }"
-        >Learn More</router-link
+    </create-new-group>
+
+    <div class="groups">
+      <section
+        class="group-box"
+        v-for="item in allGroups"
+        v-bind:key="item.groupId"
       >
-    </section></div>
+        <div class="group-name">{{ item.group_name }}</div>
+        <div class="group-city">{{ item.city }}, {{ item.state }}</div>
+
+        <div class="group-description">
+          <p>{{ item.about }}</p>
+        </div>
+        <router-link
+          v-bind:to="{
+            name: 'group-mainpage',
+            params: { groupId: item.group_id },
+          }"
+          >Learn More</router-link
+        >
+      </section>
+    </div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
-import CreateNewGroup from './CreateNewGroup.vue';
+import { ref } from "vue";
+import CreateNewGroup from "./CreateNewGroup.vue";
 
 export default {
   components: { CreateNewGroup },
   setup() {
     const popupTrigger = ref({
-      buttonTrigger: false
+      buttonTrigger: false,
     });
     const TogglePopup = (trigger) => {
       popupTrigger.value[trigger] = !popupTrigger.value[trigger];
-    }
+    };
     return {
       CreateNewGroup,
       popupTrigger,
-      TogglePopup
-    }
+      TogglePopup,
+    };
   },
-    props: {
-        allGroups: Array,
-        title: String
-    },
+  props: {
+    allGroups: Array,
+    title: String,
+  },
   data() {
     return {
       filteredGroupsByName: [],
@@ -75,15 +74,14 @@ export default {
 
 <style scoped>
 div.list-groups > h2 {
-  padding-left:20px;
+  padding-left: 20px;
 }
 
-div.groups{
+div.groups {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
 }
-
 
 .group-box {
   max-width: 35vw;
@@ -94,13 +92,15 @@ div.groups{
   border-radius: 5px;
   margin: 10px;
 }
-
-.group-name{
+.group-box:hover {
+  box-shadow: 5px 5px 12px rgba(33, 33, 33, 0.2);
+}
+.group-name {
   font-size: 1.5em;
 }
-@media print{
-.noprint{
-  display: none;
-}
+@media print {
+  .noprint {
+    display: none;
+  }
 }
 </style>
