@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Event;
 import com.techelevator.model.Match;
+import com.techelevator.model.User;
 
 import java.util.List;
 
@@ -23,5 +24,7 @@ public interface EventDao {
     void joinEvent(int userId, int eventId);
 
     List<Match> getMatchesByEventId(int eventId);
+
+    List<User> getPlayersByEventId(int eventId);
 
 }

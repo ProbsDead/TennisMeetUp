@@ -12,6 +12,7 @@ import SearchGroups from "../views/SearchGroups.vue";
 import CreateNewGroup from "../views/CreateNewGroup.vue";
 import UserMainPage from "../views/UserMainPage.vue";
 import ImageUploadTest from "../components/ImageUploadTest.vue";
+import EventPage from "../views/EventPage";
 
 Vue.use(Router);
 
@@ -115,6 +116,14 @@ const router = new Router({
       component: ImageUploadTest,
       meta: {
         requiresAuth: false,
+      },
+    },
+    {
+      path: "/event/:eventId",
+      name: "event-details",
+      component: EventPage,
+      meta: {
+        requiresAuth: true,
       },
     },
   ],

@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Match;
+import com.techelevator.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -8,6 +9,7 @@ import com.techelevator.model.Event;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class JdbcEventDao implements EventDao{
@@ -123,6 +125,25 @@ public class JdbcEventDao implements EventDao{
         return matchList;
     }
 
+    /**
+     *
+     * @param eventId
+     * @return List of Users that are attending the event
+     */
+    @Override
+    public List<User> getPlayersByEventId(int eventId) {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT users.user_id, username, first_name, last_name FROM users JOIN user_event ON users.user_id = user_event.user_id "
+                + "WHERE event_id=?;";
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, eventId);
+        while(rowSet.next()) {
+            users.add(mapRowToUser(rowSet));
+        }
+
+        return users;
+    }
+
     private Event mapRowToEvent(SqlRowSet rs) {
         Event event = new Event();
 
@@ -147,6 +168,16 @@ public class JdbcEventDao implements EventDao{
         match.setMatchLength(rs.getInt("match_length"));
 
         return match;
+    }
+
+    private User mapRowToUser(SqlRowSet rs) {
+        User user = new User();
+        user.setId(rs.getInt("user_id"));
+        user.setUsername(rs.getString("username"));
+        user.setFirstName(rs.getString("first_name"));
+        user.setLastName(rs.getString("last_name"));
+
+        return user;
     }
 
 }
