@@ -22,8 +22,8 @@
       <div class="box"></div> -->
       <div class="options">
         <div class="typewriters">
-          <h2 class="greeting">Meet your</h2>
-          <h2 id="type"></h2>
+          <h2 class="greeting">Meet your</h2> &nbsp;
+          <h2 id="type"> {{ this.typedText }} </h2>
         </div>
         <div class="buttons">
           <button>Browse Groups</button>
@@ -40,18 +40,28 @@
 export default {
   data() {
     return {
-      type1: " new practice partner.",
+      type1: "new practice partner.",
+      typedText: "",
       index: 0,
-      speed: 100
     }
+  },
+  computed: {
+    messageComplete() {
+      return this.index >= this.type1.length;
+    }
+  },
+  mounted() {
+    this.writer();
   },
   methods: {
     writer() {
-      const container = document.getElementById("type");
-      if (this.index < this.type1.length) {
-        container.innerHTML += this.type1.charAt(this.index);
-        this.index++;
-        setTimeout(this.writer, this.speed);
+      while (!this.messageComplete) {
+        for (let char of this.type1) {
+          this.typedText += char;
+          this.index++; 
+          setTimeout(this.writer, 1000);          
+        }
+
       }
     }
   }
@@ -62,6 +72,7 @@ export default {
 .image-container {
   border: 1px solid black;
   height: 100vh;
+  background-image: url("../assets/home-page-image.jpg");
 }
 .boxes {
   display: grid;
