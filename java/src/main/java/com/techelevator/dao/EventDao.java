@@ -27,4 +27,6 @@ public interface EventDao {
 
     List<User> getPlayersByEventId(int eventId);
 
+    Match createNewMatchForEvent(int eventId, Match match);
+
 }

@@ -125,6 +125,43 @@ public class JdbcEventDao implements EventDao{
         return matchList;
     }
 
+    @Override
+    public Match createNewMatchForEvent(int eventId, Match match) {
+        String sql = "INSERT INTO match (event_id, score, winner, winner_two, lost, lost_two, match_length) " +
+                "VALUES (?,?,?,?,?,?,?);";
+
+        int matchId = jdbcTemplate.queryForObject(sql, int.class, eventId, match.getScore(), match.getWinner(),
+                        match.getWinnerTwo(), match.getLost(), match.getLostTwo(),match.getMatchLength());
+
+        inputUserToMatch(match.getWinner(), matchId);
+        inputUserToMatch(match.getLost(), matchId);
+        if (match.getLostTwo() != 0) {
+            inputUserToMatch(match.getLostTwo(), matchId);
+        }
+        if (match.getWinnerTwo() != 0) {
+            inputUserToMatch(match.getWinnerTwo(), matchId);
+        }
+
+        return getMatchDetails(matchId);
+    }
+
+    public Match getMatchDetails(int matchId) {
+        Match match = new Match();
+        String sql = "SELECT * FROM match WHERE match_id=?;";
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, matchId);
+        while (rowSet.next()) {
+            match = mapRowToMatch(rowSet);
+        }
+       return match;
+    }
+
+    // helper function when creating a match
+    public void inputUserToMatch(int userId, int matchId) {
+        String sql = "INSERT INTO match_user (user_id, match_id) VALUES (?,?);";
+        jdbcTemplate.update(sql, userId, matchId);
+    }
+
     /**
      *
      * @param eventId
@@ -143,6 +180,8 @@ public class JdbcEventDao implements EventDao{
 
         return users;
     }
+
+
 
     private Event mapRowToEvent(SqlRowSet rs) {
         Event event = new Event();

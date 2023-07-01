@@ -62,4 +62,9 @@ public class EventController {
     public List<User> getPlayersByEventId(@PathVariable int eventId) {
         return eventDao.getPlayersByEventId(eventId);
     }
+
+    @PostMapping(path="/{eventId}/create-match")
+    public Match createNewMatchForEvent(@PathVariable int eventId, @RequestBody Match match){
+        return eventDao.createNewMatchForEvent(eventId, match);
+    }
 }
