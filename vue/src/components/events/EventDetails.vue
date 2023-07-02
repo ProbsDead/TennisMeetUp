@@ -55,7 +55,7 @@
         <h3>Matches</h3>  <hr />
         <div v-if="!eventCompleted">Input match scores once the event is complete to track players' progress!</div>
         <div v-else>
-          <match-input-form></match-input-form>
+          <match-input-form v-bind:players="players"></match-input-form>
           <match-display></match-display>
         </div>
       </div>
@@ -103,6 +103,7 @@ export default {
     EventService.getPlayersByEventId(this.$route.params.eventId)
       .then((response) => {
         this.players = response.data;
+        this.players.sort();
         response.data.forEach((player) => {
           if (player.id === this.$store.state.user.id) {
             this.attending = true;

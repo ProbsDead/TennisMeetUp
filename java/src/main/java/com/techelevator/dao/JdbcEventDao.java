@@ -128,17 +128,17 @@ public class JdbcEventDao implements EventDao{
     @Override
     public Match createNewMatchForEvent(int eventId, Match match) {
         String sql = "INSERT INTO match (event_id, score, winner, winner_two, lost, lost_two, match_length) " +
-                "VALUES (?,?,?,?,?,?,?);";
+                "VALUES (?,?,?,?,?,?,?) RETURNING match_id;";
 
         int matchId = jdbcTemplate.queryForObject(sql, int.class, eventId, match.getScore(), match.getWinner(),
                         match.getWinnerTwo(), match.getLost(), match.getLostTwo(),match.getMatchLength());
 
         inputUserToMatch(match.getWinner(), matchId);
         inputUserToMatch(match.getLost(), matchId);
-        if (match.getLostTwo() != 0) {
+        if (match.getLostTwo() > 0) {
             inputUserToMatch(match.getLostTwo(), matchId);
         }
-        if (match.getWinnerTwo() != 0) {
+        if (match.getWinnerTwo() > 0) {
             inputUserToMatch(match.getWinnerTwo(), matchId);
         }
 

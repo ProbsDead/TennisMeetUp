@@ -1,8 +1,8 @@
 <template>
   <div class="all-groups">
     <h2>Find a tennis group near you</h2>
-     <img src="../../assets/court-hills.jpg" alt="">
-
+      <img src="../../assets/court-hills.jpg" alt="">
+      
     <div>
       <div class="browse-all" @click="listAll">
         <i class="bx bx-sidebar"></i>
@@ -137,15 +137,13 @@ export default {
 </script>
 
 <style scoped>
-
-
 img{
       display: flex;
       justify-content: flex-start; 
   top: 0;
   left: 0;
   width: 100%;
-  max-height: 40vh;
+  max-height: 45vh;
 }
 
 h2{
