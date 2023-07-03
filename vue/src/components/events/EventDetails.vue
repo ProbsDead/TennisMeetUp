@@ -66,7 +66,7 @@
 <script>
 import EventService from "../../services/EventService";
 import GroupService from "../../services/GroupService";
-import MatchInputForm from './MatchInputForm.vue';
+import MatchInputForm from './SingleMatchForm.vue';
 import MatchDisplay from "./MatchDisplay.vue";
 
 export default {

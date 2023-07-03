@@ -1,33 +1,28 @@
 <template>
   <div>
-    <dropdown v-bind:players="players"/>
     <div>Input matches:</div>
     <div><span> Single </span> | <span>Double</span></div>
-    <form class="single-form">
+    <form class="single-form" type="disabled">
       <div class="winner">
         <label for="winner-one"> 
-        Won </label>
-      <input type="search" id="winner-one"/>
+        Won: </label>
+      <dropdown v-bind:players="players"/>
       </div>
       <div class="loser">
-          <label for="lost"> Lost </label>
-      <input type="search" id="lost"/>
+          <label for="lost"> Lost: </label>
+       <dropdown v-bind:players="players"/>
       </div>
 
-     <div class="score">
+     <div class="score-input">
        <label for="score"> Score </label>
-      <input type="number" id="score"/>
+      <input type="number" id="score" />
       :
         <input type="number" id="score"/>
      </div>
-      <button>Submit</button>
+      <button @click.prevent="">Submit</button>
 
     </form>
 
-
-    <form class="double-form">
-      <button>Submit</button>
-    </form>
   </div>
 </template>
 
@@ -62,12 +57,36 @@ export default {
       singleOrDouble: ''
     };
   },
+  methods: {
+    // once submit: show a success/failure message on whether it was added correctly.
+  }
 };
 </script>
 
 <style scoped>
 .single-form{
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-between; */
+  gap: 50px;
+  font-size: 14px;
+}
+
+label {
+  color:rgb(13, 32, 78);
+  font-weight: 900;
+}
+.score-input input{
+  width: 35px;
+  text-align: center;
+}
+
+.winner, .loser, .score-input{
+  display: flex;
+  gap: 10px;
+  /* align-items: center; */
+}
+
+.score-input, button{
+  max-height: 25px;
 }
 </style>
