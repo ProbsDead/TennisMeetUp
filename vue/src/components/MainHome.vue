@@ -58,8 +58,7 @@ export default {
       while (!this.messageComplete) {
         for (let char of this.type1) {
           this.typedText += char;
-          this.index++; 
-          setTimeout(this.writer, 1000);          
+          this.index++;           
         }
 
       }
