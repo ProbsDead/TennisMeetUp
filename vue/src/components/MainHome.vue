@@ -22,8 +22,11 @@
       <div class="box"></div> -->
       <div class="options">
         <div class="typewriters">
-          <h2 class="greeting">Meet your</h2> &nbsp;
-          <h2 id="type"> {{ this.typedText }} </h2>
+          <span class="greeting">Meet your
+            <VueWriter class="greeting"
+                :array="['new practice partner','weekend group','next tournament']">
+            </VueWriter>
+          </span>
         </div>
         <div class="buttons">
           <button>Browse Groups</button>
@@ -37,32 +40,11 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      type1: "new practice partner.",
-      typedText: "",
-      index: 0,
-    }
-  },
-  computed: {
-    messageComplete() {
-      return this.index >= this.type1.length;
-    }
-  },
-  mounted() {
-    this.writer();
-  },
-  methods: {
-    writer() {
-      while (!this.messageComplete) {
-        for (let char of this.type1) {
-          this.typedText += char;
-          this.index++;           
-        }
 
-      }
-    }
+import VueWriter from 'vue-writer'
+export default {
+  components: {
+    VueWriter
   }
 };
 </script>
@@ -91,9 +73,6 @@ export default {
 .typewriters {
   display: flex;
   justify-content: center;
-}
-.greeting {
-  /* padding-left: 5%; */
 }
 .buttons {
   display: flex;

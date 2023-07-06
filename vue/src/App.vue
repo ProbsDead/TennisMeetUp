@@ -75,7 +75,6 @@ export default {
 .footer {
   grid-area: footer;
 }
-
 .page-content {
   /* padding-bottom: 1.5rem;
   padding-top: 1.5rem; */
