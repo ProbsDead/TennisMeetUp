@@ -55,6 +55,7 @@
       <button :disabled="isDisabled" @click.prevent="createRequest()">
         {{ buttonText }}
       </button>
+      <button v-if="currentTab === 'Events'">Create Event</button>
     </section>
 
     <section class="group-details">

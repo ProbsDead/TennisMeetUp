@@ -9,10 +9,11 @@ import GroupMainPage from "../views/GroupMainPage.vue";
 import MyGroups from "../views/MyGroups.vue";
 import AboutUs from "../views/AboutUs.vue";
 import SearchGroups from "../views/SearchGroups.vue";
-import CreateNewGroup from "../views/CreateNewGroup.vue";
+// import CreateNewGroup from "../views/CreateNewGroup.vue";
 import UserMainPage from "../views/UserMainPage.vue";
 import ImageUploadTest from "../components/ImageUploadTest.vue";
 import EventPage from "../views/EventPage";
+import CreateEvent from "../components/events/CreateEvent.vue";
 
 Vue.use(Router);
 
@@ -93,14 +94,15 @@ const router = new Router({
         requiresAuth: false,
       },
     },
-    {
-      path: "/create-group",
-      name: "create-group",
-      component: CreateNewGroup,
-      meta: {
-        requiresAuth: true,
-      },
-    },
+    //I think the below path is redundant...
+    // {
+    //   path: "/create-group",
+    //   name: "create-group",
+    //   component: CreateNewGroup,
+    //   meta: {
+    //     requiresAuth: true,
+    //   },
+    // },
     {
       path: "/user/:userId",
       name: "user-main",
@@ -126,6 +128,14 @@ const router = new Router({
         requiresAuth: true,
       },
     },
+    {
+      path: "/create-event",
+      name: "create-event",
+      component: CreateEvent,
+      meta: {
+        requiresAuth: true,
+      }
+    }
   ],
 });
 
