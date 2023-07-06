@@ -3,7 +3,11 @@
     <section class="description">
       <div class="group-info">
         <div class="split-view">
-          <img :src="getImage" alt="meetup-image" />
+          <div class="image-box">
+            <img :src="getImage" 
+                alt="meetup-image" 
+                class="title-image"/>
+          </div>
           <div class="details">
             <h1>{{ group.group_name }}</h1>
             <!-- <button class="request">Request Membership</button> -->
@@ -103,7 +107,7 @@ export default {
       buttonText: "Join this Group",
       isDisabled: false,
       allRequests: {},
-      imgSrc: require("../../assets/tennis-court.jpg"),
+      imgSrc: require("../../assets/court-hills.jpg"),
     };
   },
   computed: {
@@ -219,22 +223,24 @@ export default {
 * {
   font-family: "Assistant", sans-serif;
 }
-
 .description h1 {
   font-size: 2rem;
 }
-img {
-  border-radius: 8px;
-  width: 45%;
-  height: 300px;
-}
-
 hr {
   border: 1px solid rgb(232, 229, 229);
 }
 .split-view {
   display: flex;
-  gap: 30px;
+  gap: 20px;
+}
+.title-image {
+  max-width: 100%;
+  height: auto;
+  flex-grow: 2;
+  flex-basis: 200px;
+}
+.details {
+  
 }
 .container {
   display: flex;
@@ -267,5 +273,13 @@ section.tabs span.highlight {
 
 section.tabs button {
   margin-left: 50px;
+}
+
+@media (max-width: 554px) {
+  .split-view {
+    display: flex;
+    flex-flow: row wrap;
+    max-width: 100%;
+  }
 }
 </style>

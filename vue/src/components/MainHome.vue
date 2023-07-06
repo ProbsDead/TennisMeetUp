@@ -23,9 +23,7 @@
       <div class="options">
         <div class="typewriters">
           <span class="greeting">Meet your
-            <VueWriter class="greeting"
-                :array="['new practice partner','weekend group','next tournament']">
-            </VueWriter>
+            
           </span>
         </div>
         <div class="buttons">
@@ -41,10 +39,9 @@
 
 <script>
 
-import VueWriter from 'vue-writer'
 export default {
   components: {
-    VueWriter
+
   }
 };
 </script>
