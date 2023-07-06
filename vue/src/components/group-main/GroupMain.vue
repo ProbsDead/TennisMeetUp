@@ -55,7 +55,7 @@
       <button :disabled="isDisabled" @click.prevent="createRequest()">
         {{ buttonText }}
       </button>
-      <button v-if="currentTab === 'Events'">Create Event</button>
+      <button v-if="currentTab === 'Events' && $store.state.user.id === group.created_by">Create Event</button>
     </section>
 
     <section class="group-details">
