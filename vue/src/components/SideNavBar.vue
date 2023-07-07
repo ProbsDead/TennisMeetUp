@@ -8,9 +8,12 @@
     </div>
     <ul class="nav-links">
       <li>
-        <router-link 
-          v-bind:to="{ name: 'user-main', 
-                       params: { id:$store.state.user.id } }">
+        <router-link
+          v-bind:to="{
+            name: 'user-main',
+            params: { userId: $store.state.user.id },
+          }"
+        >
           <i class="bx bx-grid-alt menu-icon"> </i>
           <span class="link_name">Dashboard</span>
         </router-link>
@@ -32,7 +35,6 @@
         </router-link>
       </li>
 
-      
       <!-- <li>
         <router-link v-bind:to=" { name: 'search-groups' } ">
           <span class="tooltip">Find a Group</span>
@@ -45,18 +47,20 @@
       <li id="log-out-link">
         <!-- Change router rink once logout page
      -->
-        <router-link 
+        <router-link
           v-bind:to="{ name: 'logout' }"
-          v-if="$store.state.token != ''">
-            <i class="bx bx-log-out menu-icon" id="log_out"></i>
-            <span class="link_name">Logout </span>
+          v-if="$store.state.token != ''"
+        >
+          <i class="bx bx-log-out menu-icon" id="log_out"></i>
+          <span class="link_name">Logout </span>
         </router-link>
         <router-link
-            v-bind:to="{ name: 'login' }"
-            v-if="$store.state.token == ''">
-            <i class="bx bx-log-in menu-icon"></i>
-            <span class="link_name">Login</span> 
-          </router-link>
+          v-bind:to="{ name: 'login' }"
+          v-if="$store.state.token == ''"
+        >
+          <i class="bx bx-log-in menu-icon"></i>
+          <span class="link_name">Login</span>
+        </router-link>
 
         <span class="tooltip">Logout</span>
       </li>

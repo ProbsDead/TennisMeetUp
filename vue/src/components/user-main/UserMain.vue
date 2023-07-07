@@ -5,7 +5,7 @@
       <div class="goal">
         <h3 class="goal-title">My Goal</h3>
         <div class="goal-box">
-          <div>{{ user.goal ? user.goal : `No current goals` }}</div>
+          <div class="goal-description">{{ user.goal ? user.goal : `No current goals` }}</div>
           <br />
           <div class="update-goal-text" @click="updateText = !updateText">
             Update goal
@@ -45,8 +45,8 @@
     ></user-matches>
 
     <div>
-      <h2 class="section-title my-groups"
-        >My Groups ({{ userGroups.length }})
+      <h2 class="section-title my-groups">
+        My Groups ({{ userGroups.length }})
       </h2>
       <span class="link"
         ><router-link
@@ -74,7 +74,10 @@
 
     <h2 class="section-title">Upcoming Events</h2>
     <section class="upcoming-events">
-      <div v-for="event in upcomingEvents" :key="event.event_id">
+      <div class="events-listing" v-if="!upcomingEvents.length">
+        No upcoming events. Sign up for events!
+      </div>
+      <div v-else class="events-listing" v-for="event in upcomingEvents" :key="event.event_id">
         <user-event v-bind:eventInfo="event"></user-event>
       </div>
     </section>
@@ -124,11 +127,11 @@ export default {
   },
   created() {
     // get user info
-    UserService.getUserInfo(this.$store.state.user.id).then((response) =>{
+    UserService.getUserInfo(this.$store.state.user.id).then((response) => {
       this.user = response.data;
-    })
+    });
 
-     // retrieve all match history for stats calculation
+    // retrieve all match history for stats calculation
     UserService.getUserMatches(this.user.id)
       .then((response) => {
         this.matches = response.data;
@@ -196,49 +199,47 @@ export default {
   padding-right: 5px;
 }
 section.goal-and-stats {
-  display: flex;
+  display: flex; 
   justify-content: flex-start;
   background-color: #f5f29e;
-  min-height: 25vw;
-  max-height: 100vw;
   /* padding-left: 30px; */
   margin-bottom: 25px;
-  padding-bottom: 10px;
-  
+  padding-bottom: 10px; 
+  min-height: 50vh;
+  max-height: 60vh;
 }
 
-/* .stats {
-  padding-right: 60px;
-} */
 
-div.goal, div.stats{
+div.goal,
+div.stats {
   flex: 1 1 0;
-  width: 0; 
+  width: 0;
   margin-right: 50px;
   margin-left: 10px;
-  flex-wrap: wrap;
+ 
 }
 
 div.goal-box,
 div.stats-box {
-  min-width: 40vw;
-  min-height: 18vw;
   font-family: "Poppins", sans-serif;
   /* padding-left: 20px; */
   /* border: 1px solid rgb(183, 183, 183); */
   border-radius: 5px;
-}
 
+}
 div.goal-box div,
 div.stats-box div {
   font-size: 16px;
+  overflow-wrap: break-word;
 }
+
 .update-goal-text:hover {
   cursor: pointer;
   color: #158479;
 }
 
-.goal-title, .stats-title {
+.goal-title,
+.stats-title {
   /* text-align: center; */
   color: #264653;
   font-size: 1.5em;
@@ -250,12 +251,12 @@ h1 {
   /* margin: 0.1em 0.3em 0.2em; */
 }
 
- h2 {
-   color: #264653;
+h2 {
+  color: #264653;
   font-size: 1.5em;
 }
 
-h2.section-title.my-groups{
+h2.section-title.my-groups {
   display: inline;
   margin: 0.1em 0.3em 0.2em;
 }
@@ -294,11 +295,11 @@ span.link {
 }
 
 .input-form {
-  display: inline-block;
+  display: flex;
 }
 
 .free-text {
-  width: 80%;
+  width: 100%;
   padding: 8px 16px;
   line-height: 25px;
   font-size: 14px;
@@ -311,7 +312,6 @@ span.link {
   transition: border 0.3s ease;
 }
 
-
 .group-cards {
   display: flex;
   gap: 20px;
@@ -321,22 +321,27 @@ span.link {
 a {
   text-decoration: none;
   padding-left: 20px;
-  color:#264653;
+  color: #264653;
 }
 
-.view-match{
+.view-match {
   position: relative;
   top: 50px;
 }
 
-a:hover, .view-match:hover{
+a:hover,
+.view-match:hover {
   cursor: pointer;
   color: #158479;
 }
 
-@media print{
-.noprint{
-  display: none;
+.events-listing{
+  padding-bottom: 20px;
 }
+
+@media print {
+  .noprint {
+    display: none;
+  }
 }
 </style>
