@@ -4,12 +4,18 @@
     <div><span> Single </span> | <span>Double</span></div>
     <form class="single-form" type="disabled">
       <div class="winner-input">
-        <label for="winner-one"> Won: </label>
-        <dropdown v-bind:players="players" />
+        <label for="winner"> Won: </label>
+        <dropdown
+          v-bind:players="players"
+          @child-playerId-input="updateWinnerIdInput"
+        />
       </div>
       <div class="loser-input">
         <label for="lost"> Lost: </label>
-        <dropdown v-bind:players="players" />
+        <dropdown
+          v-bind:players="players"
+          @child-playerId-input="updateLoserIdInput"
+        />
       </div>
 
       <div class="score-input">
@@ -41,17 +47,9 @@ export default {
   },
   data() {
     return {
-      single: {
-        "winner": "",
-        "lost": "",
-        score: "",
-        length: 0,
-      },
-      double: {
-        "winner-one": 0,
-        "winner-two": 0,
-        "lost-one": 0,
-        "lost-two": 0,
+      singleMatch: {
+        winner: 0,
+        lost: 0,
         score: "",
         length: 0,
       },
@@ -60,6 +58,13 @@ export default {
   },
   methods: {
     // once submit: show a success/failure message on whether it was added correctly.
+
+    updateWinnerIdInput(playerId) {
+      this.singleMatch.winner = playerId;
+    },
+    updateLoserIdInput(playerId) {
+      this.singleMatch.lost = playerId;
+    },
   },
 };
 </script>

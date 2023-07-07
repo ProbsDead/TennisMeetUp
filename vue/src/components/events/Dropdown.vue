@@ -13,9 +13,9 @@
       <div v-if="isVisible" class="options">
         <ul>
           <li
-            @click="updatePlayer"
             v-for="player in filteredPlayers"
             :key="player.id"
+            @click="updatePlayer(player, $event)"
           >
             {{ player.first_name }} {{ player.last_name }}
           </li>
@@ -34,6 +34,7 @@ export default {
     return {
       searchQuery: "",
       selectedItem: null,
+      selectedPlayerId: 0,
       isVisible: false,
     };
   },
@@ -48,9 +49,12 @@ export default {
   },
 
   methods: {
-    updatePlayer(event) {
+    updatePlayer(player, event) {
       this.selectedItem = event.target.innerText;
-      console.log(this.selectedItem);
+      this.selectedPlayerId = player.id;
+
+      // to emit the selected playerId to the parent component, SingleMatchForm
+      this.$emit('child-playerId-input', this.selectedPlayerId);
     },
     resetSearch() {
       this.selectedItem = null;
