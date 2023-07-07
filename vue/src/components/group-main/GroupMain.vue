@@ -1,13 +1,13 @@
 <template>
   <div>
     <section class="description">
-      <div class="group-info">
+      <!-- <div class="group-info"> -->
         <div class="split-view">
-          <div class="image-box">
+          <!-- <div class="image-box"> -->
             <img :src="getImage" 
                 alt="meetup-image" 
                 class="title-image"/>
-          </div>
+          <!-- </div> -->
           <div class="details">
             <h1>{{ group.group_name }}</h1>
             <!-- <button class="request">Request Membership</button> -->
@@ -35,7 +35,7 @@
             </div>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
     </section>
     <hr />
 
@@ -252,22 +252,26 @@ hr {
   border: 1px solid rgb(232, 229, 229);
 }
 .split-view {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
 }
 .title-image {
   max-width: 100%;
-  height: auto;
-  flex-grow: 2;
-  flex-basis: 200px;
+  height: 100%;
+  object-fit: cover; 
+  grid-column: 1 / span 3;
 }
-/* .details {
-  
-} */
+.details {
+  grid-column: 4 / span 2;
+}
+
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
+  left: 15px;
 }
 
 div.container span {
@@ -302,6 +306,10 @@ section.tabs button {
     display: flex;
     flex-flow: row wrap;
     max-width: 100%;
+    justify-content: center;
+  }
+  .details {
+    padding-right: 40px;
   }
 }
 </style>
