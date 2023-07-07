@@ -178,6 +178,7 @@ export default {
 <style scoped>
 .top {
   background-color: rgb(251, 249, 197);
+  padding-bottom: 30px;
 }
 
 .event-info,
