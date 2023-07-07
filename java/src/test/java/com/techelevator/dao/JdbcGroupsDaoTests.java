@@ -12,7 +12,7 @@ import java.util.List;
 
 public class JdbcGroupsDaoTests extends BaseDaoTests {
 
-    protected static final Group GROUP_1 = new Group(1, "group1", 1, "city1", "GA","location1", true, "about1");
+    protected static final Group GROUP_1 = new Group(1, "Volley Girls", 1, "Burlington", "VT","45 Tennis Ct, South Burlington, VT 05403", true, "This is a group for women and girls who love tennis and are looking for a casual to competative environment they can hone their skills.");
     protected static final Group GROUP_2 = new Group(2, "group2", 2, "city2", "CA","location2", false, "about2");
     protected static final Group GROUP_3 = new Group(3, "group3", 3, "city3", "VT","location3", true, "about3");
 

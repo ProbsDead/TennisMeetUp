@@ -59,7 +59,13 @@
       <button :disabled="isDisabled" @click.prevent="createRequest()">
         {{ buttonText }}
       </button>
-      <button v-if="currentTab === 'Events' && $store.state.user.id === group.created_by">Create Event</button>
+      <button v-if="currentTab === 'Events' && $store.state.user.id === group.created_by" 
+        @click="() => TogglePopup('buttonTrigger')">
+        Create Event
+      </button>
+      <create-event v-if="popupTrigger.buttonTrigger"
+        :TogglePopup="() => TogglePopup('buttonTrigger')">
+      </create-event>
     </section>
 
     <section class="group-details">
@@ -82,6 +88,8 @@ import GroupAboutSection from "./GroupAboutSection.vue";
 import GroupEventsSection from "./GroupEventsSection.vue";
 import GroupMembersSection from "./GroupMembersSection.vue";
 import RequestService from "../../services/RequestService";
+import CreateEvent from "../events/CreateEvent.vue";
+import { ref } from "vue";
 
 export default {
   name: "group-main",
@@ -89,6 +97,20 @@ export default {
     GroupAboutSection,
     GroupEventsSection,
     GroupMembersSection,
+    CreateEvent
+  },
+  setup() {
+    const popupTrigger = ref({
+      buttonTrigger: false,
+    });
+    const TogglePopup = (trigger) => {
+      popupTrigger.value[trigger] = !popupTrigger.value[trigger];
+    };
+    return {
+      CreateEvent,
+      popupTrigger,
+      TogglePopup,
+    };
   },
   data() {
     return {

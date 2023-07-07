@@ -30,8 +30,8 @@
                 </vue-google-autocomplete>
             </div>
             <div class="buttons">
-                <button>Cancel</button>
-                <button type="submit">Create</button>
+                <button @click="TogglePopup()">Cancel</button>
+                <button type="submit" @click="createEvent">Create</button>
             </div>
                 
             
@@ -42,12 +42,14 @@
 
 <script>
 import VueGoogleAutocomplete from "vue-google-autocomplete";
+import EventService from '../../services/EventService';
 
 export default{
 
     components: {
         VueGoogleAutocomplete,
     },
+    props: ["TogglePopup"],
 
     data(){
         return {
@@ -59,6 +61,17 @@ export default{
                 location: "",
                 created_by: 0
             }
+        }
+    },
+
+    methods: {
+        createEvent(){
+            EventService.addNewEvent(this.$route.params.groupId, this.event)
+                .then((response) => {
+                    if(response.status === 200 || response.status === 201) {
+                        console.log("Event created successfully");
+                    }
+                })
         }
     }
 }
