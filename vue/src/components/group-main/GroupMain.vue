@@ -261,9 +261,9 @@ hr {
   flex-grow: 2;
   flex-basis: 200px;
 }
-.details {
+/* .details {
   
-}
+} */
 .container {
   display: flex;
   flex-direction: column;
