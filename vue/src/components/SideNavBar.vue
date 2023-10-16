@@ -2,8 +2,8 @@
   <div class="sidebar" v-bind:class="{ open: sideBarToggle }">
     <div class="logo-details">
       <i class="bx bxs-tennis-ball icon">
-        <span class="logo-name"> Tennis Meetup</span>
-      </i>
+       
+      </i> <span class="logo-name"> Tennis Meetup</span>
       <i class="bx bx-menu" id="btn" @click="expandOrCollapse"></i>
     </div>
     <ul class="nav-links">
@@ -97,14 +97,13 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css");
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", "Raleway", "Dosis", sans-serif;
   color: rgb(240, 230, 230);
 }
 
@@ -137,11 +136,11 @@ export default {
   transition: all 0.5s ease;
 }
 
-.sidebar .logo-details .logo_name {
+.sidebar .logo-details .logo-name {
   color: #fff;
   font-size: 1em;
-  font-weight: 100;
   transition: all 0.5s ease;
+  opacity:0;
 }
 
 .sidebar .logo-details #btn {
@@ -257,7 +256,7 @@ export default {
 }
 
 .sidebar.open .logo-details .icon,
-.sidebar.open .logo-details .logo_name {
+.sidebar.open .logo-details .logo-name {
   opacity: 1;
 }
 

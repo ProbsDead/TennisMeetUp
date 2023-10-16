@@ -51,11 +51,12 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;500&family=Dosis&family=Raleway:wght@300;400&display=swap");
+
 
 #app {
   font-family: "Poppins", sans-serif;
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr;
 
   grid-template-areas:
@@ -63,10 +64,10 @@ export default {
     "view"
     "footer";
 
-  gap: 10px;
+  gap: 10px; */
 }
 
-.header-nav {
+/* .header-nav {
   grid-area: nav;
 }
 .page-content {
@@ -74,11 +75,7 @@ export default {
 }
 .footer {
   grid-area: footer;
-}
-.page-content {
-  /* padding-bottom: 1.5rem;
-  padding-top: 1.5rem; */
-}
+} */
 
 /* when sidebar is closed (default)*/
 .default-content {

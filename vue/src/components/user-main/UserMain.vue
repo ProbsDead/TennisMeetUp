@@ -5,7 +5,9 @@
       <div class="goal">
         <h3 class="goal-title">My Goal</h3>
         <div class="goal-box">
-          <div class="goal-description">{{ user.goal ? user.goal : `No current goals` }}</div>
+          <div class="goal-description">
+            {{ user.goal ? user.goal : `No current goals` }}
+          </div>
           <br />
           <div class="update-goal-text" @click="updateText = !updateText">
             Update goal
@@ -44,7 +46,7 @@
       :matches="matches"
     ></user-matches>
 
-    <div>
+    <div class="section group-section">
       <h2 class="section-title my-groups">
         My Groups ({{ userGroups.length }})
       </h2>
@@ -56,32 +58,40 @@
           >Browse other groups</router-link
         >
       </span>
-    </div>
-    <section class="my-groups">
-      <div v-if="!userGroups.length">
-        You are not a member of any group. Join new groups!
-      </div>
-      <div v-else class="group-cards">
-        <div
-          class="cards"
-          v-for="group in userGroups"
-          v-bind:key="group.group_id"
-        >
-          <my-group v-bind:group-box="group"></my-group>
-        </div>
-      </div>
-    </section>
 
-    <h2 class="section-title">Upcoming Events</h2>
-    <section class="upcoming-events">
-      <div class="events-listing" v-if="!upcomingEvents.length">
-        No upcoming events. Sign up for events!
-      </div>
-      <div v-else class="events-listing" v-for="event in upcomingEvents" :key="event.event_id">
-        <user-event v-bind:eventInfo="event"></user-event>
-      </div>
-    </section>
-    <section class="previous-events"></section>
+      <section class="my-groups">
+        <div v-if="!userGroups.length">
+          You are not a member of any group. Join new groups!
+        </div>
+        <div v-else class="group-cards">
+          <div
+            class="cards"
+            v-for="group in userGroups"
+            v-bind:key="group.group_id"
+          >
+            <my-group v-bind:group-box="group"></my-group>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section group-section">
+      <h2 class="section-title">Upcoming Events</h2>
+      <section class="upcoming-events">
+        <div class="events-listing" v-if="!upcomingEvents.length">
+          No upcoming events. Sign up for events!
+        </div>
+        <div
+          v-else
+          class="events-listing"
+          v-for="event in upcomingEvents"
+          :key="event.event_id"
+        >
+          <user-event v-bind:eventInfo="event"></user-event>
+        </div>
+      </section>
+      <section class="previous-events"></section>
+    </div>
   </div>
 </template>
 
@@ -199,24 +209,23 @@ export default {
   padding-right: 5px;
 }
 section.goal-and-stats {
-  display: flex; 
-  justify-content: flex-start;
+  display: flex;
   background-color: #f5f29e;
   /* padding-left: 30px; */
   margin-bottom: 25px;
-  padding-bottom: 10px; 
-  min-height: 50vh;
+  min-height: 40vh;
   max-height: 60vh;
 }
-
 
 div.goal,
 div.stats {
   flex: 1 1 0;
   width: 0;
-  margin-right: 50px;
-  margin-left: 10px;
- 
+  padding: 20px 30px;
+}
+
+div.goal {
+  border-right: 1px solid rgb(198, 194, 52);
 }
 
 div.goal-box,
@@ -225,15 +234,17 @@ div.stats-box {
   /* padding-left: 20px; */
   /* border: 1px solid rgb(183, 183, 183); */
   border-radius: 5px;
-
 }
 div.goal-box div,
-div.stats-box div {
+div.stats div {
   font-size: 16px;
   overflow-wrap: break-word;
+  text-align: center;
 }
 
-.update-goal-text:hover {
+.update-goal-text,
+a:hover,
+.view-match {
   cursor: pointer;
   color: #158479;
 }
@@ -243,12 +254,15 @@ div.stats-box div {
   /* text-align: center; */
   color: #264653;
   font-size: 1.5em;
+  margin: 0px 10px 30px 10px;
+  text-align: center;
 }
 
 h1 {
   color: #264653;
   font-size: 2em;
-  /* margin: 0.1em 0.3em 0.2em; */
+  margin: 20px 10px;
+  text-align: center;
 }
 
 h2 {
@@ -258,12 +272,16 @@ h2 {
 
 h2.section-title.my-groups {
   display: inline;
-  margin: 0.1em 0.3em 0.2em;
+  margin: 20px 10px;
 }
 
 span.link {
   float: right;
   padding-right: 50px;
+}
+
+div.section{
+  margin: 30px 20px;
 }
 
 .btn {
@@ -329,13 +347,7 @@ a {
   top: 50px;
 }
 
-a:hover,
-.view-match:hover {
-  cursor: pointer;
-  color: #158479;
-}
-
-.events-listing{
+.events-listing {
   padding-bottom: 20px;
 }
 
